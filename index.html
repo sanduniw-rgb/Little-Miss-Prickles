@@ -40,19 +40,9 @@
       z-index: 100;
     }
 
-    .nav-logo {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--teal-dark);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-logo .prickle-icon {
-      width: 28px;
-      height: 28px;
+    .nav-logo img {
+      height: 48px;
+      width: auto;
     }
 
     .nav-links {
@@ -565,7 +555,7 @@
     /* FOOTER */
     footer { background: var(--text); color: white; text-align: center; padding: 3rem; }
 
-    footer .footer-logo { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; color: var(--teal); margin-bottom: 0.5rem; }
+    footer .footer-logo img { height: 40px; width: auto; filter: brightness(0) invert(1); margin-bottom: 0.5rem; }
 
     footer p { font-size: 0.85rem; opacity: 0.5; margin-top: 1rem; }
 
@@ -595,14 +585,7 @@
 
 <nav>
   <div class="nav-logo">
-    <svg class="prickle-icon" viewBox="0 0 28 28" fill="none">
-      <ellipse cx="14" cy="17" rx="9" ry="8" fill="#1cabb0"/>
-      <rect x="12.5" y="6" width="3" height="7" rx="1.5" fill="#147a7e"/>
-      <rect x="7" y="9" width="3" height="6" rx="1.5" fill="#147a7e" transform="rotate(-30 7 9)"/>
-      <rect x="18" y="9" width="3" height="6" rx="1.5" fill="#147a7e" transform="rotate(30 18 9)"/>
-      <ellipse cx="14" cy="17" rx="5" ry="4.5" fill="#e6f8f8"/>
-    </svg>
-    Little Miss Prickles
+    <img src="logo.png" alt="Little Miss Prickles">
   </div>
   <ul class="nav-links">
     <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
@@ -693,7 +676,7 @@
   </div>
 
   <footer>
-    <div class="footer-logo">Little Miss Prickles</div>
+    <div class="footer-logo"><img src="logo.png" alt="Little Miss Prickles"></div>
     <ul class="footer-links">
       <li><a onclick="showPage('shop')">Shop</a></li>
       <li><a onclick="showPage('subscribe')">Subscribe</a></li>
@@ -765,7 +748,7 @@
     </div>
   </div>
   <footer>
-    <div class="footer-logo">Little Miss Prickles</div>
+    <div class="footer-logo"><img src="logo.png" alt="Little Miss Prickles"></div>
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('subscribe')">Subscribe</a></li>
@@ -863,7 +846,7 @@
   </div>
 
   <footer>
-    <div class="footer-logo">Little Miss Prickles</div>
+    <div class="footer-logo"><img src="logo.png" alt="Little Miss Prickles"></div>
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('shop')">Shop</a></li>
@@ -905,7 +888,7 @@
   </div>
 
   <footer>
-    <div class="footer-logo">Little Miss Prickles</div>
+    <div class="footer-logo"><img src="logo.png" alt="Little Miss Prickles"></div>
     <ul class="footer-links">
       <li><a onclick="showPage('home')">Home</a></li>
       <li><a onclick="showPage('shop')">Shop</a></li>
