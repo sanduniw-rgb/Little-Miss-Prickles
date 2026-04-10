@@ -7,6 +7,14 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
+    @font-face {
+      font-family: 'MoonTime';
+      src: url('MoonTime-Regular.otf') format('opentype'),
+           url('MoonTime-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -98,10 +106,11 @@
       display: inline-block;
       background: var(--teal-light);
       color: var(--teal-dark);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-family: 'MoonTime', cursive;
+      font-size: 1.3rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      text-transform: none;
       padding: 0.3rem 0.8rem;
       border-radius: 100px;
       margin-bottom: 1.2rem;
@@ -116,7 +125,9 @@
     }
 
     .hero h1 em {
-      font-style: italic;
+      font-family: 'MoonTime', cursive;
+      font-style: normal;
+      font-size: 1.2em;
       color: var(--teal);
     }
 
@@ -529,10 +540,11 @@
     }
 
     .about-text .eyebrow {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-family: 'MoonTime', cursive;
+      font-size: 1.6rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      text-transform: none;
       color: var(--teal);
       margin-bottom: 1rem;
     }
