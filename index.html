@@ -84,6 +84,21 @@
       color: var(--teal);
     }
 
+    .nav-link--subscribe {
+      background: var(--amber);
+      color: var(--text) !important;
+      padding: 0.45rem 1.2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .nav-link--subscribe:hover {
+      background: #f0ad40;
+      color: var(--text) !important;
+      transform: scale(1.04);
+    }
+
     .nav-cta {
       background: var(--amber);
       color: var(--text);
@@ -616,8 +631,8 @@
     <img src="logo.png" alt="Little Miss Prickles">
   </div>
   <div class="nav-right">
-    <a onclick="showPage('subscribe')" class="nav-link" id="nav-subscribe">Subscribe</a>
     <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
+    <a onclick="showPage('subscribe')" class="nav-link nav-link--subscribe" id="nav-subscribe">Subscribe</a>
   </div>
 </nav>
 
