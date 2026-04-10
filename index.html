@@ -38,14 +38,23 @@
     /* NAV */
     nav {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      padding: 1.2rem 3rem;
+      padding: 1rem 3rem 0;
       border-bottom: 1.5px solid #f0f0f8;
       background: white;
       position: sticky;
       top: 0;
       z-index: 100;
+    }
+
+    .nav-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 2rem;
+      width: 100%;
+      padding: 0.6rem 0 0.8rem;
     }
 
     .nav-logo img {
@@ -587,7 +596,8 @@
       .hero, .about-layout { grid-template-columns: 1fr; }
       .plans-grid { grid-template-columns: 1fr; }
       .features-inner { grid-template-columns: 1fr; }
-      nav { padding: 1rem 1.5rem; }
+      nav { padding: 0.8rem 1.5rem 0; }
+      .nav-bottom { gap: 1rem; flex-wrap: wrap; justify-content: center; }
       .nav-links { gap: 1rem; }
       .hero, .shop-header, .card-grid { padding-left: 1.5rem; padding-right: 1.5rem; }
     }
@@ -599,13 +609,15 @@
   <div class="nav-logo">
     <img src="logo.png" alt="Little Miss Prickles">
   </div>
-  <ul class="nav-links">
-    <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
-    <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
-    <li><a onclick="showPage('subscribe')" id="nav-subscribe">Subscribe</a></li>
-    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
-  </ul>
-  <button class="nav-cta" onclick="showPage('subscribe')">Get a subscription</button>
+  <div class="nav-bottom">
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+      <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
+      <li><a onclick="showPage('subscribe')" id="nav-subscribe">Subscribe</a></li>
+      <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    </ul>
+    <button class="nav-cta" onclick="showPage('subscribe')">Get a subscription</button>
+  </div>
 </nav>
 
 <!-- HOME -->
