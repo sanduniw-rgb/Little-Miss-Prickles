@@ -823,26 +823,61 @@
   </div>
 
   <div style="padding: 4rem 3rem; max-width:1100px; margin:0 auto;">
-    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2rem;">
-      <h2 style="font-family:'Fraunces',serif; font-size:2rem;">Fan favourites</h2>
-      <a onclick="showPage('shop')" style="color:var(--teal); font-weight:600; font-size:0.9rem; cursor:pointer;">View all →</a>
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.5rem;">
+      <h2 style="font-family:'Montserrat',sans-serif; font-size:2rem; font-weight:700;">The store</h2>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem;">
-      <div class="product-card">
+    <div class="category-pills" style="justify-content:flex-start; margin-bottom:2rem;">
+      <div class="pill active" onclick="filterHomeCards('all', this)">All cards</div>
+      <div class="pill" onclick="filterHomeCards('birthday', this)">Birthday</div>
+      <div class="pill" onclick="filterHomeCards('baby', this)">New baby</div>
+      <div class="pill" onclick="filterHomeCards('thankyou', this)">Thank you</div>
+      <div class="pill" onclick="filterHomeCards('justbecause', this)">Just because</div>
+      <div class="pill" onclick="filterHomeCards('sympathy', this)">Sympathy</div>
+    </div>
+    <div id="home-card-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem;">
+      <div class="product-card" data-homecat="birthday">
         <div class="product-img" style="background:#fef3e2;">🎂<span class="product-badge">New</span></div>
         <div class="product-info"><span class="cat-tag">Birthday</span><h3>It's your day!</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card">
-        <div class="product-img" style="background:#e6f8f8;">🌵</div>
-        <div class="product-info"><span class="cat-tag">Just because</span><h3>Prickle of sunshine</h3><div class="price">$6.50</div></div>
+      <div class="product-card" data-homecat="birthday">
+        <div class="product-img" style="background:#eef0ff;">🎈</div>
+        <div class="product-info"><span class="cat-tag">Birthday</span><h3>Another trip around the sun</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card">
+      <div class="product-card" data-homecat="birthday">
+        <div class="product-img" style="background:#fff5e0;">🥳</div>
+        <div class="product-info"><span class="cat-tag">Birthday</span><h3>Let's celebrate you</h3><div class="price">$6.50</div></div>
+      </div>
+      <div class="product-card" data-homecat="baby">
         <div class="product-img" style="background:#eef0ff;">👶</div>
         <div class="product-info"><span class="cat-tag">New baby</span><h3>A tiny hello</h3><div class="price">$7.50</div></div>
       </div>
-      <div class="product-card">
+      <div class="product-card" data-homecat="baby">
+        <div class="product-img" style="background:#e6f8f8;">🍼</div>
+        <div class="product-info"><span class="cat-tag">New baby</span><h3>Welcome, little one</h3><div class="price">$7.50</div></div>
+      </div>
+      <div class="product-card" data-homecat="thankyou">
         <div class="product-img" style="background:#fff5e0;">💐<span class="product-badge">Popular</span></div>
         <div class="product-info"><span class="cat-tag">Thank you</span><h3>From the bottom of my heart</h3><div class="price">$6.50</div></div>
+      </div>
+      <div class="product-card" data-homecat="thankyou">
+        <div class="product-img" style="background:#fef3e2;">🙏</div>
+        <div class="product-info"><span class="cat-tag">Thank you</span><h3>You're a gem</h3><div class="price">$6.50</div></div>
+      </div>
+      <div class="product-card" data-homecat="justbecause">
+        <div class="product-img" style="background:#e6f8f8;">🌵</div>
+        <div class="product-info"><span class="cat-tag">Just because</span><h3>Prickle of sunshine</h3><div class="price">$6.50</div></div>
+      </div>
+      <div class="product-card" data-homecat="justbecause">
+        <div class="product-img" style="background:#eef0ff;">✉️</div>
+        <div class="product-info"><span class="cat-tag">Just because</span><h3>Thinking of you</h3><div class="price">$6.50</div></div>
+      </div>
+      <div class="product-card" data-homecat="sympathy">
+        <div class="product-img" style="background:#f8f8f8;">🕊️</div>
+        <div class="product-info"><span class="cat-tag">Sympathy</span><h3>With all my love</h3><div class="price">$7.50</div></div>
+      </div>
+      <div class="product-card" data-homecat="sympathy">
+        <div class="product-img" style="background:#e6f8f8;">🌿</div>
+        <div class="product-info"><span class="cat-tag">Sympathy</span><h3>Holding you in my heart</h3><div class="price">$7.50</div></div>
       </div>
     </div>
   </div>
@@ -1112,6 +1147,14 @@ function showPage(name) {
   const navEl = document.getElementById('nav-' + name);
   if (navEl) navEl.classList.add('active');
   window.scrollTo && window.scrollTo(0, 0);
+}
+
+function filterHomeCards(cat, el) {
+  document.querySelectorAll('.category-pills .pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#home-card-grid .product-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.homecat === cat) ? 'block' : 'none';
+  });
 }
 
 function filterCards(cat, el) {
