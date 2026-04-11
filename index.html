@@ -740,15 +740,74 @@
     footer .footer-links a:hover { color: var(--teal); }
 
     @media (max-width: 700px) {
-      .hero { grid-template-columns: 1fr; }
-      .plans-grid { grid-template-columns: 1fr; }
-      .features-inner { grid-template-columns: 1fr; }
-      nav { padding: 0.8rem 1.5rem; grid-template-columns: 1fr auto 1fr; }
-      .nav-left, .nav-right { gap: 1rem; }
-      .hero, .shop-header, .card-grid { padding-left: 1.5rem; padding-right: 1.5rem; }
+      /* NAV */
+      nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.6rem 1rem;
+        gap: 0.4rem;
+      }
+      .nav-logo { padding: 0; order: -1; }
+      .nav-logo img { height: 56px; }
+      .nav-left { justify-content: center; gap: 1.5rem; }
+      .nav-right { justify-content: center; gap: 1rem; }
+      .nav-link { font-size: 0.82rem; }
+
+      /* HOME HERO */
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 2.5rem 1.5rem 2rem;
+        gap: 0;
+      }
+      .hero h1 { font-size: 2rem; }
+      .hero-visual { display: none; }
+
+      /* FEATURES */
+      .features-strip { padding: 2rem 1.5rem; }
+      .features-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+
+      /* HOME STORE SECTION */
+      .home-store-section { padding: 2.5rem 1.5rem !important; }
+      .home-store-section h2 { font-size: 1.6rem !important; }
+      #home-card-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+      }
+
+      /* SHOP PAGE */
+      .shop-header { padding: 2.5rem 1.5rem 1.5rem; }
+      .shop-header h1 { font-size: 2rem; }
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        padding: 1.5rem 1.5rem 3rem;
+      }
+
+      /* SUBSCRIBE PAGE */
+      .sub-hero { padding: 3rem 1.5rem; }
+      .sub-hero h1 { font-size: 2rem; }
+      .how-it-works-header { padding: 2rem 1.5rem 0 !important; }
+      .how-it-works-grid {
+        grid-template-columns: 1fr !important;
+        padding: 1.5rem 1.5rem !important;
+      }
+      .plans-heading { padding: 1rem 1.5rem 0 !important; }
+      .plans-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.5rem;
+      }
+
+      /* ABOUT PAGE */
       .about-layout { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2.5rem; }
       .about-visual { position: static; }
       .about-photo-frame img { aspect-ratio: 4 / 3; object-position: center 20%; }
+
+      /* FOOTER */
+      footer { padding: 2rem 1.5rem; }
+
+      /* SOCIAL TABS */
+      .social-tab { width: 36px; height: 36px; }
     }
   </style>
 </head>
@@ -858,7 +917,7 @@
     </div>
   </div>
 
-  <div style="padding: 4rem 3rem; max-width:1100px; margin:0 auto;">
+  <div class="home-store-section" style="padding: 4rem 3rem; max-width:1100px; margin:0 auto;">
     <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.5rem;">
       <h2 style="font-family:'Montserrat',sans-serif; font-size:2rem; font-weight:700;">The store</h2>
     </div>
@@ -1020,12 +1079,12 @@
     <p>Life's busy. We get it. Our subscription sends the right card to your door before the big moments, so you always show up, even when life gets in the way.</p>
   </div>
 
-  <div style="text-align:center; padding:3rem 3rem 0;">
+  <div class="how-it-works-header" style="text-align:center; padding:3rem 3rem 0;">
     <h2 style="font-family:'Fraunces',serif; font-size:1.8rem; margin-bottom:0.5rem;">How it works</h2>
     <p style="color:var(--text-muted); font-size:0.95rem;">Three stupidly easy steps to never forget again.</p>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; padding:2rem 3rem; max-width:900px; margin:0 auto; text-align:center;">
+  <div class="how-it-works-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; padding:2rem 3rem; max-width:900px; margin:0 auto; text-align:center;">
     <div>
       <div style="width:48px;height:48px;background:var(--teal);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;margin:0 auto 1rem;">1</div>
       <h3 style="font-family:'Fraunces',serif;margin-bottom:0.4rem;">Spill the dates</h3>
@@ -1043,7 +1102,7 @@
     </div>
   </div>
 
-  <div style="text-align:center; padding:1rem 3rem 0;">
+  <div class="plans-heading" style="text-align:center; padding:1rem 3rem 0;">
     <h2 style="font-family:'Fraunces',serif; font-size:1.8rem; margin-bottom:0.3rem;">Choose your plan</h2>
   </div>
 
