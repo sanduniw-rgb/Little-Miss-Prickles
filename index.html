@@ -300,33 +300,49 @@
       font-size: 1.5rem;
     }
 
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      15% { transform: scale(1.25); }
-      30% { transform: scale(1); }
-      45% { transform: scale(1.15); }
-      60% { transform: scale(1); }
+    .icon-circle { position: relative; overflow: hidden; }
+
+    .icon-state {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; height: 100%;
+      font-size: 1.3rem;
     }
 
-    @keyframes ring {
-      0%, 100% { transform: rotate(0deg); }
-      10% { transform: rotate(14deg); }
-      20% { transform: rotate(-12deg); }
-      30% { transform: rotate(10deg); }
-      40% { transform: rotate(-8deg); }
-      50% { transform: rotate(6deg); }
-      60% { transform: rotate(0deg); }
+    /* Heart <-> Finger */
+    @keyframes show-a {
+      0%, 40% { opacity: 1; transform: scale(1); }
+      50%, 90% { opacity: 0; transform: scale(0.2); }
+      100% { opacity: 1; transform: scale(1); }
     }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-6px); }
-      60% { transform: translateY(-3px); }
+    @keyframes show-b {
+      0%, 40% { opacity: 0; transform: scale(0.2); }
+      50%, 90% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.2); }
     }
+    .icon-heart .icon-state--a { animation: show-a 3.5s ease-in-out infinite; }
+    .icon-heart .icon-state--b { animation: show-b 3.5s ease-in-out infinite; }
+    .icon-bell  .icon-state--a { animation: show-a 3.5s ease-in-out infinite; animation-delay: 1.2s; }
+    .icon-bell  .icon-state--b { animation: show-b 3.5s ease-in-out infinite; animation-delay: 1.2s; }
 
-    .icon-heart svg { animation: heartbeat 2.4s ease-in-out infinite; }
-    .icon-bell svg  { animation: ring 2s ease-in-out infinite; animation-delay: 0.8s; transform-origin: top center; }
-    .icon-chat svg  { animation: bounce 2s ease-in-out infinite; animation-delay: 1.6s; }
+    /* LOL -> OMG -> GTFO */
+    @keyframes show-lol  {
+      0%, 28%  { opacity: 1; } 33%, 100% { opacity: 0; }
+    }
+    @keyframes show-omg  {
+      0%, 28%  { opacity: 0; } 33%, 61%  { opacity: 1; } 66%, 100% { opacity: 0; }
+    }
+    @keyframes show-gtfo {
+      0%, 61%  { opacity: 0; } 66%, 94%  { opacity: 1; } 100% { opacity: 0; }
+    }
+    .icon-text--lol, .icon-text--omg, .icon-text--gtfo {
+      font-weight: 700; font-size: 0.72rem; letter-spacing: 0.03em; color: var(--text);
+    }
+    .icon-text--lol  { animation: show-lol  4.5s ease-in-out infinite; animation-delay: 2.4s; }
+    .icon-text--omg  { animation: show-omg  4.5s ease-in-out infinite; animation-delay: 2.4s; }
+    .icon-text--gtfo { animation: show-gtfo 4.5s ease-in-out infinite; animation-delay: 2.4s; }
 
     .feature-item h3 {
       font-family: 'Montserrat', sans-serif;
@@ -750,21 +766,29 @@
     <div class="features-inner">
       <div class="feature-item">
         <div class="icon-circle icon-heart" style="background:var(--teal);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <div class="icon-state icon-state--a">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="icon-state icon-state--b">🖕</div>
         </div>
         <h3>Designed with love<br>(and a little attitude.)</h3>
         <p>Every card is hand-crafted to make someone snort-laugh, ugly cry, or both. Sometimes at the same time.</p>
       </div>
       <div class="feature-item">
         <div class="icon-circle icon-bell" style="background:var(--amber);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <div class="icon-state icon-state--a">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <div class="icon-state icon-state--b">😉</div>
         </div>
         <h3>Never be that person again.</h3>
         <p>Our subscription reminds you before the big moments, so you can pretend you had it together all along. We'll never tell.</p>
       </div>
       <div class="feature-item">
         <div class="icon-circle icon-chat" style="background:var(--lavender);">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div class="icon-state icon-text--lol">LOL</div>
+          <div class="icon-state icon-text--omg">OMG</div>
+          <div class="icon-state icon-text--gtfo">GTFO</div>
         </div>
         <h3>There's a card for that.</h3>
         <p>Birthdays, anniversaries, new babies, break-ups, promotions, "sorry I forgot your birthday"... we've got all of life's moments covered. Even the awkward ones.</p>
