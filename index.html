@@ -1036,6 +1036,10 @@
       .program-steps-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
       .program-cta { padding: 3rem 1.5rem; }
       .program-body { padding: 3rem 1.5rem; }
+      /* PRICKLE POST */
+      #page-prickle .program-steps-grid { grid-template-columns: 1fr 1fr !important; }
+      #page-prickle .billing-section { padding: 2rem 1.5rem 0 !important; }
+      #page-prickle [style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
       .faq-body { padding: 3rem 1.5rem; }
       .contact-body { padding: 3.5rem 1.5rem; }
 
@@ -1230,6 +1234,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1326,6 +1331,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1485,6 +1491,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1568,6 +1575,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1649,6 +1657,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1727,6 +1736,179 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <ul>
+          <li><a onclick="showPage('faq')">FAQ</a></li>
+          <li><a onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 Little Miss Prickles · Canberra, Australia</p></div>
+  </footer>
+</div>
+
+<!-- PRICKLE POST -->
+<div class="page" id="page-prickle">
+  <div class="program-hero" style="background:linear-gradient(135deg,var(--amber) 0%,#f0ad40 100%); color:var(--text);">
+    <div class="eyebrow" style="color:var(--text);">Prickle Post</div>
+    <h1>Never be that person again. 🌵</h1>
+    <p style="color:var(--text);">Your personal card subscription. Tell us your people and your dates, pick a vibe, and we handle the rest. Cards arrive at your door before every important moment in your year, ready to sign and send. You look thoughtful. We stay quiet. Everyone wins.</p>
+    <a onclick="showPage('subscribe')" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
+  </div>
+
+  <div class="program-body">
+    <p>Prickle Post is the heart of Little Miss Prickles. A personal card subscription that makes sure the right card lands at your door before every important date in your year.</p>
+    <p>You tell us your people and your dates, we pick the perfect card, pack it up with a little something extra, and post it straight to you with plenty of time to write something lovely (or cheeky) and send it on.</p>
+    <p>No more last minute panic. No more service station cards. Just the right card, every time, without you having to think about it.</p>
+  </div>
+
+  <div class="program-steps">
+    <h2>How it works</h2>
+    <div class="program-steps-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="program-step">
+        <div class="program-step-num" style="background:var(--amber);color:var(--text);">1</div>
+        <h3>Pick your plan</h3>
+        <p>Seedling, In Bloom, or Full Bloom — depending on how many people you want to show up for.</p>
+      </div>
+      <div class="program-step">
+        <div class="program-step-num" style="background:var(--amber);color:var(--text);">2</div>
+        <h3>Fill in your people</h3>
+        <p>After you pay you'll get a simple form. Pop in your dates, occasions, and card vibes. Takes about 5 minutes.</p>
+      </div>
+      <div class="program-step">
+        <div class="program-step-num" style="background:var(--amber);color:var(--text);">3</div>
+        <h3>We pick the card</h3>
+        <p>We hand-pick the perfect card for each occasion from our range and pack it up with a little something extra.</p>
+      </div>
+      <div class="program-step">
+        <div class="program-step-num" style="background:var(--amber);color:var(--text);">4</div>
+        <h3>It arrives at your door</h3>
+        <p>Your card lands approximately 2 weeks before the date so you have plenty of time to write something and send it on.</p>
+      </div>
+      <div class="program-step">
+        <div class="program-step-num" style="background:var(--amber);color:var(--text);">5</div>
+        <h3>We give you a heads up</h3>
+        <p>You'll get a notification when each card is on its way so nothing sneaks up on you.</p>
+      </div>
+      <div class="program-step">
+        <div class="program-step-num" style="background:var(--amber);color:var(--text);">6</div>
+        <h3>Look like a legend</h3>
+        <p>Write something inside, pop it in the post, and be the most thoughtful person in the room. Every single time.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="billing-section" style="text-align:center;padding:4rem 3rem 0;">
+    <p style="font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:0.8rem;">Pricing</p>
+    <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:0.5rem;">Three plans. One goal. Never forget again.</h2>
+    <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.95rem;">Postage always included. No hidden fees. Cancel anytime.</p>
+    <div class="billing-toggle">
+      <button class="toggle-option active" id="pp-toggle-annual" onclick="setPPBilling('annual')">Annual <span class="annual-save-badge">Save 2 months</span></button>
+      <button class="toggle-option" id="pp-toggle-monthly" onclick="setPPBilling('monthly')">Monthly</button>
+    </div>
+  </div>
+
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-name">Seedling</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">I try, okay.</div>
+      <div class="plan-card-count">5 cards per year</div>
+      <div class="pp-price-annual">
+        <div class="plan-price">$40<span>/year</span></div>
+        <div class="plan-save">Save $20 vs monthly</div>
+      </div>
+      <div class="pp-price-monthly" style="display:none">
+        <div class="plan-price">$5<span>/month</span></div>
+        <div class="plan-yearly-note">$60 per year</div>
+      </div>
+      <a class="btn-plan" href="#">Start your Prickle Post</a>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-name">In Bloom</div>
+      <div style="font-size:0.85rem;opacity:0.75;margin-bottom:0.8rem;">Getting the hang of this.</div>
+      <div class="plan-card-count">10 cards per year</div>
+      <div class="pp-price-annual">
+        <div class="plan-price">$72<span>/year</span></div>
+        <div class="plan-save">Save $24 vs monthly</div>
+      </div>
+      <div class="pp-price-monthly" style="display:none">
+        <div class="plan-price">$8<span>/month</span></div>
+        <div class="plan-yearly-note">$96 per year</div>
+      </div>
+      <a class="btn-plan" href="#">Start your Prickle Post</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">Full Bloom</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">Absolutely nailing it.</div>
+      <div class="plan-card-count">20 cards per year</div>
+      <div class="pp-price-annual">
+        <div class="plan-price">$130<span>/year</span></div>
+        <div class="plan-save">Save $38 vs monthly</div>
+      </div>
+      <div class="pp-price-monthly" style="display:none">
+        <div class="plan-price">$14<span>/month</span></div>
+        <div class="plan-yearly-note">$168 per year</div>
+      </div>
+      <a class="btn-plan" href="#">Start your Prickle Post</a>
+    </div>
+  </div>
+
+  <div style="background:var(--teal-light);padding:4rem 3rem;margin-top:3rem;">
+    <div style="max-width:760px;margin:0 auto;text-align:center;">
+      <p style="font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:0.8rem;">The Three Vibes</p>
+      <h2 style="font-size:1.8rem;margin-bottom:0.5rem;">Pick your card's personality</h2>
+      <p style="color:var(--text-muted);margin-bottom:2.5rem;font-size:0.95rem;">When you fill in your form, you pick a vibe for each occasion. We pick the perfect card from our range to match.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:left;">
+        <div style="background:white;border-radius:16px;padding:1.5rem;">
+          <div style="font-size:1.8rem;margin-bottom:0.8rem;">😏</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.4rem;color:var(--teal-dark);">Cheeky</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">A little bit rude, a lot of fun. The card that makes them snort laugh.</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:1.5rem;">
+          <div style="font-size:1.8rem;margin-bottom:0.8rem;">🥹</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.4rem;color:var(--teal-dark);">Sweet</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">Warm, heartfelt and genuinely lovely. The card that makes them cry (good cry).</p>
+        </div>
+        <div style="background:white;border-radius:16px;padding:1.5rem;">
+          <div style="font-size:1.8rem;margin-bottom:0.8rem;">🙄</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.4rem;color:var(--teal-dark);">Punny</h3>
+          <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.6;">Groan worthy and proud of it. The card that makes them roll their eyes and smile at the same time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="program-cta" style="background:var(--amber);color:var(--text);">
+    <h2>Ready to show up for the people you love?</h2>
+    <p style="color:var(--text);opacity:0.7;">No more last minute panic. No more service station cards. Just the right card, every time.</p>
+    <a onclick="showPage('subscribe')" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Logos.png?v=2" alt="Little Miss Prickles" class="footer-brand-logo">
+        <p>Cheeky, heartfelt cards for every occasion. Printed locally in Canberra, posted with love.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('shop')">Store</a></li>
+          <li><a onclick="showPage('about')">About</a></li>
+          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Programs</div>
+        <ul>
+          <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
+          <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1883,6 +2065,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1936,6 +2119,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
+          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1997,6 +2181,17 @@ function setBilling(period) {
   });
   document.getElementById('toggle-monthly').classList.toggle('active', period === 'monthly');
   document.getElementById('toggle-annual').classList.toggle('active', period === 'annual');
+}
+
+function setPPBilling(period) {
+  document.querySelectorAll('.pp-price-monthly').forEach(el => {
+    el.style.display = period === 'monthly' ? 'block' : 'none';
+  });
+  document.querySelectorAll('.pp-price-annual').forEach(el => {
+    el.style.display = period === 'annual' ? 'block' : 'none';
+  });
+  document.getElementById('pp-toggle-monthly').classList.toggle('active', period === 'monthly');
+  document.getElementById('pp-toggle-annual').classList.toggle('active', period === 'annual');
 }
 
 </script>
