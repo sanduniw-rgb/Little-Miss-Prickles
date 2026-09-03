@@ -218,50 +218,119 @@
 
     .card-stack {
       position: relative;
-      width: 280px;
-      height: 340px;
+      width: 380px;
+      max-width: 100%;
     }
 
-    .card-item {
+    .photo-stage {
+      position: relative;
+      aspect-ratio: 1 / 1;
+    }
+
+    /* Offset panel behind the photo, for a bit of brand colour */
+    .photo-backing {
       position: absolute;
-      width: 210px;
-      height: 280px;
-      border-radius: 16px;
+      inset: 0;
+      border-radius: 22px;
+      background: var(--lavender);
+      transform: translate(13px, 13px) rotate(2.5deg);
+    }
+
+    .photo-frame {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      background: var(--teal-light);
+      box-shadow: 0 18px 44px rgba(20,122,126,0.22);
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+
+    .hero-slide.active { opacity: 1; }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-caption {
       display: flex;
-      flex-direction: column;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 2rem 0.2rem 0;
+      min-height: 2.6rem;
+    }
+
+    .photo-caption-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .photo-caption-price {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--teal);
+    }
+
+    .card-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.94);
+      color: var(--text);
+      box-shadow: 0 2px 10px rgba(26,26,46,0.2);
+      display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Montserrat', sans-serif;
-      box-shadow: 0 8px 32px rgba(28,171,176,0.12);
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 4;
     }
 
-    .card-item:nth-child(1) {
+    .photo-frame:hover .card-nav,
+    .card-nav:focus-visible { opacity: 1; }
+    .card-nav:focus-visible { outline: 2px solid var(--teal-dark); outline-offset: 2px; }
+    .card-nav--prev { left: 10px; }
+    .card-nav--next { right: 10px; }
+
+    .card-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding-top: 0.9rem;
+    }
+
+    .card-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
       background: var(--lavender);
-      transform: rotate(-8deg);
-      top: 20px; left: 10px; z-index: 1;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    .card-item:nth-child(2) {
-      background: var(--amber);
-      transform: rotate(3deg);
-      top: 30px; left: 40px; z-index: 2;
-    }
+    .card-dot.active { background: var(--teal); transform: scale(1.3); }
+    .card-dot:focus-visible { outline: 2px solid var(--teal-dark); outline-offset: 2px; }
 
-    .card-item:nth-child(3) {
-      background: var(--teal);
-      transform: rotate(0deg);
-      top: 10px; left: 30px; z-index: 3;
-      color: white;
-    }
-
-    .card-emoji { font-size: 2.8rem; margin-bottom: 0.5rem; }
-
-    .card-text {
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-align: center;
-      padding: 0 1rem;
-      line-height: 1.3;
+    @media (prefers-reduced-motion: reduce) {
+      .hero-slide { transition: none; }
     }
 
     .floating-blob {
@@ -426,8 +495,20 @@
       position: relative;
     }
 
+    .product-img--photo { background: var(--white); }
+
+    .product-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: var(--white);
+    }
+
     .product-badge {
       position: absolute;
+      z-index: 2;
       top: 10px; right: 10px;
       background: var(--amber);
       color: var(--text);
@@ -712,19 +793,129 @@
       margin-bottom: 1.4rem;
     }
 
+    .about-sign-block {
+      padding: 0.4rem 0 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
     .about-welcome {
       font-family: 'MoonTime', cursive;
       font-size: 2rem;
       color: var(--teal);
-      display: inline-block;
-      margin-top: 0.3rem;
+      line-height: 1.2;
     }
 
-    .about-sign-block { padding: 1.5rem 0 0.5rem; }
     .about-sign {
+      font-family: 'MoonTime', cursive;
+      font-size: 1.8rem;
+      color: var(--teal);
+      line-height: 1.2;
+      margin-left: 3.5rem;
+    }
+
+    /* COMING SOON STICKER */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .splash[hidden] { display: none; }
+
+    .splash-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(20,122,126,0.32);
+      animation: splash-fade 0.2s ease both;
+    }
+
+    .splash-sticker {
+      position: relative;
+      width: min(340px, 78vw);
+      aspect-ratio: 1 / 1;
+      transform: rotate(-6deg);
+      filter: drop-shadow(0 14px 30px rgba(20,122,126,0.35));
+      animation: splash-pop 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+    }
+
+    .splash-badge { display: block; width: 100%; height: 100%; }
+
+    .splash-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 19%;
+    }
+
+    .splash-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
       color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.85;
+      margin-bottom: 0.45rem;
+    }
+
+    .splash-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: clamp(1.7rem, 8vw, 2.5rem);
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+      color: var(--teal);
+    }
+
+    .splash-sub {
+      font-family: 'MoonTime', cursive;
+      font-size: 1.4rem;
+      line-height: 1.1;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .splash-close {
+      position: absolute;
+      top: 13%;
+      right: 13%;
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--text);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(26,26,46,0.22);
+      transform: rotate(6deg);
+      z-index: 2;
+    }
+
+    .splash-close:hover { background: var(--teal); color: white; }
+    .splash-close:focus-visible { outline: 2px solid var(--teal-dark); outline-offset: 2px; }
+
+    @keyframes splash-fade { from { opacity: 0; } to { opacity: 1; } }
+
+    @keyframes splash-pop {
+      0%   { opacity: 0; transform: rotate(-26deg) scale(0.3); }
+      60%  { opacity: 1; transform: rotate(-2deg) scale(1.08); }
+      100% { opacity: 1; transform: rotate(-6deg) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .splash-sticker { animation: none; transform: rotate(-6deg); }
+      .splash-backdrop { animation: none; }
     }
 
     /* SOCIAL TABS */
@@ -983,7 +1174,14 @@
         gap: 0;
       }
       .hero h1 { font-size: 2rem; }
-      .hero-visual { display: none; }
+      .hero-visual { margin-top: 2.2rem; }
+      .card-stack { width: 100%; max-width: 320px; }
+      .photo-backing { transform: translate(10px, 10px) rotate(2.5deg); }
+      .photo-caption { padding-top: 1.7rem; }
+      /* Arrows need no hover on touch, so keep them visible */
+      .card-nav { opacity: 1; width: 32px; height: 32px; }
+      .blob1 { width: 130px; height: 130px; top: -22px; right: -12px; }
+      .blob2 { width: 90px; height: 90px; }
 
       /* FEATURES */
       .features-strip { padding: 2rem 1.5rem; }
@@ -1060,7 +1258,7 @@
   </div>
   <div class="nav-right">
     <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
-    <a onclick="showPage('subscribe')" class="nav-link nav-link--subscribe" id="nav-subscribe">Subscribe</a>
+    <a onclick="showComingSoon(event)" class="nav-link nav-link--subscribe" id="nav-subscribe">Subscribe</a>
   </div>
 </nav>
 
@@ -1072,7 +1270,7 @@
       <p>Cheeky, heartfelt cards for every occasion, and a subscription that means you'll never be that person who forgot again. (We won't tell.)</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="showPage('shop')">Browse the shop</button>
-        <button class="btn-secondary" onclick="showPage('subscribe')">See subscriptions</button>
+        <button class="btn-secondary" onclick="showComingSoon(event)">See subscriptions</button>
       </div>
     </div>
     <div class="hero-visual">
@@ -1080,18 +1278,22 @@
         <div class="floating-blob blob1"></div>
         <div class="floating-blob blob2"></div>
         <div class="card-stack">
-          <div class="card-item">
-            <div class="card-emoji">🎂</div>
-            <div class="card-text">Happy Birthday!</div>
+          <div class="photo-stage">
+          <div class="photo-backing" aria-hidden="true"></div>
+          <div class="photo-frame" id="hero-slideshow" aria-roledescription="carousel" aria-label="Card designs">
+            <button class="card-nav card-nav--prev" type="button" aria-label="Previous card" onclick="heroGo(-1)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="card-nav card-nav--next" type="button" aria-label="Next card" onclick="heroGo(1)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
           </div>
-          <div class="card-item">
-            <div class="card-emoji">💌</div>
-            <div class="card-text">Thinking of you</div>
           </div>
-          <div class="card-item">
-            <div class="card-emoji">🌵</div>
-            <div class="card-text" style="color:white;">You're a prick.</div>
+          <div class="photo-caption">
+            <span class="photo-caption-name" id="hero-name"></span>
+            <span class="photo-caption-price" id="hero-price"></span>
           </div>
+          <div class="card-dots" id="hero-dots" role="tablist" aria-label="Choose a card"></div>
         </div>
       </div>
     </div>
@@ -1160,56 +1362,24 @@
     </div>
     <div class="category-pills" style="justify-content:flex-start; margin-bottom:2rem;">
       <div class="pill active" onclick="filterHomeCards('all', this)">All the goods</div>
-      <div class="pill" onclick="filterHomeCards('birthday', this)">Getting older</div>
-      <div class="pill" onclick="filterHomeCards('baby', this)">Fresh human</div>
-      <div class="pill" onclick="filterHomeCards('thankyou', this)">You're a gem</div>
-      <div class="pill" onclick="filterHomeCards('justbecause', this)">No reason needed</div>
-      <div class="pill" onclick="filterHomeCards('sympathy', this)">When life is a lot</div>
+      <div class="pill" onclick="filterHomeCards('og', this)">The OG's</div>
     </div>
     <div id="home-card-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem;">
-      <div class="product-card" data-homecat="birthday">
-        <div class="product-img" style="background:#fef3e2;">🎂<span class="product-badge">New</span></div>
-        <div class="product-info"><span class="cat-tag">Birthday</span><h3>It's your day!</h3><div class="price">$6.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="youre-a-prick.png" alt="Watercolour cactus card reading 'You're a prick.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card" data-homecat="birthday">
-        <div class="product-img" style="background:#eef0ff;">🎈</div>
-        <div class="product-info"><span class="cat-tag">Birthday</span><h3>Another trip around the sun</h3><div class="price">$6.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card" data-homecat="birthday">
-        <div class="product-img" style="background:#fff5e0;">🥳</div>
-        <div class="product-info"><span class="cat-tag">Birthday</span><h3>Let's celebrate you</h3><div class="price">$6.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Free hugs.</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card" data-homecat="baby">
-        <div class="product-img" style="background:#eef0ff;">👶</div>
-        <div class="product-info"><span class="cat-tag">New baby</span><h3>A tiny hello</h3><div class="price">$7.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="baby">
-        <div class="product-img" style="background:#e6f8f8;">🍼</div>
-        <div class="product-info"><span class="cat-tag">New baby</span><h3>Welcome, little one</h3><div class="price">$7.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="thankyou">
-        <div class="product-img" style="background:#fff5e0;">💐<span class="product-badge">Popular</span></div>
-        <div class="product-info"><span class="cat-tag">Thank you</span><h3>From the bottom of my heart</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="thankyou">
-        <div class="product-img" style="background:#fef3e2;">🙏</div>
-        <div class="product-info"><span class="cat-tag">Thank you</span><h3>You're a gem</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="justbecause">
-        <div class="product-img" style="background:#e6f8f8;">🌵</div>
-        <div class="product-info"><span class="cat-tag">Just because</span><h3>Prickle of sunshine</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="justbecause">
-        <div class="product-img" style="background:#eef0ff;">✉️</div>
-        <div class="product-info"><span class="cat-tag">Just because</span><h3>Thinking of you</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="sympathy">
-        <div class="product-img" style="background:#f8f8f8;">🕊️</div>
-        <div class="product-info"><span class="cat-tag">Sympathy</span><h3>With all my love</h3><div class="price">$7.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="sympathy">
-        <div class="product-img" style="background:#e6f8f8;">🌿</div>
-        <div class="product-info"><span class="cat-tag">Sympathy</span><h3>Holding you in my heart</h3><div class="price">$7.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="cactus-patch.png" alt="Watercolour card of a collection of potted cacti" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Cactus Patch</h3><div class="price">$6.50</div></div>
       </div>
     </div>
   </div>
@@ -1226,7 +1396,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1234,7 +1404,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1258,59 +1428,28 @@
     <p>Cards for every occasion, cheeky, heartfelt, and actually worth keeping. Printed locally in Australia, posted with love (and excellent timing).</p>
     <div class="category-pills">
       <div class="pill active" onclick="filterCards('all', this)">All the goods</div>
-      <div class="pill" onclick="filterCards('birthday', this)">Getting older</div>
-      <div class="pill" onclick="filterCards('baby', this)">Fresh human</div>
-      <div class="pill" onclick="filterCards('thankyou', this)">You're a gem</div>
-      <div class="pill" onclick="filterCards('justbecause', this)">No reason needed</div>
-      <div class="pill" onclick="filterCards('sympathy', this)">When life is a lot</div>
+      <div class="pill" onclick="filterCards('og', this)">The OG's</div>
     </div>
   </div>
   <div class="card-grid" id="card-grid">
-    <div class="product-card" data-cat="birthday">
-      <div class="product-img" style="background:#fef3e2;">🎂<span class="product-badge">New</span></div>
-      <div class="product-info"><span class="cat-tag">Birthday</span><h3>It's your day!</h3><div class="price">$6.50</div></div>
+    <div class="product-card" data-cat="og">
+      <div class="product-img product-img--photo"><img src="youre-a-prick.png" alt="Watercolour cactus card reading 'You're a prick.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
     </div>
-    <div class="product-card" data-cat="birthday">
-      <div class="product-img" style="background:#eef0ff;">🎈</div>
-      <div class="product-info"><span class="cat-tag">Birthday</span><h3>Another trip around the sun</h3><div class="price">$6.50</div></div>
+    <div class="product-card" data-cat="og">
+      <div class="product-img product-img--photo"><img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
     </div>
-    <div class="product-card" data-cat="birthday">
-      <div class="product-img" style="background:#fff5e0;">🥳</div>
-      <div class="product-info"><span class="cat-tag">Birthday</span><h3>Let's celebrate you</h3><div class="price">$6.50</div></div>
+    <div class="product-card" data-cat="og">
+      <div class="product-img product-img--photo"><img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Free hugs.</h3><div class="price">$6.50</div></div>
     </div>
-    <div class="product-card" data-cat="baby">
-      <div class="product-img" style="background:#eef0ff;">👶</div>
-      <div class="product-info"><span class="cat-tag">New baby</span><h3>A tiny hello</h3><div class="price">$7.50</div></div>
-    </div>
-    <div class="product-card" data-cat="baby">
-      <div class="product-img" style="background:#e6f8f8;">🍼</div>
-      <div class="product-info"><span class="cat-tag">New baby</span><h3>Welcome, little one</h3><div class="price">$7.50</div></div>
-    </div>
-    <div class="product-card" data-cat="thankyou">
-      <div class="product-img" style="background:#fff5e0;">💐<span class="product-badge">Popular</span></div>
-      <div class="product-info"><span class="cat-tag">Thank you</span><h3>From the bottom of my heart</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="thankyou">
-      <div class="product-img" style="background:#fef3e2;">🙏</div>
-      <div class="product-info"><span class="cat-tag">Thank you</span><h3>You're a gem</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="justbecause">
-      <div class="product-img" style="background:#e6f8f8;">🌵</div>
-      <div class="product-info"><span class="cat-tag">Just because</span><h3>Prickle of sunshine</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="justbecause">
-      <div class="product-img" style="background:#eef0ff;">✉️</div>
-      <div class="product-info"><span class="cat-tag">Just because</span><h3>Thinking of you</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="sympathy">
-      <div class="product-img" style="background:#f8f8f8;">🕊️</div>
-      <div class="product-info"><span class="cat-tag">Sympathy</span><h3>With all my love</h3><div class="price">$7.50</div></div>
-    </div>
-    <div class="product-card" data-cat="sympathy">
-      <div class="product-img" style="background:#e6f8f8;">🌿</div>
-      <div class="product-info"><span class="cat-tag">Sympathy</span><h3>Holding you in my heart</h3><div class="price">$7.50</div></div>
+    <div class="product-card" data-cat="og">
+      <div class="product-img product-img--photo"><img src="cactus-patch.png" alt="Watercolour card of a collection of potted cacti" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Cactus Patch</h3><div class="price">$6.50</div></div>
     </div>
   </div>
+
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
@@ -1323,7 +1462,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1331,7 +1470,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1408,7 +1547,7 @@
         <li><div class="check">✓</div>Cancel anytime</li>
       </ul>
       <!-- TODO: replace href with Stripe payment link -->
-      <a class="btn-plan" href="#">Get started</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
     </div>
 
     <div class="plan-card featured">
@@ -1434,7 +1573,7 @@
         <li><div class="check">✓</div>Cancel anytime</li>
       </ul>
       <!-- TODO: replace href with Stripe payment link -->
-      <a class="btn-plan" href="#">Get started</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
     </div>
 
     <div class="plan-card">
@@ -1460,7 +1599,7 @@
         <li><div class="check">✓</div>Cancel anytime</li>
       </ul>
       <!-- TODO: replace href with Stripe payment link -->
-      <a class="btn-plan" href="#">Get started</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
     </div>
   </div>
 
@@ -1468,7 +1607,7 @@
     <div style="font-size:2rem;margin-bottom:0.8rem;">🌵</div>
     <h3 style="font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:0.6rem;">Dipping your toes in?</h3>
     <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.5rem;">Start with Seedling — no lock-in, no commitment, just really good cards showing up at your door. Cancel whenever. We won't even guilt trip you.</p>
-    <button class="btn-primary">Try Seedling for free</button>
+    <button class="btn-primary" type="button" onclick="showComingSoon(event)">Try Seedling for free</button>
   </div>
 
   <footer>
@@ -1483,7 +1622,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1491,7 +1630,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1523,24 +1662,23 @@
       <div class="eyebrow">Behind the prickles</div>
       <h1>Hi, I'm Duni, nice to meet you!</h1>
 
-      <p class="about-para">A Canberra mum, professional plate-spinner, and the person behind Little Miss Prickles. If you looked up "too much on her plate" in the dictionary, you'd probably find a photo of me looking mildly caffeinated.</p>
+      <p class="about-para">A Canberra mum, chronic multitasker, and the person behind Little Miss Prickles. If you looked up "too much on her plate" in the dictionary, you'd probably find a photo of me looking mildly caffeinated.</p>
 
-      <p class="about-para">I'm a general manager running multiple businesses, a role I was absolutely thrown into, sink or swim style, by a boss who saw something in me before I did. Spoiler: I swam. Mostly.</p>
+      <p class="about-para">I'm a general manager running multiple businesses, a role I was absolutely thrown into, sink or swim style, by a boss who saw something in me before I did. Spoiler: I swam. Mostly. Why am I telling you this? Because it's a huge part of what gave me the guts to actually do this. Little Miss Prickles, this website, all of it. Consider it a little bookmark reminder to myself. This is an about me page, isn't it?</p>
 
-      <p class="about-para">I'm also the behind-the-scenes engine of my husband's gardening biz (he does the digging, I do the dollars). We've been together since we were 15 (we're 30 now), which means we've done all the growing up, the hard bits, and the good bits side by side. There's genuinely no one else I'd want in my corner for any of it.</p>
+      <p class="about-para">I'm also the behind-the-scenes engine of my husband's gardening biz (he does the digging, I do the dollars). We've been together since we were 15 (we're 30 now), which means we've done all the growing up, the hard bits, and the good bits side by side. When he's in my corner, my mind goes quiet, the doubts, the creepy crawly what-ifs, all of it. With him there, I feel like I can do anything.</p>
 
       <p class="about-para">Then there's our two-year-old, who has one speed and absolutely no interest in my to-do list. He keeps me present in a way no productivity app ever could. Turns out a toddler who wants to read the same book seventeen times in a row is actually pretty good at teaching you to slow down and appreciate the completely ordinary.</p>
 
-      <p class="about-para">Little Miss Prickles is what happens when someone with too much on their plate also has too many feelings about greeting cards. I've always made cards for people rather than buying them, not because I had to, but because I genuinely believe a card that actually <em>gets</em> the person receiving it hits differently. Something that makes them think "she really knows me" or "that betch." That's the good stuff.</p>
+      <p class="about-para">Little Miss Prickles is what happens when someone with too much on her plate also has too many feelings and thinks half of them should be a card. I think about all the missed opportunities, the moments and feelings we never quite said out loud. Why not capture it in a card? I've always made cards for people rather than buying them. Why? because you can't get custom, slightly unhinged, and made-just-for-them at the supermarket. And honestly? Why would I want to. Little Miss Prickles is about those funny, unordinary little pockets of words, relatable, a bit rude &amp; nice to look at.<br>We've got both here, not just generic.</p>
 
-      <p class="about-para">I believe card-giving is one of the most underrated things we do for each other. In a world of quick texts and voice notes, there's something genuinely special about holding something someone made, posted, and thought about, just for you. I want to bring that back. With puns. Obviously.</p>
+      <p class="about-para">Every card is painted and printed locally here in Canberra, and sent with the hope that it makes someone snort-laugh, ugly cry, or both.</p>
 
-      <p class="about-para">Every card is designed with too much love and not enough sleep, printed locally here in Canberra, and sent with the hope that it makes someone snort-laugh, ugly cry, or both.</p>
-
-      <p class="about-para">If you've ever wanted to give someone a card that really meant something...<br><span class="about-welcome">welcome home ♡</span></p>
+      <p class="about-para">If you've ever wanted to give someone a card that really meant something...</p>
 
       <div class="about-sign-block">
-        <p class="about-sign">Love, Duni</p>
+        <p class="about-welcome">Welcome Home</p>
+        <p class="about-sign">With Love, Duni</p>
       </div>
     </div>
 
@@ -1551,7 +1689,7 @@
     <p style="opacity:0.85;margin-bottom:2rem;font-size:1rem;">Browse the shop or grab a subscription. You'll wonder how you managed without it.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
       <button class="btn-primary" style="background:var(--amber);color:var(--text);" onclick="showPage('shop')">Browse the shop</button>
-      <button class="btn-secondary" style="border-color:white;color:white;" onclick="showPage('subscribe')">See subscriptions</button>
+      <button class="btn-secondary" style="border-color:white;color:white;" onclick="showComingSoon(event)">See subscriptions</button>
     </div>
   </div>
 
@@ -1567,7 +1705,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1575,7 +1713,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1649,7 +1787,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1657,7 +1795,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1728,7 +1866,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1736,7 +1874,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1757,7 +1895,7 @@
     <div class="eyebrow" style="color:var(--text);">Prickle Post</div>
     <h1>Never be that person again. 🌵</h1>
     <p style="color:var(--text);">Your personal card subscription. Tell us your people and your dates, pick a vibe, and we handle the rest. Cards arrive at your door before every important moment in your year, ready to sign and send. You look thoughtful. We stay quiet. Everyone wins.</p>
-    <a onclick="showPage('subscribe')" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
+    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
   </div>
 
   <div class="program-body">
@@ -1825,7 +1963,7 @@
         <div class="plan-price">$5<span>/month</span></div>
         <div class="plan-yearly-note">$60 per year</div>
       </div>
-      <a class="btn-plan" href="#">Start your Prickle Post</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
     </div>
     <div class="plan-card featured">
       <div class="plan-name">In Bloom</div>
@@ -1839,7 +1977,7 @@
         <div class="plan-price">$8<span>/month</span></div>
         <div class="plan-yearly-note">$96 per year</div>
       </div>
-      <a class="btn-plan" href="#">Start your Prickle Post</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
     </div>
     <div class="plan-card">
       <div class="plan-name">Full Bloom</div>
@@ -1853,7 +1991,7 @@
         <div class="plan-price">$14<span>/month</span></div>
         <div class="plan-yearly-note">$168 per year</div>
       </div>
-      <a class="btn-plan" href="#">Start your Prickle Post</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
     </div>
   </div>
 
@@ -1885,7 +2023,7 @@
   <div class="program-cta" style="background:var(--amber);color:var(--text);">
     <h2>Ready to show up for the people you love?</h2>
     <p style="color:var(--text);opacity:0.7;">No more last minute panic. No more service station cards. Just the right card, every time.</p>
-    <a onclick="showPage('subscribe')" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
+    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
   </div>
 
   <footer>
@@ -1900,7 +2038,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1908,7 +2046,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2057,7 +2195,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2065,7 +2203,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2111,7 +2249,7 @@
           <li><a onclick="showPage('home')">Home</a></li>
           <li><a onclick="showPage('shop')">Store</a></li>
           <li><a onclick="showPage('about')">About</a></li>
-          <li><a onclick="showPage('subscribe')">Subscribe</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2119,7 +2257,7 @@
         <ul>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showPage('prickle')">Prickle Post</a></li>
+          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2134,6 +2272,25 @@
   </footer>
 </div>
 
+<!-- COMING SOON STICKER -->
+<div class="splash" id="coming-soon" hidden onclick="hideComingSoon()">
+  <div class="splash-backdrop"></div>
+  <div class="splash-sticker" role="dialog" aria-modal="true" aria-labelledby="splash-title">
+    <svg class="splash-badge" viewBox="0 0 200 200" aria-hidden="true">
+      <polygon points="100.0,3.0 110.8,17.7 125.1,6.3 131.8,23.3 148.5,16.0 150.5,34.2 168.6,31.4 165.8,49.5 184.0,51.5 176.7,68.2 193.7,74.9 182.3,89.2 197.0,100.0 182.3,110.8 193.7,125.1 176.7,131.8 184.0,148.5 165.8,150.5 168.6,168.6 150.5,165.8 148.5,184.0 131.8,176.7 125.1,193.7 110.8,182.3 100.0,197.0 89.2,182.3 74.9,193.7 68.2,176.7 51.5,184.0 49.5,165.8 31.4,168.6 34.2,150.5 16.0,148.5 23.3,131.8 6.3,125.1 17.7,110.8 3.0,100.0 17.7,89.2 6.3,74.9 23.3,68.2 16.0,51.5 34.2,49.5 31.4,31.4 49.5,34.2 51.5,16.0 68.2,23.3 74.9,6.3 89.2,17.7" fill="#ffbd59"/>
+      <circle cx="100" cy="100" r="80" fill="#ffffff"/>
+      <circle cx="100" cy="100" r="80" fill="none" stroke="#1cabb0" stroke-width="3.5"/>
+      <circle cx="100" cy="100" r="71" fill="none" stroke="#1cabb0" stroke-width="1.4" stroke-dasharray="2 7" stroke-linecap="round"/>
+    </svg>
+    <div class="splash-content">
+      <div class="splash-eyebrow">Subscriptions</div>
+      <div class="splash-title" id="splash-title">Coming<br>Soon!!</div>
+      <div class="splash-sub">worth the wait, promise</div>
+    </div>
+    <button class="splash-close" type="button" aria-label="Close" onclick="hideComingSoon()">&times;</button>
+  </div>
+</div>
+
 <!-- SOCIAL TABS -->
 <div class="social-tabs">
   <a class="social-tab social-tab--instagram" href="https://www.instagram.com/little_miss_prickles/" target="_blank" title="Instagram">
@@ -2146,6 +2303,130 @@
 
 
 <script>
+/* ---------------------------------------------------------------
+   HERO SLIDESHOW
+   To add a card, drop the image file in this folder and add a line:
+       { img: 'my-card.png', name: 'Card name', price: '$6.50',
+         alt: 'Short description of the card' },
+   Order here is the order they appear. Images fill a square frame and
+   are cropped from the edges, so keep the card centred in the shot.
+   --------------------------------------------------------------- */
+const heroSlides = [
+  { img: 'youre-a-prick.png', name: "You're a prick.", price: '$6.50', alt: "Watercolour cactus card reading 'You're a prick.'" },
+  { img: 'bunch-of-pricks.png', name: 'Just a bunch of pricks!', price: '$6.50', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
+  { img: 'free-hugs.png', name: 'Free hugs.', price: '$6.50', alt: "Watercolour cactus card reading 'Free hugs.'" },
+  { img: 'cactus-patch.png', name: 'Cactus Patch', price: '$6.50', alt: 'Watercolour card of a collection of potted cacti' }
+];
+
+const HERO_INTERVAL = 4500;
+let heroIndex = 0;
+let heroTimer = null;
+
+function heroBuild() {
+  const stage = document.getElementById('hero-slideshow');
+  const dots = document.getElementById('hero-dots');
+  if (!stage || !dots) return;
+
+  heroSlides.forEach((slide, i) => {
+    const el = document.createElement('div');
+    el.className = 'hero-slide' + (i === 0 ? ' active' : '');
+    el.setAttribute('role', 'tabpanel');
+    const img = document.createElement('img');
+    img.src = slide.img;
+    img.alt = slide.alt || '';
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    el.appendChild(img);
+    stage.insertBefore(el, stage.firstChild);
+
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'card-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', slide.name || 'Card ' + (i + 1));
+    dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    dot.addEventListener('click', () => { heroShow(i); heroRestart(); });
+    dots.appendChild(dot);
+  });
+
+  heroCaption(0);
+
+  if (heroSlides.length < 2) {
+    dots.style.display = 'none';
+    stage.querySelectorAll('.card-nav').forEach(b => b.style.display = 'none');
+    return;
+  }
+
+  stage.addEventListener('mouseenter', heroStop);
+  stage.addEventListener('mouseleave', heroRestart);
+  stage.addEventListener('focusin', heroStop);
+  stage.addEventListener('focusout', heroRestart);
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? heroStop() : heroRestart();
+  });
+  heroRestart();
+}
+
+function heroCaption(i) {
+  const slide = heroSlides[i];
+  const name = document.getElementById('hero-name');
+  const price = document.getElementById('hero-price');
+  if (name) name.textContent = slide && slide.name ? slide.name : '';
+  if (price) price.textContent = slide && slide.price ? slide.price : '';
+}
+
+function heroShow(i) {
+  const slides = document.querySelectorAll('#hero-slideshow .hero-slide');
+  const dots = document.querySelectorAll('#hero-dots .card-dot');
+  if (!slides.length) return;
+  heroIndex = (i + slides.length) % slides.length;
+  slides.forEach((s, n) => s.classList.toggle('active', n === heroIndex));
+  dots.forEach((d, n) => {
+    d.classList.toggle('active', n === heroIndex);
+    d.setAttribute('aria-selected', n === heroIndex ? 'true' : 'false');
+  });
+  heroCaption(heroIndex);
+}
+
+function heroGo(step) { heroShow(heroIndex + step); heroRestart(); }
+function heroStop() { clearInterval(heroTimer); heroTimer = null; }
+
+function heroRestart() {
+  heroStop();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (heroSlides.length < 2) return;
+  heroTimer = setInterval(() => heroShow(heroIndex + 1), HERO_INTERVAL);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', heroBuild);
+} else {
+  heroBuild();
+}
+
+let splashReturnFocus = null;
+
+function showComingSoon(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const el = document.getElementById('coming-soon');
+  if (!el) return;
+  splashReturnFocus = document.activeElement;
+  el.hidden = false;
+  const close = el.querySelector('.splash-close');
+  if (close) close.focus();
+}
+
+function hideComingSoon() {
+  const el = document.getElementById('coming-soon');
+  if (!el || el.hidden) return;
+  el.hidden = true;
+  if (splashReturnFocus && splashReturnFocus.focus) splashReturnFocus.focus();
+  splashReturnFocus = null;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') hideComingSoon();
+});
+
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
