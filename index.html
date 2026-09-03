@@ -218,53 +218,38 @@
 
     .card-stack {
       position: relative;
-      width: 280px;
-      height: 340px;
+      width: 380px;
+      max-width: 100%;
     }
 
-    .card-item {
+    .photo-stage {
+      position: relative;
+      aspect-ratio: 1 / 1;
+    }
+
+    /* Offset panel behind the photo, for a bit of brand colour */
+    .photo-backing {
       position: absolute;
-      width: 210px;
-      height: 280px;
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Montserrat', sans-serif;
-      box-shadow: 0 8px 32px rgba(28,171,176,0.12);
-    }
-
-    .card-back--lavender {
+      inset: 0;
+      border-radius: 22px;
       background: var(--lavender);
-      transform: rotate(-8deg);
-      top: 20px; left: 10px; z-index: 1;
+      transform: translate(13px, 13px) rotate(2.5deg);
     }
 
-    .card-back--amber {
-      background: var(--amber);
-      transform: rotate(3deg);
-      top: 30px; left: 40px; z-index: 2;
-    }
-
-    /* Front card = the slideshow */
-    .card-front {
-      top: 10px; left: 30px; z-index: 3;
-      background: var(--white);
+    .photo-frame {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
       overflow: hidden;
+      background: var(--teal-light);
+      box-shadow: 0 18px 44px rgba(20,122,126,0.22);
     }
 
     .hero-slide {
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: var(--white);
       opacity: 0;
-      transition: opacity 0.6s ease;
-      pointer-events: none;
+      transition: opacity 0.7s ease;
     }
 
     .hero-slide.active { opacity: 1; }
@@ -273,20 +258,41 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      display: block;
+    }
+
+    .photo-caption {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 2rem 0.2rem 0;
+      min-height: 2.6rem;
+    }
+
+    .photo-caption-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .photo-caption-price {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--teal);
     }
 
     .card-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 30px;
-      height: 30px;
+      width: 36px;
+      height: 36px;
       border: none;
       border-radius: 50%;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.94);
       color: var(--text);
-      box-shadow: 0 2px 10px rgba(26,26,46,0.18);
+      box-shadow: 0 2px 10px rgba(26,26,46,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -296,21 +302,17 @@
       z-index: 4;
     }
 
-    .card-front:hover .card-nav,
+    .photo-frame:hover .card-nav,
     .card-nav:focus-visible { opacity: 1; }
     .card-nav:focus-visible { outline: 2px solid var(--teal-dark); outline-offset: 2px; }
-    .card-nav--prev { left: 6px; }
-    .card-nav--next { right: 6px; }
+    .card-nav--prev { left: 10px; }
+    .card-nav--next { right: 10px; }
 
     .card-dots {
-      position: absolute;
-      left: 30px;
-      width: 210px;
-      bottom: 18px;
       display: flex;
       justify-content: center;
-      gap: 7px;
-      z-index: 4;
+      gap: 8px;
+      padding-top: 0.9rem;
     }
 
     .card-dot {
@@ -329,16 +331,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .hero-slide { transition: none; }
-    }
-
-    .card-emoji { font-size: 2.8rem; margin-bottom: 0.5rem; }
-
-    .card-text {
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-align: center;
-      padding: 0 1rem;
-      line-height: 1.3;
     }
 
     .floating-blob {
@@ -1279,15 +1271,20 @@
         <div class="floating-blob blob1"></div>
         <div class="floating-blob blob2"></div>
         <div class="card-stack">
-          <div class="card-item card-back--lavender" aria-hidden="true"></div>
-          <div class="card-item card-back--amber" aria-hidden="true"></div>
-          <div class="card-item card-front" id="hero-slideshow" aria-roledescription="carousel" aria-label="Card designs">
+          <div class="photo-stage">
+          <div class="photo-backing" aria-hidden="true"></div>
+          <div class="photo-frame" id="hero-slideshow" aria-roledescription="carousel" aria-label="Card designs">
             <button class="card-nav card-nav--prev" type="button" aria-label="Previous card" onclick="heroGo(-1)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
             <button class="card-nav card-nav--next" type="button" aria-label="Next card" onclick="heroGo(1)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
+          </div>
+          </div>
+          <div class="photo-caption">
+            <span class="photo-caption-name" id="hero-name"></span>
+            <span class="photo-caption-price" id="hero-price"></span>
           </div>
           <div class="card-dots" id="hero-dots" role="tablist" aria-label="Choose a card"></div>
         </div>
@@ -2302,16 +2299,16 @@
 /* ---------------------------------------------------------------
    HERO SLIDESHOW
    To add a card, drop the image file in this folder and add a line:
-       { img: 'my-card.png', alt: 'Short description of the card' },
-   Order here is the order they appear. Images fill the card and are
-   cropped from the edges, so square or portrait photos with the card
-   centred work best.
+       { img: 'my-card.png', name: 'Card name', price: '$6.50',
+         alt: 'Short description of the card' },
+   Order here is the order they appear. Images fill a square frame and
+   are cropped from the edges, so keep the card centred in the shot.
    --------------------------------------------------------------- */
 const heroSlides = [
-  { img: 'youre-a-prick.png', alt: "Watercolour cactus card reading 'You're a prick.'" },
-  { img: 'bunch-of-pricks.png', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
-  { img: 'free-hugs.png', alt: "Watercolour cactus card reading 'Free hugs.'" },
-  { img: 'cactus-patch.png', alt: 'Watercolour card of a collection of potted cacti' }
+  { img: 'youre-a-prick.png', name: "You're a prick.", price: '$6.50', alt: "Watercolour cactus card reading 'You're a prick.'" },
+  { img: 'bunch-of-pricks.png', name: 'Just a bunch of pricks!', price: '$6.50', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
+  { img: 'free-hugs.png', name: 'Free hugs.', price: '$6.50', alt: "Watercolour cactus card reading 'Free hugs.'" },
+  { img: 'cactus-patch.png', name: 'Cactus Patch', price: '$6.50', alt: 'Watercolour card of a collection of potted cacti' }
 ];
 
 const HERO_INTERVAL = 4500;
@@ -2327,29 +2324,24 @@ function heroBuild() {
     const el = document.createElement('div');
     el.className = 'hero-slide' + (i === 0 ? ' active' : '');
     el.setAttribute('role', 'tabpanel');
-    if (slide.img) {
-      const img = document.createElement('img');
-      img.src = slide.img;
-      img.alt = slide.alt || '';
-      img.loading = i === 0 ? 'eager' : 'lazy';
-      el.appendChild(img);
-    } else {
-      el.style.background = slide.bg || 'var(--teal)';
-      if (slide.color) el.style.color = slide.color;
-      el.innerHTML = '<div class="card-emoji">' + (slide.emoji || '') + '</div>' +
-                     '<div class="card-text">' + (slide.text || '') + '</div>';
-    }
+    const img = document.createElement('img');
+    img.src = slide.img;
+    img.alt = slide.alt || '';
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    el.appendChild(img);
     stage.insertBefore(el, stage.firstChild);
 
     const dot = document.createElement('button');
     dot.type = 'button';
     dot.className = 'card-dot' + (i === 0 ? ' active' : '');
     dot.setAttribute('role', 'tab');
-    dot.setAttribute('aria-label', 'Card ' + (i + 1));
+    dot.setAttribute('aria-label', slide.name || 'Card ' + (i + 1));
     dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
     dot.addEventListener('click', () => { heroShow(i); heroRestart(); });
     dots.appendChild(dot);
   });
+
+  heroCaption(0);
 
   if (heroSlides.length < 2) {
     dots.style.display = 'none';
@@ -2367,6 +2359,14 @@ function heroBuild() {
   heroRestart();
 }
 
+function heroCaption(i) {
+  const slide = heroSlides[i];
+  const name = document.getElementById('hero-name');
+  const price = document.getElementById('hero-price');
+  if (name) name.textContent = slide && slide.name ? slide.name : '';
+  if (price) price.textContent = slide && slide.price ? slide.price : '';
+}
+
 function heroShow(i) {
   const slides = document.querySelectorAll('#hero-slideshow .hero-slide');
   const dots = document.querySelectorAll('#hero-dots .card-dot');
@@ -2377,6 +2377,7 @@ function heroShow(i) {
     d.classList.toggle('active', n === heroIndex);
     d.setAttribute('aria-selected', n === heroIndex ? 'true' : 'false');
   });
+  heroCaption(heroIndex);
 }
 
 function heroGo(step) { heroShow(heroIndex + step); heroRestart(); }
