@@ -1358,56 +1358,24 @@
     </div>
     <div class="category-pills" style="justify-content:flex-start; margin-bottom:2rem;">
       <div class="pill active" onclick="filterHomeCards('all', this)">All the goods</div>
-      <div class="pill" onclick="filterHomeCards('birthday', this)">Getting older</div>
-      <div class="pill" onclick="filterHomeCards('baby', this)">Fresh human</div>
-      <div class="pill" onclick="filterHomeCards('thankyou', this)">You're a gem</div>
-      <div class="pill" onclick="filterHomeCards('justbecause', this)">No reason needed</div>
-      <div class="pill" onclick="filterHomeCards('sympathy', this)">When life is a lot</div>
+      <div class="pill" onclick="filterHomeCards('og', this)">The OG's</div>
     </div>
     <div id="home-card-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem;">
-      <div class="product-card" data-homecat="birthday">
-        <div class="product-img" style="background:#fef3e2;">🎂<span class="product-badge">New</span></div>
-        <div class="product-info"><span class="cat-tag">Birthday</span><h3>It's your day!</h3><div class="price">$6.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="youre-a-prick.png" alt="Watercolour cactus card reading 'You're a prick.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card" data-homecat="birthday">
-        <div class="product-img" style="background:#eef0ff;">🎈</div>
-        <div class="product-info"><span class="cat-tag">Birthday</span><h3>Another trip around the sun</h3><div class="price">$6.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card" data-homecat="birthday">
-        <div class="product-img" style="background:#fff5e0;">🥳</div>
-        <div class="product-info"><span class="cat-tag">Birthday</span><h3>Let's celebrate you</h3><div class="price">$6.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Free hugs.</h3><div class="price">$6.50</div></div>
       </div>
-      <div class="product-card" data-homecat="baby">
-        <div class="product-img" style="background:#eef0ff;">👶</div>
-        <div class="product-info"><span class="cat-tag">New baby</span><h3>A tiny hello</h3><div class="price">$7.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="baby">
-        <div class="product-img" style="background:#e6f8f8;">🍼</div>
-        <div class="product-info"><span class="cat-tag">New baby</span><h3>Welcome, little one</h3><div class="price">$7.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="thankyou">
-        <div class="product-img" style="background:#fff5e0;">💐<span class="product-badge">Popular</span></div>
-        <div class="product-info"><span class="cat-tag">Thank you</span><h3>From the bottom of my heart</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="thankyou">
-        <div class="product-img" style="background:#fef3e2;">🙏</div>
-        <div class="product-info"><span class="cat-tag">Thank you</span><h3>You're a gem</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="justbecause">
-        <div class="product-img" style="background:#e6f8f8;">🌵</div>
-        <div class="product-info"><span class="cat-tag">Just because</span><h3>Prickle of sunshine</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="justbecause">
-        <div class="product-img" style="background:#eef0ff;">✉️</div>
-        <div class="product-info"><span class="cat-tag">Just because</span><h3>Thinking of you</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="sympathy">
-        <div class="product-img" style="background:#f8f8f8;">🕊️</div>
-        <div class="product-info"><span class="cat-tag">Sympathy</span><h3>With all my love</h3><div class="price">$7.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="sympathy">
-        <div class="product-img" style="background:#e6f8f8;">🌿</div>
-        <div class="product-info"><span class="cat-tag">Sympathy</span><h3>Holding you in my heart</h3><div class="price">$7.50</div></div>
+      <div class="product-card" data-homecat="og">
+        <div class="product-img product-img--photo"><img src="cactus-patch.png" alt="Watercolour card of a collection of potted cacti" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Cactus Patch</h3><div class="price">$6.50</div></div>
       </div>
     </div>
   </div>
@@ -1457,71 +1425,27 @@
     <div class="category-pills">
       <div class="pill active" onclick="filterCards('all', this)">All the goods</div>
       <div class="pill" onclick="filterCards('og', this)">The OG's</div>
-      <div class="pill" onclick="filterCards('birthday', this)">Getting older</div>
-      <div class="pill" onclick="filterCards('baby', this)">Fresh human</div>
-      <div class="pill" onclick="filterCards('thankyou', this)">You're a gem</div>
-      <div class="pill" onclick="filterCards('justbecause', this)">No reason needed</div>
-      <div class="pill" onclick="filterCards('sympathy', this)">When life is a lot</div>
     </div>
   </div>
   <div class="card-grid" id="card-grid">
     <div class="product-card" data-cat="og">
-      <div class="product-img product-img--photo"><img src="youre-a-prick.png" alt="Watercolour cactus card reading 'You're a prick.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"><span class="product-badge">The OG</span></div>
+      <div class="product-img product-img--photo"><img src="youre-a-prick.png" alt="Watercolour cactus card reading 'You're a prick.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
       <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
     </div>
     <div class="product-card" data-cat="og">
-      <div class="product-img" style="background:#e6f8f8;">🌵<img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-img product-img--photo"><img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
+    </div>
+    <div class="product-card" data-cat="og">
+      <div class="product-img product-img--photo"><img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
       <div class="product-info"><span class="cat-tag">The OG's</span><h3>Free hugs.</h3><div class="price">$6.50</div></div>
     </div>
     <div class="product-card" data-cat="og">
-      <div class="product-img" style="background:#fff5e0;">🌵<img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="birthday">
-      <div class="product-img" style="background:#fef3e2;">🎂<span class="product-badge">New</span></div>
-      <div class="product-info"><span class="cat-tag">Birthday</span><h3>It's your day!</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="birthday">
-      <div class="product-img" style="background:#eef0ff;">🎈</div>
-      <div class="product-info"><span class="cat-tag">Birthday</span><h3>Another trip around the sun</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="birthday">
-      <div class="product-img" style="background:#fff5e0;">🥳</div>
-      <div class="product-info"><span class="cat-tag">Birthday</span><h3>Let's celebrate you</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="baby">
-      <div class="product-img" style="background:#eef0ff;">👶</div>
-      <div class="product-info"><span class="cat-tag">New baby</span><h3>A tiny hello</h3><div class="price">$7.50</div></div>
-    </div>
-    <div class="product-card" data-cat="baby">
-      <div class="product-img" style="background:#e6f8f8;">🍼</div>
-      <div class="product-info"><span class="cat-tag">New baby</span><h3>Welcome, little one</h3><div class="price">$7.50</div></div>
-    </div>
-    <div class="product-card" data-cat="thankyou">
-      <div class="product-img" style="background:#fff5e0;">💐<span class="product-badge">Popular</span></div>
-      <div class="product-info"><span class="cat-tag">Thank you</span><h3>From the bottom of my heart</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="thankyou">
-      <div class="product-img" style="background:#fef3e2;">🙏</div>
-      <div class="product-info"><span class="cat-tag">Thank you</span><h3>You're a gem</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="justbecause">
-      <div class="product-img" style="background:#e6f8f8;">🌵</div>
-      <div class="product-info"><span class="cat-tag">Just because</span><h3>Prickle of sunshine</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="justbecause">
-      <div class="product-img" style="background:#eef0ff;">✉️</div>
-      <div class="product-info"><span class="cat-tag">Just because</span><h3>Thinking of you</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="sympathy">
-      <div class="product-img" style="background:#f8f8f8;">🕊️</div>
-      <div class="product-info"><span class="cat-tag">Sympathy</span><h3>With all my love</h3><div class="price">$7.50</div></div>
-    </div>
-    <div class="product-card" data-cat="sympathy">
-      <div class="product-img" style="background:#e6f8f8;">🌿</div>
-      <div class="product-info"><span class="cat-tag">Sympathy</span><h3>Holding you in my heart</h3><div class="price">$7.50</div></div>
+      <div class="product-img product-img--photo"><img src="cactus-patch.png" alt="Watercolour card of a collection of potted cacti" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Cactus Patch</h3><div class="price">$6.50</div></div>
     </div>
   </div>
+
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
@@ -2385,9 +2309,9 @@
    --------------------------------------------------------------- */
 const heroSlides = [
   { img: 'youre-a-prick.png', alt: "Watercolour cactus card reading 'You're a prick.'" },
-  { bg: 'var(--teal)',     emoji: '🎂', text: 'Happy Birthday!', color: '#ffffff' },
-  { bg: 'var(--lavender)', emoji: '💌', text: 'Thinking of you' },
-  { bg: 'var(--amber)',    emoji: '🌵', text: "You're a prick." }
+  { img: 'bunch-of-pricks.png', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
+  { img: 'free-hugs.png', alt: "Watercolour cactus card reading 'Free hugs.'" },
+  { img: 'cactus-patch.png', alt: 'Watercolour card of a collection of potted cacti' }
 ];
 
 const HERO_INTERVAL = 4500;
