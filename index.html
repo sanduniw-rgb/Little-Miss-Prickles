@@ -503,6 +503,15 @@
       position: relative;
     }
 
+    .product-img--photo { background: var(--white); }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+    }
+
     .product-badge {
       position: absolute;
       top: 10px; right: 10px;
@@ -1444,6 +1453,7 @@
     <p>Cards for every occasion, cheeky, heartfelt, and actually worth keeping. Printed locally in Australia, posted with love (and excellent timing).</p>
     <div class="category-pills">
       <div class="pill active" onclick="filterCards('all', this)">All the goods</div>
+      <div class="pill" onclick="filterCards('og', this)">The OG's</div>
       <div class="pill" onclick="filterCards('birthday', this)">Getting older</div>
       <div class="pill" onclick="filterCards('baby', this)">Fresh human</div>
       <div class="pill" onclick="filterCards('thankyou', this)">You're a gem</div>
@@ -1452,6 +1462,18 @@
     </div>
   </div>
   <div class="card-grid" id="card-grid">
+    <div class="product-card" data-cat="og">
+      <div class="product-img product-img--photo"><img src="hero-card.png" alt="Watercolour cactus card reading 'You're a prick.'"><span class="product-badge">The OG</span></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
+    </div>
+    <div class="product-card" data-cat="og">
+      <div class="product-img" style="background:#e6f8f8;">🌵</div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Second OG card</h3><div class="price">$6.50</div></div>
+    </div>
+    <div class="product-card" data-cat="og">
+      <div class="product-img" style="background:#fff5e0;">🌵</div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Third OG card</h3><div class="price">$6.50</div></div>
+    </div>
     <div class="product-card" data-cat="birthday">
       <div class="product-img" style="background:#fef3e2;">🎂<span class="product-badge">New</span></div>
       <div class="product-info"><span class="cat-tag">Birthday</span><h3>It's your day!</h3><div class="price">$6.50</div></div>
