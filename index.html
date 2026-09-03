@@ -811,6 +811,109 @@
       margin-left: 3.5rem;
     }
 
+    /* COMING SOON STICKER */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .splash[hidden] { display: none; }
+
+    .splash-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(20,122,126,0.32);
+      animation: splash-fade 0.2s ease both;
+    }
+
+    .splash-sticker {
+      position: relative;
+      width: min(340px, 78vw);
+      aspect-ratio: 1 / 1;
+      transform: rotate(-6deg);
+      filter: drop-shadow(0 14px 30px rgba(20,122,126,0.35));
+      animation: splash-pop 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+    }
+
+    .splash-badge { display: block; width: 100%; height: 100%; }
+
+    .splash-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 19%;
+    }
+
+    .splash-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .splash-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: clamp(1.7rem, 8vw, 2.5rem);
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+      color: var(--teal);
+    }
+
+    .splash-sub {
+      font-family: 'MoonTime', cursive;
+      font-size: 1.4rem;
+      line-height: 1.1;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .splash-close {
+      position: absolute;
+      top: 13%;
+      right: 13%;
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--text);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(26,26,46,0.22);
+      transform: rotate(6deg);
+      z-index: 2;
+    }
+
+    .splash-close:hover { background: var(--teal); color: white; }
+    .splash-close:focus-visible { outline: 2px solid var(--teal-dark); outline-offset: 2px; }
+
+    @keyframes splash-fade { from { opacity: 0; } to { opacity: 1; } }
+
+    @keyframes splash-pop {
+      0%   { opacity: 0; transform: rotate(-26deg) scale(0.3); }
+      60%  { opacity: 1; transform: rotate(-2deg) scale(1.08); }
+      100% { opacity: 1; transform: rotate(-6deg) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .splash-sticker { animation: none; transform: rotate(-6deg); }
+      .splash-backdrop { animation: none; }
+    }
+
     /* SOCIAL TABS */
     .social-tabs {
       position: fixed;
@@ -1491,7 +1594,7 @@
         <li><div class="check">✓</div>Cancel anytime</li>
       </ul>
       <!-- TODO: replace href with Stripe payment link -->
-      <a class="btn-plan" href="#">Get started</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
     </div>
 
     <div class="plan-card featured">
@@ -1517,7 +1620,7 @@
         <li><div class="check">✓</div>Cancel anytime</li>
       </ul>
       <!-- TODO: replace href with Stripe payment link -->
-      <a class="btn-plan" href="#">Get started</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
     </div>
 
     <div class="plan-card">
@@ -1543,7 +1646,7 @@
         <li><div class="check">✓</div>Cancel anytime</li>
       </ul>
       <!-- TODO: replace href with Stripe payment link -->
-      <a class="btn-plan" href="#">Get started</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
     </div>
   </div>
 
@@ -1551,7 +1654,7 @@
     <div style="font-size:2rem;margin-bottom:0.8rem;">🌵</div>
     <h3 style="font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:0.6rem;">Dipping your toes in?</h3>
     <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.5rem;">Start with Seedling — no lock-in, no commitment, just really good cards showing up at your door. Cancel whenever. We won't even guilt trip you.</p>
-    <button class="btn-primary">Try Seedling for free</button>
+    <button class="btn-primary" type="button" onclick="showComingSoon(event)">Try Seedling for free</button>
   </div>
 
   <footer>
@@ -1907,7 +2010,7 @@
         <div class="plan-price">$5<span>/month</span></div>
         <div class="plan-yearly-note">$60 per year</div>
       </div>
-      <a class="btn-plan" href="#">Start your Prickle Post</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
     </div>
     <div class="plan-card featured">
       <div class="plan-name">In Bloom</div>
@@ -1921,7 +2024,7 @@
         <div class="plan-price">$8<span>/month</span></div>
         <div class="plan-yearly-note">$96 per year</div>
       </div>
-      <a class="btn-plan" href="#">Start your Prickle Post</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
     </div>
     <div class="plan-card">
       <div class="plan-name">Full Bloom</div>
@@ -1935,7 +2038,7 @@
         <div class="plan-price">$14<span>/month</span></div>
         <div class="plan-yearly-note">$168 per year</div>
       </div>
-      <a class="btn-plan" href="#">Start your Prickle Post</a>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
     </div>
   </div>
 
@@ -2216,6 +2319,25 @@
   </footer>
 </div>
 
+<!-- COMING SOON STICKER -->
+<div class="splash" id="coming-soon" hidden onclick="hideComingSoon()">
+  <div class="splash-backdrop"></div>
+  <div class="splash-sticker" role="dialog" aria-modal="true" aria-labelledby="splash-title">
+    <svg class="splash-badge" viewBox="0 0 200 200" aria-hidden="true">
+      <polygon points="100.0,3.0 110.8,17.7 125.1,6.3 131.8,23.3 148.5,16.0 150.5,34.2 168.6,31.4 165.8,49.5 184.0,51.5 176.7,68.2 193.7,74.9 182.3,89.2 197.0,100.0 182.3,110.8 193.7,125.1 176.7,131.8 184.0,148.5 165.8,150.5 168.6,168.6 150.5,165.8 148.5,184.0 131.8,176.7 125.1,193.7 110.8,182.3 100.0,197.0 89.2,182.3 74.9,193.7 68.2,176.7 51.5,184.0 49.5,165.8 31.4,168.6 34.2,150.5 16.0,148.5 23.3,131.8 6.3,125.1 17.7,110.8 3.0,100.0 17.7,89.2 6.3,74.9 23.3,68.2 16.0,51.5 34.2,49.5 31.4,31.4 49.5,34.2 51.5,16.0 68.2,23.3 74.9,6.3 89.2,17.7" fill="#ffbd59"/>
+      <circle cx="100" cy="100" r="80" fill="#ffffff"/>
+      <circle cx="100" cy="100" r="80" fill="none" stroke="#1cabb0" stroke-width="3.5"/>
+      <circle cx="100" cy="100" r="71" fill="none" stroke="#1cabb0" stroke-width="1.4" stroke-dasharray="2 7" stroke-linecap="round"/>
+    </svg>
+    <div class="splash-content">
+      <div class="splash-eyebrow">Subscriptions</div>
+      <div class="splash-title" id="splash-title">Coming<br>Soon!!</div>
+      <div class="splash-sub">worth the wait, promise</div>
+    </div>
+    <button class="splash-close" type="button" aria-label="Close" onclick="hideComingSoon()">&times;</button>
+  </div>
+</div>
+
 <!-- SOCIAL TABS -->
 <div class="social-tabs">
   <a class="social-tab social-tab--instagram" href="https://www.instagram.com/little_miss_prickles/" target="_blank" title="Instagram">
@@ -2323,6 +2445,30 @@ if (document.readyState === 'loading') {
 } else {
   heroBuild();
 }
+
+let splashReturnFocus = null;
+
+function showComingSoon(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const el = document.getElementById('coming-soon');
+  if (!el) return;
+  splashReturnFocus = document.activeElement;
+  el.hidden = false;
+  const close = el.querySelector('.splash-close');
+  if (close) close.focus();
+}
+
+function hideComingSoon() {
+  const el = document.getElementById('coming-soon');
+  if (!el || el.hidden) return;
+  el.hidden = true;
+  if (splashReturnFocus && splashReturnFocus.focus) splashReturnFocus.focus();
+  splashReturnFocus = null;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') hideComingSoon();
+});
 
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
