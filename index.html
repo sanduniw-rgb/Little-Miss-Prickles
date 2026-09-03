@@ -506,14 +506,18 @@
     .product-img--photo { background: var(--white); }
 
     .product-img img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: contain;
       padding: 8px;
+      background: var(--white);
     }
 
     .product-badge {
       position: absolute;
+      z-index: 2;
       top: 10px; right: 10px;
       background: var(--amber);
       color: var(--text);
@@ -1467,12 +1471,12 @@
       <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
     </div>
     <div class="product-card" data-cat="og">
-      <div class="product-img" style="background:#e6f8f8;">🌵</div>
-      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Second OG card</h3><div class="price">$6.50</div></div>
+      <div class="product-img" style="background:#e6f8f8;">🌵<img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Free hugs.</h3><div class="price">$6.50</div></div>
     </div>
     <div class="product-card" data-cat="og">
-      <div class="product-img" style="background:#fff5e0;">🌵</div>
-      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Third OG card</h3><div class="price">$6.50</div></div>
+      <div class="product-img" style="background:#fff5e0;">🌵<img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
+      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
     </div>
     <div class="product-card" data-cat="birthday">
       <div class="product-img" style="background:#fef3e2;">🎂<span class="product-badge">New</span></div>
