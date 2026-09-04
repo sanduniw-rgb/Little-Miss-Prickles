@@ -1390,26 +1390,9 @@
 
     /* A story section: photograph beside the words */
     .program-story {
-      max-width: 1000px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 4.5rem 3rem;
-    }
-
-    .program-story-grid {
-      display: grid;
-      grid-template-columns: 0.85fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    .program-story-photo img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      object-position: center 35%;
-      border-radius: 18px;
-      display: block;
-      box-shadow: 0 12px 34px rgba(26,26,46,0.14);
     }
 
     .program-story h2 { font-size: 1.8rem; margin-bottom: 1.2rem; }
@@ -1451,6 +1434,30 @@
       margin: 0 auto 2rem;
       line-height: 1.7;
     }
+    /* Split hero: words beside a photograph */
+    .program-hero--split { text-align: left; padding: 4rem 3rem; }
+
+    .program-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 0.75fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .program-hero--split p { margin: 0; max-width: 460px; }
+
+    .program-hero-photo img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center 35%;
+      border-radius: 18px;
+      display: block;
+      box-shadow: 0 16px 40px rgba(26,26,46,0.22);
+    }
+
     .program-body {
       max-width: 760px;
       margin: 0 auto;
@@ -1684,9 +1691,10 @@
       .footer-brand { grid-column: 1 / -1; }
 
       /* PROGRAMS + FAQ */
+      .program-hero--split { padding: 2.5rem 1.5rem 3rem; }
+      .program-hero-inner { grid-template-columns: 1fr; gap: 1.8rem; }
+      .program-hero-photo img { aspect-ratio: 4 / 3; }
       .program-story { padding: 3rem 1.5rem; }
-      .program-story-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      .program-story-photo img { aspect-ratio: 4 / 3; }
       .program-story h2, .program-body h2 { font-size: 1.5rem; }
       .program-hero { padding: 3.5rem 1.5rem; }
       .program-steps { padding: 2.5rem 1.5rem; }
@@ -2212,10 +2220,17 @@
 
 <!-- INDEPENDENT HEARTS -->
 <div class="page" id="page-hearts">
-  <div class="program-hero" style="background:linear-gradient(135deg,var(--lavender) 0%,#a8b4ff 100%); color:var(--text);">
-    <div class="eyebrow">Independent Hearts</div>
-    <h1>Cards that mean something.<br>Always.</h1>
-    <p>For older Australians who still believe a card in the post is worth something. No apps, no forms, no fuss.</p>
+  <div class="program-hero program-hero--split" style="background:linear-gradient(135deg,var(--lavender) 0%,#a8b4ff 100%); color:var(--text);">
+    <div class="program-hero-inner">
+      <div>
+        <div class="eyebrow">Independent Hearts</div>
+        <h1>Cards that mean something.<br>Always.</h1>
+        <p>For older Australians who still believe a card in the post is worth something. No apps, no forms, no fuss.</p>
+      </div>
+      <div class="program-hero-photo">
+        <img src="independent-hearts.jpg" alt="An older person writing a card at a wooden table">
+      </div>
+    </div>
   </div>
 
   <div class="program-body">
@@ -2250,11 +2265,8 @@
     </div>
   </div>
 
-  <div class="program-story">
-    <div class="program-story-grid">
-      <div class="program-story-photo">
-        <img src="independent-hearts.jpg" alt="An older person writing a card at a wooden table">
-      </div>
+  <div class="program-story program-story--text">
+    <div>
       <div>
         <h2>Why I started this</h2>
         <p>I used to work in aged care, and the people I met there all wanted the same thing: to still feel in control. Not looked after. In control. Of their own memories, their own relationships, their own way of showing up for the people they love.</p>
