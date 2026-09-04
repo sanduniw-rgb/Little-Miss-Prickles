@@ -897,7 +897,10 @@
 
     /* NAV CART */
     .nav-cart {
-      position: relative;
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1568,6 +1571,7 @@
       .nav-left { justify-content: center; gap: 1.5rem; }
       .nav-right { justify-content: center; gap: 1rem; }
       .nav-link { font-size: 0.82rem; }
+      .nav-cart { position: static; transform: none; }
 
       /* HOME HERO */
       .hero {
@@ -1668,12 +1672,12 @@
   <div class="nav-left">
     <a onclick="showPage('home')" class="nav-link active" id="nav-home">Home</a>
     <a onclick="showPage('shop')" class="nav-link" id="nav-shop">Store</a>
+    <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
   </div>
   <div class="nav-logo">
     <img src="logo.png" alt="Little Miss Prickles">
   </div>
   <div class="nav-right">
-    <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
     <div class="nav-dropdown">
       <button class="nav-link nav-drop-toggle" type="button" aria-expanded="false" aria-controls="family-menu" onclick="toggleFamily(event)">
         The Prickle Post Family
