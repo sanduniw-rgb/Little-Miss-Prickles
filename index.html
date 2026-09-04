@@ -93,43 +93,6 @@
       color: var(--lavender-ink);
     }
 
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 189, 89, 0.7); }
-      50% { box-shadow: 0 0 0 8px rgba(255, 189, 89, 0); }
-    }
-
-    .nav-link--subscribe {
-      background: var(--amber);
-      color: var(--text) !important;
-      padding: 0.45rem 1.2rem;
-      border-radius: 100px;
-      font-weight: 600;
-      animation: pulse-glow 1.8s ease-in-out infinite;
-      transition: transform 0.15s, background 0.2s;
-    }
-
-    .nav-link--subscribe:hover {
-      background: #f0ad40;
-      color: var(--text) !important;
-      transform: scale(1.04);
-      animation: none;
-    }
-
-    .nav-cta {
-      background: var(--amber);
-      color: var(--text);
-      border: none;
-      padding: 0.55rem 1.3rem;
-      border-radius: 100px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: transform 0.15s, background 0.2s;
-    }
-
-    .nav-cta:hover { transform: scale(1.04); background: #f0ad40; }
-
     /* PAGES */
     .page { display: none; }
     .page.active { display: block; }
@@ -166,7 +129,6 @@
       color: var(--text);
       margin-bottom: 1.2rem;
     }
-
 
     .hero p {
       font-size: 1.05rem;
@@ -278,7 +240,6 @@
     @media (prefers-reduced-motion: reduce) {
       .hero-slide { transition: none; }
     }
-
 
     /* FEATURES STRIP */
     .features-strip {
@@ -671,7 +632,6 @@
     .plan-save { font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-bottom: 0.5rem; }
     .plan-card.featured .plan-save { color: rgba(255,255,255,0.85); }
     .plan-yearly-note { font-size: 0.78rem; opacity: 0.6; margin-bottom: 0.5rem; }
-
 
     /* ABOUT PAGE */
     .about-layout {
@@ -1708,6 +1668,12 @@
   <div class="nav-left">
     <a onclick="showPage('home')" class="nav-link active" id="nav-home">Home</a>
     <a onclick="showPage('shop')" class="nav-link" id="nav-shop">Store</a>
+  </div>
+  <div class="nav-logo">
+    <img src="logo.png" alt="Little Miss Prickles">
+  </div>
+  <div class="nav-right">
+    <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
     <div class="nav-dropdown">
       <button class="nav-link nav-drop-toggle" type="button" aria-expanded="false" aria-controls="family-menu" onclick="toggleFamily(event)">
         The Prickle Post Family
@@ -1721,13 +1687,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="nav-logo">
-    <img src="logo.png" alt="Little Miss Prickles">
-  </div>
-  <div class="nav-right">
-    <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
-    <a onclick="showComingSoon(event)" class="nav-link nav-link--subscribe" id="nav-subscribe">Subscribe</a>
     <button class="nav-cart" type="button" onclick="openCart()" aria-label="Open cart">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span class="nav-cart-count" id="nav-cart-count" hidden>0</span>
@@ -2896,7 +2855,6 @@
     <svg width="22" height="22" viewBox="0 0 24 24" fill="#1a1a2e"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.791-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
   </a>
 </div>
-
 
 <script>
 /* ---------------------------------------------------------------
