@@ -924,6 +924,93 @@
       .splash-backdrop { animation: none; }
     }
 
+    /* SOCIAL FEED */
+    .social-feed {
+      background: var(--lavender-light);
+      padding: 4rem 3rem;
+    }
+
+    .social-feed-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+
+    .social-feed h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .social-feed-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-feed-handle {
+      color: var(--lavender-ink);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .social-feed-handle:hover { text-decoration: underline; }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.9rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .social-tile {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--white);
+      display: block;
+    }
+
+    .social-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .social-tile:hover img { transform: scale(1.06); }
+
+    .social-tile::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(26,26,46,0.18);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .social-tile:hover::after { opacity: 1; }
+
+    .social-tile--brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--lavender);
+      padding: 1.2rem;
+    }
+
+    .social-tile--brand img {
+      width: 80%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .social-tile--brand:hover img { transform: none; }
+    .social-tile--brand::after { content: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .social-tile img { transition: none; }
+      .social-tile:hover img { transform: none; }
+    }
+
     /* SOCIAL TABS */
     .social-tabs {
       position: fixed;
@@ -1193,6 +1280,11 @@
       .features-strip { padding: 2rem 1.5rem; }
       .features-inner { grid-template-columns: 1fr; gap: 1.5rem; }
 
+      /* SOCIAL FEED */
+      .social-feed { padding: 2.5rem 1.5rem; }
+      .social-feed h2 { font-size: 1.6rem; }
+      .social-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
       /* HOME STORE SECTION */
       .home-store-section { padding: 2.5rem 1.5rem !important; }
       .home-store-section h2 { font-size: 1.6rem !important; }
@@ -1386,6 +1478,32 @@
         <div class="product-img product-img--photo"><img src="cactus-patch.png" alt="Watercolour card of a collection of potted cacti" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
         <div class="product-info"><span class="cat-tag">The OG's</span><h3>Cactus Patch</h3><div class="price">$6.50</div></div>
       </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       SOCIAL FEED
+       These tiles are placeholders using existing photos. To show the real
+       Instagram feed, sign up with a feed service (Behold, Curator.io,
+       SnapWidget, Elfsight), connect the account, and replace everything
+       between <div class="social-grid"> and its closing </div> with the
+       embed code they give you. Nothing else here needs to change.
+       =================================================================== -->
+  <div class="social-feed">
+    <div class="social-feed-inner">
+      <h2>Follow along</h2>
+      <p class="social-feed-sub">New designs, behind the scenes, and the occasional cactus pun. <a class="social-feed-handle" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener">@little_miss_prickles</a></p>
+
+      <div class="social-grid">
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="youre-a-prick.png" alt="The You're a prick. card"></a>
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="bunch-of-pricks.png" alt="The Just a bunch of pricks! card"></a>
+        <a class="social-tile social-tile--brand" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="Logos.png?v=2" alt="Little Miss Prickles"></a>
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="free-hugs.png" alt="The Free hugs. card"></a>
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="cactus-patch.png" alt="The Cactus Patch card"></a>
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="about-photo.jpg" alt="Duni and her family"></a>
+      </div>
+
+      <a class="btn-primary" style="display:inline-block;text-decoration:none;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener">Follow on Instagram</a>
     </div>
   </div>
 
