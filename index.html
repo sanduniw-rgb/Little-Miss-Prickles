@@ -21,6 +21,8 @@
       --teal: #1cabb0;
       --lavender: #c2cdff;
       --amber: #ffbd59;
+      --amber-dark: #f0ad40;
+      --amber-light: #fff5e0;
       --teal-light: #e6f8f8;
       --teal-dark: #147a7e;
       --text: #1a1a2e;
@@ -180,8 +182,8 @@
     }
 
     .btn-primary {
-      background: var(--teal);
-      color: white;
+      background: var(--amber);
+      color: var(--text);
       border: none;
       padding: 0.75rem 1.8rem;
       border-radius: 100px;
@@ -192,12 +194,12 @@
       transition: transform 0.15s, background 0.2s;
     }
 
-    .btn-primary:hover { background: var(--teal-dark); transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--amber-dark); transform: translateY(-2px); }
 
     .btn-secondary {
       background: transparent;
-      color: var(--teal-dark);
-      border: 1.5px solid var(--teal);
+      color: var(--text);
+      border: 1.5px solid var(--amber);
       padding: 0.75rem 1.8rem;
       border-radius: 100px;
       font-family: 'Montserrat', sans-serif;
@@ -207,7 +209,7 @@
       transition: background 0.2s;
     }
 
-    .btn-secondary:hover { background: var(--teal-light); }
+    .btn-secondary:hover { background: var(--amber-light); }
 
     .hero-visual {
       position: relative;
@@ -651,9 +653,9 @@
       width: 100%;
       padding: 0.8rem;
       border-radius: 100px;
-      border: 2px solid var(--teal);
+      border: 2px solid var(--amber);
       background: transparent;
-      color: var(--teal);
+      color: var(--text);
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
       font-size: 0.9rem;
@@ -661,7 +663,7 @@
       transition: all 0.2s;
     }
 
-    .btn-plan:hover { background: var(--teal); color: white; }
+    .btn-plan:hover { background: var(--amber); color: var(--text); }
 
     .plan-card.featured .btn-plan { border-color: white; color: white; }
 
@@ -1894,7 +1896,7 @@
     <div class="eyebrow" style="color:var(--text);">Prickle Post</div>
     <h1>Never be that person again. 🌵</h1>
     <p style="color:var(--text);">Your personal card subscription. Tell us your people and your dates, pick a vibe, and we handle the rest. Cards arrive at your door before every important moment in your year, ready to sign and send. You look thoughtful. We stay quiet. Everyone wins.</p>
-    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
+    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;background:var(--text);color:#fff;">Start your Prickle Post</a>
   </div>
 
   <div class="program-body">
@@ -2022,7 +2024,7 @@
   <div class="program-cta" style="background:var(--amber);color:var(--text);">
     <h2>Ready to show up for the people you love?</h2>
     <p style="color:var(--text);opacity:0.7;">No more last minute panic. No more service station cards. Just the right card, every time.</p>
-    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;">Start your Prickle Post</a>
+    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;background:var(--text);color:#fff;">Start your Prickle Post</a>
   </div>
 
   <footer>
