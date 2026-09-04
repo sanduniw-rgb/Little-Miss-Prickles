@@ -134,7 +134,7 @@
     /* ---- HOME PAGE ---- */
     .hero {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.1fr;
       align-items: center;
       gap: 3rem;
       padding: 5rem 3rem 4rem;
@@ -222,10 +222,14 @@
       align-items: center;
     }
 
+    /* The wrapper is the flex item, so it needs the width for the
+       stack's percentage to resolve against. */
+    .hero-visual > div { width: 100%; max-width: 500px; }
+
     .card-stack {
       position: relative;
-      width: 380px;
-      max-width: 100%;
+      width: 100%;
+      max-width: 500px;
     }
 
     .photo-stage {
