@@ -17,6 +17,9 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* Form controls do not inherit the page font by default */
+    button, input, select, textarea { font-family: inherit; }
+
     :root {
       --teal: #1cabb0;
       --lavender: #c2cdff;
@@ -56,14 +59,14 @@
 
     .nav-left {
       display: flex;
-      gap: 3.5rem;
+      gap: 2.2rem;
       justify-content: flex-end;
       align-items: center;
     }
 
     .nav-right {
       display: flex;
-      gap: 3.5rem;
+      gap: 2.2rem;
       justify-content: flex-start;
       align-items: center;
     }
@@ -90,43 +93,6 @@
       color: var(--lavender-ink);
     }
 
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 189, 89, 0.7); }
-      50% { box-shadow: 0 0 0 8px rgba(255, 189, 89, 0); }
-    }
-
-    .nav-link--subscribe {
-      background: var(--amber);
-      color: var(--text) !important;
-      padding: 0.45rem 1.2rem;
-      border-radius: 100px;
-      font-weight: 600;
-      animation: pulse-glow 1.8s ease-in-out infinite;
-      transition: transform 0.15s, background 0.2s;
-    }
-
-    .nav-link--subscribe:hover {
-      background: #f0ad40;
-      color: var(--text) !important;
-      transform: scale(1.04);
-      animation: none;
-    }
-
-    .nav-cta {
-      background: var(--amber);
-      color: var(--text);
-      border: none;
-      padding: 0.55rem 1.3rem;
-      border-radius: 100px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: transform 0.15s, background 0.2s;
-    }
-
-    .nav-cta:hover { transform: scale(1.04); background: #f0ad40; }
-
     /* PAGES */
     .page { display: none; }
     .page.active { display: block; }
@@ -134,7 +100,7 @@
     /* ---- HOME PAGE ---- */
     .hero {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.1fr;
       align-items: center;
       gap: 3rem;
       padding: 5rem 3rem 4rem;
@@ -164,13 +130,6 @@
       margin-bottom: 1.2rem;
     }
 
-    .hero h1 em {
-      font-family: 'MoonTime', cursive;
-      font-style: normal;
-      font-size: 1.2em;
-      color: var(--teal);
-    }
-
     .hero p {
       font-size: 1.05rem;
       color: var(--text-muted);
@@ -198,7 +157,7 @@
       transition: transform 0.15s, background 0.2s;
     }
 
-    .btn-primary:hover { background: var(--lavender-dark); transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--amber); transform: translateY(-2px); }
 
     .btn-secondary {
       background: transparent;
@@ -213,7 +172,7 @@
       transition: background 0.2s;
     }
 
-    .btn-secondary:hover { background: var(--lavender-light); }
+    .btn-secondary:hover { background: var(--amber); border-color: var(--amber); }
 
     .hero-visual {
       position: relative;
@@ -222,33 +181,23 @@
       align-items: center;
     }
 
+    /* The wrapper is the flex item, so it needs the width for the
+       stack's percentage to resolve against. */
+    .hero-visual > div { width: 100%; max-width: 500px; }
+
     .card-stack {
       position: relative;
-      width: 380px;
-      max-width: 100%;
+      width: 100%;
+      max-width: 500px;
     }
 
     .photo-stage {
       position: relative;
       aspect-ratio: 1 / 1;
-    }
-
-    /* Offset panel behind the photo, for a bit of brand colour */
-    .photo-backing {
-      position: absolute;
-      inset: 0;
-      border-radius: 22px;
-      background: var(--lavender);
-      transform: translate(13px, 13px) rotate(2.5deg);
-    }
-
-    .photo-frame {
-      position: absolute;
-      inset: 0;
-      border-radius: 22px;
+      border-radius: 20px;
       overflow: hidden;
       background: var(--teal-light);
-      box-shadow: 0 18px 44px rgba(20,122,126,0.22);
+      box-shadow: 0 10px 30px rgba(26,26,46,0.10);
     }
 
     .hero-slide {
@@ -267,63 +216,16 @@
       display: block;
     }
 
-    .photo-caption {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 2rem 0.2rem 0;
-      min-height: 2.6rem;
-    }
-
-    .photo-caption-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .photo-caption-price {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--teal);
-    }
-
-    .card-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.94);
-      color: var(--text);
-      box-shadow: 0 2px 10px rgba(26,26,46,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      z-index: 4;
-    }
-
-    .photo-frame:hover .card-nav,
-    .card-nav:focus-visible { opacity: 1; }
-    .card-nav:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 2px; }
-    .card-nav--prev { left: 10px; }
-    .card-nav--next { right: 10px; }
-
     .card-dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      padding-top: 0.9rem;
+      padding-top: 1.1rem;
     }
 
     .card-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       padding: 0;
       border: none;
       border-radius: 50%;
@@ -338,15 +240,6 @@
     @media (prefers-reduced-motion: reduce) {
       .hero-slide { transition: none; }
     }
-
-    .floating-blob {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.18;
-    }
-
-    .blob1 { width: 180px; height: 180px; background: var(--teal); top: -30px; right: -20px; }
-    .blob2 { width: 120px; height: 120px; background: var(--amber); bottom: 0px; left: -10px; }
 
     /* FEATURES STRIP */
     .features-strip {
@@ -467,7 +360,8 @@
       transition: all 0.2s;
     }
 
-    .pill.active, .pill:hover { background: var(--lavender); color: var(--text); border-color: var(--lavender); }
+    .pill.active { background: var(--lavender); color: var(--text); border-color: var(--lavender); }
+    .pill:hover { background: var(--amber); color: var(--text); border-color: var(--amber); }
 
     .card-grid {
       display: grid;
@@ -479,6 +373,8 @@
     }
 
     .product-card {
+      display: flex;
+      flex-direction: column;
       background: white;
       border-radius: 16px;
       border: 1.5px solid #f0f0f8;
@@ -493,6 +389,7 @@
     }
 
     .product-img {
+      flex: 0 0 auto;
       height: 200px;
       display: flex;
       align-items: center;
@@ -524,9 +421,24 @@
       border-radius: 100px;
     }
 
-    .product-info { padding: 1rem 1.2rem 1.2rem; }
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.2rem 1.2rem;
+    }
 
-    .product-info h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; margin-bottom: 0.3rem; }
+    .product-info h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      line-height: 1.3;
+      height: 2.6em;
+      margin-bottom: 0.3rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
     .product-info .cat-tag {
       font-size: 0.75rem;
@@ -536,7 +448,7 @@
       display: block;
     }
 
-    .product-info .price { font-size: 1.05rem; font-weight: 700; color: var(--teal-dark); }
+    .product-info .price { margin-top: auto; font-size: 1.05rem; font-weight: 700; color: var(--teal-dark); }
 
     /* SUBSCRIPTION PAGE */
     .sub-hero {
@@ -667,7 +579,7 @@
       transition: all 0.2s;
     }
 
-    .btn-plan:hover { background: var(--lavender); color: var(--text); }
+    .btn-plan:hover { background: var(--amber); color: var(--text); border-color: var(--amber); }
 
     .plan-card.featured .btn-plan { border-color: white; color: white; }
 
@@ -720,7 +632,6 @@
     .plan-save { font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-bottom: 0.5rem; }
     .plan-card.featured .plan-save { color: rgba(255,255,255,0.85); }
     .plan-yearly-note { font-size: 0.78rem; opacity: 0.6; margin-bottom: 0.5rem; }
-
 
     /* ABOUT PAGE */
     .about-layout {
@@ -791,6 +702,8 @@
       line-height: 1.15;
       margin-bottom: 1.5rem;
     }
+
+    .about-para strong { color: var(--text); font-weight: 600; }
 
     .about-para {
       color: var(--text-muted);
@@ -908,7 +821,7 @@
       z-index: 2;
     }
 
-    .splash-close:hover { background: var(--lavender); color: var(--text); }
+    .splash-close:hover { background: var(--amber); color: var(--text); }
     .splash-close:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 2px; }
 
     @keyframes splash-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -922,6 +835,492 @@
     @media (prefers-reduced-motion: reduce) {
       .splash-sticker { animation: none; transform: rotate(-6deg); }
       .splash-backdrop { animation: none; }
+    }
+
+    /* NAV DROPDOWN */
+    .nav-dropdown { position: relative; }
+
+    .nav-drop-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .nav-drop-toggle svg { transition: transform 0.2s ease; }
+    .nav-dropdown:hover .nav-drop-toggle svg,
+    .nav-dropdown.open .nav-drop-toggle svg { transform: rotate(180deg); }
+
+    /* The wrapper carries the gap as padding, so the pointer never
+       leaves the dropdown on its way down to the menu. */
+    .nav-drop-wrap {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: 0.9rem;
+      display: none;
+      z-index: 120;
+    }
+
+    .nav-dropdown:hover .nav-drop-wrap,
+    .nav-dropdown:focus-within .nav-drop-wrap,
+    .nav-dropdown.open .nav-drop-wrap { display: block; }
+
+    .nav-drop-menu {
+      min-width: 210px;
+      background: #fff;
+      border: 1.5px solid #f0f0f8;
+      border-radius: 14px;
+      box-shadow: 0 14px 36px rgba(26,26,46,0.13);
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-drop-menu a {
+      padding: 0.6rem 0.8rem;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .nav-drop-menu a:hover { background: var(--amber); }
+
+    /* NAV CART */
+    .nav-cart {
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-cart:hover { background: var(--amber-light); }
+    .nav-cart:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 2px; }
+
+    .nav-cart-count {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 9px;
+      background: var(--lavender-ink);
+      color: #fff;
+      font-size: 0.66rem;
+      font-weight: 700;
+      line-height: 18px;
+      text-align: center;
+    }
+
+    .nav-cart-count[hidden] { display: none; }
+
+    /* PRODUCT PAGE */
+    .product-detail { max-width: 1100px; margin: 0 auto; padding: 2.5rem 3rem 4rem; }
+
+    .product-back {
+      background: none;
+      border: none;
+      padding: 0 0 1.5rem;
+      color: var(--text-muted);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .product-back:hover { color: var(--lavender-ink); }
+
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .product-detail-media {
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--white);
+      aspect-ratio: 1 / 1;
+    }
+
+    .product-detail-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .pd-name { font-size: 2.2rem; line-height: 1.15; margin: 0.6rem 0 0.4rem; }
+    .pd-price { font-size: 1.4rem; font-weight: 700; color: var(--teal); margin-bottom: 1.2rem; }
+    .pd-blurb { color: var(--text-muted); line-height: 1.8; margin-bottom: 1.8rem; }
+
+    .pd-qty {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      border: 1.5px solid #e0e0f0;
+      border-radius: 100px;
+      padding: 0.2rem;
+      margin-right: 0.8rem;
+      vertical-align: middle;
+    }
+
+    .pd-qty button {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+    }
+
+    .pd-qty button:hover { background: var(--amber-light); }
+    .pd-qty-value { min-width: 26px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+    .pd-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; }
+
+    .pd-details {
+      list-style: none;
+      border-top: 1px solid #eeeef6;
+      padding-top: 1.2rem;
+    }
+
+    .pd-details li {
+      display: flex;
+      gap: 0.6rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding: 0.35rem 0;
+    }
+
+    .pd-details li::before { content: '\2022'; color: var(--lavender-ink); }
+
+    .pd-more { margin-top: 4rem; }
+    .pd-more h2 { font-size: 1.4rem; margin-bottom: 1.5rem; }
+    .pd-more .card-grid { padding: 0; }
+
+    /* CART DRAWER */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26,26,46,0.35);
+      z-index: 210;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .drawer-backdrop[hidden] { display: none; }
+    .drawer-backdrop.open { opacity: 1; }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(400px, 100%);
+      background: #fff;
+      z-index: 220;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -12px 0 40px rgba(26,26,46,0.16);
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.25, 0.8, 0.35, 1);
+    }
+
+    .cart-drawer.open { transform: translateX(0); }
+
+    .cart-drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.4rem;
+      border-bottom: 1px solid #eeeef6;
+    }
+
+    .cart-drawer-head h2 { font-size: 1.1rem; }
+
+    .cart-close {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .cart-close:hover { background: var(--amber-light); }
+
+    .cart-drawer-body { flex: 1; overflow-y: auto; padding: 1.2rem 1.4rem; }
+
+    .cart-drawer-foot {
+      border-top: 1px solid #eeeef6;
+      padding: 1.2rem 1.4rem 1.4rem;
+    }
+
+    .cart-line {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 0.9rem;
+      align-items: center;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #f4f4fa;
+    }
+
+    .cart-line-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .cart-line-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cart-line-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.15rem; }
+    .cart-line-price { color: var(--text-muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+
+    .cart-line-controls { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.4rem; }
+
+    .cart-step {
+      width: 26px;
+      height: 26px;
+      border: 1.5px solid #e0e0f0;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .cart-step:hover { background: var(--amber-light); }
+    .cart-qty { min-width: 20px; text-align: center; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+
+    .cart-remove {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .cart-remove:hover { color: var(--lavender-ink); }
+    .cart-line-total { font-weight: 600; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+
+    .cart-subtotal {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+
+    .cart-subtotal span:last-child { font-variant-numeric: tabular-nums; }
+    .cart-note { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem; }
+    .cart-drawer-foot .btn-primary, .cart-drawer-foot .btn-secondary { width: 100%; margin-bottom: 0.6rem; }
+
+    .cart-empty { text-align: center; color: var(--text-muted); padding: 3rem 1rem; }
+    .cart-empty p { margin-bottom: 1.2rem; font-size: 0.92rem; }
+
+    /* CART REWARDS */
+    .cart-reward {
+      background: var(--lavender-light);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .cart-reward p { font-size: 0.83rem; line-height: 1.45; margin-bottom: 0.55rem; }
+    .cart-reward strong { font-weight: 700; }
+
+    .cart-reward-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .cart-reward-bar span {
+      display: block;
+      height: 100%;
+      border-radius: 3px;
+      background: var(--lavender-ink);
+      transition: width 0.35s ease;
+    }
+
+    .cart-reward--done { background: var(--teal-light); }
+    .cart-reward--done .cart-reward-bar span { background: var(--teal); }
+
+    .cart-line--gift .cart-line-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--lavender-light);
+      font-size: 1.4rem;
+    }
+
+    .cart-gift-tag {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: 100px;
+      margin-top: 0.35rem;
+    }
+
+    .cart-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .cart-row span:last-child { font-variant-numeric: tabular-nums; }
+    .cart-row--save { color: var(--teal); font-weight: 600; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cart-reward-bar span { transition: none; }
+    }
+
+    /* CART PAGE */
+    .cart-page { max-width: 900px; margin: 0 auto; padding: 3rem 3rem 4rem; }
+    .cart-page h1 { font-size: 2rem; margin-bottom: 1.8rem; }
+    .cart-page .cart-line { grid-template-columns: 88px 1fr auto; }
+    .cart-page .cart-line-img { width: 88px; height: 88px; }
+
+    .cart-page-foot {
+      margin-top: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+    }
+
+    .cart-page-total { font-size: 1.2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cart-drawer, .drawer-backdrop { transition: none; }
+    }
+
+    /* SOCIAL FEED */
+    .social-feed {
+      background: var(--lavender-light);
+      padding: 4rem 0;
+      overflow: hidden;
+    }
+
+    .social-feed-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; text-align: center; }
+
+    .social-feed h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .social-feed-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 2.2rem;
+    }
+
+    /* One row, drifting slowly, fading out at both edges */
+    .social-marquee {
+      position: relative;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+              mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+
+    .social-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      animation: social-drift 90s linear infinite;
+    }
+
+    .social-marquee:hover .social-track,
+    .social-marquee:focus-within .social-track { animation-play-state: paused; }
+
+    @keyframes social-drift {
+      from { transform: translateX(0); }
+      to   { transform: translateX(calc(-50% - 0.5rem)); }
+    }
+
+    .social-tile {
+      position: relative;
+      flex: 0 0 auto;
+      width: 210px;
+      height: 210px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--white);
+      display: block;
+      text-decoration: none;
+    }
+
+    .social-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .social-tile:hover img { transform: scale(1.06); }
+
+    .social-tile-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(26,26,46,0.42);
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .social-tile:hover .social-tile-overlay,
+    .social-tile:focus-visible .social-tile-overlay { opacity: 1; }
+    .social-tile:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 3px; }
+
+    .social-feed-cta { margin-top: 2.2rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .social-track { animation: none; }
+      .social-marquee { overflow-x: auto; }
+      .social-tile img { transition: none; }
+      .social-tile:hover img { transform: none; }
     }
 
     /* SOCIAL TABS */
@@ -1155,7 +1554,7 @@
       max-width: 360px;
       transition: border-color 0.2s, background 0.2s;
     }
-    .contact-link:hover { border-color: var(--lavender); background: var(--lavender-light); }
+    .contact-link:hover { border-color: var(--amber); background: var(--amber-light); }
     .contact-link span { font-size: 1.3rem; }
 
     @media (max-width: 700px) {
@@ -1172,6 +1571,7 @@
       .nav-left { justify-content: center; gap: 1.5rem; }
       .nav-right { justify-content: center; gap: 1rem; }
       .nav-link { font-size: 0.82rem; }
+      .nav-cart { position: static; transform: none; }
 
       /* HOME HERO */
       .hero {
@@ -1182,16 +1582,30 @@
       .hero h1 { font-size: 2rem; }
       .hero-visual { margin-top: 2.2rem; }
       .card-stack { width: 100%; max-width: 320px; }
-      .photo-backing { transform: translate(10px, 10px) rotate(2.5deg); }
-      .photo-caption { padding-top: 1.7rem; }
-      /* Arrows need no hover on touch, so keep them visible */
-      .card-nav { opacity: 1; width: 32px; height: 32px; }
-      .blob1 { width: 130px; height: 130px; top: -22px; right: -12px; }
-      .blob2 { width: 90px; height: 90px; }
 
       /* FEATURES */
       .features-strip { padding: 2rem 1.5rem; }
       .features-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+
+      /* PRODUCT PAGE */
+      .product-detail { padding: 1.5rem 1.5rem 3rem; }
+      .product-detail-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+      .pd-name { font-size: 1.7rem; }
+      .pd-more { margin-top: 2.5rem; }
+      .pd-more .card-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+
+      /* CART */
+      .cart-page { padding: 2rem 1.5rem 3rem; }
+      .cart-page h1 { font-size: 1.6rem; }
+      .cart-page .cart-line { grid-template-columns: 64px 1fr auto; }
+      .cart-page .cart-line-img { width: 64px; height: 64px; }
+      .cart-page-foot { align-items: stretch; }
+
+      /* SOCIAL FEED */
+      .social-feed { padding: 2.5rem 0; }
+      .social-feed-inner { padding: 0 1.5rem; }
+      .social-feed h2 { font-size: 1.6rem; }
+      .social-tile { width: 150px; height: 150px; }
 
       /* HOME STORE SECTION */
       .home-store-section { padding: 2.5rem 1.5rem !important; }
@@ -1258,13 +1672,29 @@
   <div class="nav-left">
     <a onclick="showPage('home')" class="nav-link active" id="nav-home">Home</a>
     <a onclick="showPage('shop')" class="nav-link" id="nav-shop">Store</a>
+    <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
   </div>
   <div class="nav-logo">
     <img src="logo.png" alt="Little Miss Prickles">
   </div>
   <div class="nav-right">
-    <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
-    <a onclick="showComingSoon(event)" class="nav-link nav-link--subscribe" id="nav-subscribe">Subscribe</a>
+    <div class="nav-dropdown">
+      <button class="nav-link nav-drop-toggle" type="button" aria-expanded="false" aria-controls="family-menu" onclick="toggleFamily(event)">
+        The Prickle Post Family
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-drop-wrap">
+        <div class="nav-drop-menu" id="family-menu">
+          <a onclick="closeFamily();showComingSoon(event)">The Regular</a>
+          <a onclick="closeFamily();showPage('hearts')">Independent Hearts</a>
+          <a onclick="closeFamily();showPage('sorted')">Sorted</a>
+        </div>
+      </div>
+    </div>
+    <button class="nav-cart" type="button" onclick="openCart()" aria-label="Open cart">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="nav-cart-count" id="nav-cart-count" hidden>0</span>
+    </button>
   </div>
 </nav>
 
@@ -1272,7 +1702,7 @@
 <div class="page active" id="page-home">
   <div class="hero">
     <div>
-<h1><em>Cards so good,</em> they'll think you planned ahead.</h1>
+<h1>Cards so good, they'll think you planned ahead.</h1>
       <p>Cheeky, heartfelt cards for every occasion, and a subscription that means you'll never be that person who forgot again. (We won't tell.)</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="showPage('shop')">Browse the shop</button>
@@ -1280,24 +1710,8 @@
     </div>
     <div class="hero-visual">
       <div style="position:relative;">
-        <div class="floating-blob blob1"></div>
-        <div class="floating-blob blob2"></div>
         <div class="card-stack">
-          <div class="photo-stage">
-          <div class="photo-backing" aria-hidden="true"></div>
-          <div class="photo-frame" id="hero-slideshow" aria-roledescription="carousel" aria-label="Card designs">
-            <button class="card-nav card-nav--prev" type="button" aria-label="Previous card" onclick="heroGo(-1)">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="card-nav card-nav--next" type="button" aria-label="Next card" onclick="heroGo(1)">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </div>
-          </div>
-          <div class="photo-caption">
-            <span class="photo-caption-name" id="hero-name"></span>
-            <span class="photo-caption-price" id="hero-price"></span>
-          </div>
+          <div class="photo-stage" id="hero-slideshow" aria-roledescription="carousel" aria-label="Card designs"></div>
           <div class="card-dots" id="hero-dots" role="tablist" aria-label="Choose a card"></div>
         </div>
       </div>
@@ -1369,23 +1783,61 @@
       <div class="pill active" onclick="filterHomeCards('all', this)">All the goods</div>
       <div class="pill" onclick="filterHomeCards('og', this)">The OG's</div>
     </div>
-    <div id="home-card-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem;">
-      <div class="product-card" data-homecat="og">
-        <div class="product-img product-img--photo"><img src="youre-a-prick.png" alt="Watercolour cactus card reading 'You're a prick.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-        <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
+    <div id="home-card-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem;"></div>
+  </div>
+
+  <!-- ===================================================================
+       SOCIAL FEED
+       The tiles are stills from the Instagram grid, sliced out of the
+       uploaded screenshot into insta-01.jpg .. insta-15.jpg. The row is
+       listed twice so the drift can loop seamlessly - if you add or
+       remove a tile, change it in BOTH halves or the loop will jump.
+       To show a live feed instead, replace .social-marquee with the
+       embed code from a feed service.
+       =================================================================== -->
+  <div class="social-feed">
+    <div class="social-feed-inner">
+      <h2>Follow along</h2>
+      <p class="social-feed-sub">New designs, behind the scenes, and the occasional cactus pun.</p>
+    </div>
+
+    <div class="social-marquee">
+      <div class="social-track">
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-01.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-02.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-03.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-04.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-05.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-06.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-07.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-08.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-09.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-10.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-11.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-12.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-13.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-14.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-15.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-01.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-02.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-03.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-04.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-05.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-06.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-07.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-08.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-09.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-10.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-11.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-12.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-13.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-14.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-15.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
       </div>
-      <div class="product-card" data-homecat="og">
-        <div class="product-img product-img--photo"><img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="og">
-        <div class="product-img product-img--photo"><img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Free hugs.</h3><div class="price">$6.50</div></div>
-      </div>
-      <div class="product-card" data-homecat="og">
-        <div class="product-img product-img--photo"><img src="cactus-patch.png" alt="Watercolour card of a collection of potted cacti" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-        <div class="product-info"><span class="cat-tag">The OG's</span><h3>Cactus Patch</h3><div class="price">$6.50</div></div>
-      </div>
+    </div>
+
+    <div class="social-feed-inner social-feed-cta">
+      <a class="btn-primary" style="display:inline-block;text-decoration:none;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener">Follow on Instagram</a>
     </div>
   </div>
 
@@ -1405,11 +1857,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1436,24 +1888,7 @@
       <div class="pill" onclick="filterCards('og', this)">The OG's</div>
     </div>
   </div>
-  <div class="card-grid" id="card-grid">
-    <div class="product-card" data-cat="og">
-      <div class="product-img product-img--photo"><img src="youre-a-prick.png" alt="Watercolour cactus card reading 'You're a prick.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-      <div class="product-info"><span class="cat-tag">The OG's</span><h3>You're a prick.</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="og">
-      <div class="product-img product-img--photo"><img src="bunch-of-pricks.png" alt="Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Just a bunch of pricks!</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="og">
-      <div class="product-img product-img--photo"><img src="free-hugs.png" alt="Watercolour cactus card reading 'Free hugs.'" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Free hugs.</h3><div class="price">$6.50</div></div>
-    </div>
-    <div class="product-card" data-cat="og">
-      <div class="product-img product-img--photo"><img src="cactus-patch.png" alt="Watercolour card of a collection of potted cacti" onerror="this.parentNode.classList.remove('product-img--photo');this.remove();"></div>
-      <div class="product-info"><span class="cat-tag">The OG's</span><h3>Cactus Patch</h3><div class="price">$6.50</div></div>
-    </div>
-  </div>
+  <div class="card-grid" id="card-grid"></div>
 
   <footer>
     <div class="footer-inner">
@@ -1471,11 +1906,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1611,7 +2046,7 @@
   <div style="background:var(--teal-light); padding:3rem; text-align:center; border-radius:20px; max-width:700px; margin:0 auto 4rem;">
     <div style="font-size:2rem;margin-bottom:0.8rem;">🌵</div>
     <h3 style="font-family:'Montserrat',sans-serif;font-size:1.5rem;margin-bottom:0.6rem;">Dipping your toes in?</h3>
-    <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.5rem;">Start with Seedling — no lock-in, no commitment, just really good cards showing up at your door. Cancel whenever. We won't even guilt trip you.</p>
+    <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.5rem;">Start with Seedling. No lock-in, no commitment, just really good cards showing up at your door. Cancel whenever. We won't even guilt trip you.</p>
     <button class="btn-primary" type="button" onclick="showComingSoon(event)">Try Seedling for free</button>
   </div>
 
@@ -1631,11 +2066,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1667,17 +2102,17 @@
       <div class="eyebrow">Behind the prickles</div>
       <h1>Hi, I'm Duni, nice to meet you!</h1>
 
-      <p class="about-para">A Canberra mum, chronic multitasker, and the person behind Little Miss Prickles. If you looked up "too much on her plate" in the dictionary, you'd probably find a photo of me looking mildly caffeinated.</p>
+      <p class="about-para">A Canberra mum, chronic multitasker, and the person behind Little Miss Prickles. If you looked up "too much on her plate" in the dictionary, you'd probably find <strong>a photo of me looking mildly caffeinated</strong>.</p>
 
-      <p class="about-para">I'm a general manager running multiple businesses, a role I was absolutely thrown into, sink or swim style, by a boss who saw something in me before I did. Spoiler: I swam. Mostly. Why am I telling you this? Because it's a huge part of what gave me the guts to actually do this. Little Miss Prickles, this website, all of it. Consider it a little bookmark reminder to myself. This is an about me page, isn't it?</p>
+      <p class="about-para">I'm a general manager running multiple businesses, a role I was absolutely thrown into, sink or swim style, by a boss who saw something in me before I did. <strong>Spoiler: I swam. Mostly.</strong> Why am I telling you this? Because it's a huge part of what gave me the guts to actually do this. Little Miss Prickles, this website, all of it. Consider it a little bookmark reminder to myself. This is an about me page, isn't it?</p>
 
-      <p class="about-para">I'm also the behind-the-scenes engine of my husband's gardening biz (he does the digging, I do the dollars). We've been together since we were 15 (we're 30 now), which means we've done all the growing up, the hard bits, and the good bits side by side. When he's in my corner, my mind goes quiet, the doubts, the creepy crawly what-ifs, all of it. With him there, I feel like I can do anything.</p>
+      <p class="about-para">I'm also the behind-the-scenes engine of my husband's gardening biz (<strong>he does the digging, I do the dollars</strong>). We've been together since we were 15 (we're 30 now), which means we've done all the growing up, the hard bits, and the good bits side by side. When he's in my corner, my mind goes quiet, the doubts, the creepy crawly what-ifs, all of it. With him there, I feel like I can do anything.</p>
 
-      <p class="about-para">Then there's our two-year-old, who has one speed and absolutely no interest in my to-do list. He keeps me present in a way no productivity app ever could. Turns out a toddler who wants to read the same book seventeen times in a row is actually pretty good at teaching you to slow down and appreciate the completely ordinary.</p>
+      <p class="about-para">Then there's our two-year-old, who has <strong>one speed and absolutely no interest in my to-do list</strong>. He keeps me present in a way no productivity app ever could. Turns out a toddler who wants to read the same book seventeen times in a row is actually pretty good at teaching you to slow down and appreciate the completely ordinary.</p>
 
-      <p class="about-para">Little Miss Prickles is what happens when someone with too much on her plate also has too many feelings and thinks half of them should be a card. I think about all the missed opportunities, the moments and feelings we never quite said out loud. Why not capture it in a card? I've always made cards for people rather than buying them. Why? because you can't get custom, slightly unhinged, and made-just-for-them at the supermarket. And honestly? Why would I want to. Little Miss Prickles is about those funny, unordinary little pockets of words, relatable, a bit rude &amp; nice to look at.<br>We've got both here, not just generic.</p>
+      <p class="about-para">Little Miss Prickles is what happens when someone with too much on her plate also has <strong>too many feelings and thinks half of them should be a card</strong>. I think about all the missed opportunities, the moments and feelings we never quite said out loud. Why not capture it in a card? I've always made cards for people rather than buying them. Why? because you can't get <strong>custom, slightly unhinged, and made-just-for-them</strong> at the supermarket. And honestly? Why would I want to. Little Miss Prickles is about those funny, unordinary little pockets of words, relatable, a bit rude &amp; nice to look at.<br>We've got both here, not just generic.</p>
 
-      <p class="about-para">Every card is painted and printed locally here in Canberra, and sent with the hope that it makes someone snort-laugh, ugly cry, or both.</p>
+      <p class="about-para">Every card is painted and printed locally here in Canberra, and sent with the hope that it makes someone <strong>snort-laugh, ugly cry, or both</strong>.</p>
 
       <p class="about-para">If you've ever wanted to give someone a card that really meant something...</p>
 
@@ -1690,12 +2125,12 @@
   </div>
 
   <div style="background:var(--lavender); padding:3.5rem 3rem; text-align:center; color:var(--text);">
-    <h2 style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:2rem;margin-bottom:0.6rem;">Read more about our programs</h2>
+    <h2 style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:2rem;margin-bottom:0.6rem;">Read more about the Prickle Post Family</h2>
     <p style="opacity:0.75;margin-bottom:1.8rem;font-size:1rem;">Three ways to never miss a moment, whoever you're sending to.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
       <button class="btn-primary" style="background:#fff;color:var(--text);" onclick="showPage('hearts')">Independent Hearts</button>
       <button class="btn-primary" style="background:#fff;color:var(--text);" onclick="showPage('sorted')">Sorted</button>
-      <button class="btn-primary" style="background:#fff;color:var(--text);" onclick="showComingSoon(event)">Prickle Post</button>
+      <button class="btn-primary" style="background:#fff;color:var(--text);" onclick="showComingSoon(event)">The Regular</button>
     </div>
   </div>
 
@@ -1715,11 +2150,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1797,11 +2232,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1876,11 +2311,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1895,17 +2330,17 @@
   </footer>
 </div>
 
-<!-- PRICKLE POST -->
+<!-- THE REGULAR -->
 <div class="page" id="page-prickle">
   <div class="program-hero" style="background:linear-gradient(135deg,var(--amber) 0%,#f0ad40 100%); color:var(--text);">
-    <div class="eyebrow" style="color:var(--text);">Prickle Post</div>
+    <div class="eyebrow" style="color:var(--text);">The Regular</div>
     <h1>Never be that person again. 🌵</h1>
     <p style="color:var(--text);">Your personal card subscription. Tell us your people and your dates, pick a vibe, and we handle the rest. Cards arrive at your door before every important moment in your year, ready to sign and send. You look thoughtful. We stay quiet. Everyone wins.</p>
-    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;background:var(--text);color:#fff;">Start your Prickle Post</a>
+    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;background:var(--text);color:#fff;">Start The Regular</a>
   </div>
 
   <div class="program-body">
-    <p>Prickle Post is the heart of Little Miss Prickles. A personal card subscription that makes sure the right card lands at your door before every important date in your year.</p>
+    <p>The Regular is the heart of the Prickle Post Family. A personal card subscription that makes sure the right card lands at your door before every important date in your year.</p>
     <p>You tell us your people and your dates, we pick the perfect card, pack it up with a little something extra, and post it straight to you with plenty of time to write something lovely (or cheeky) and send it on.</p>
     <p>No more last minute panic. No more service station cards. Just the right card, every time, without you having to think about it.</p>
   </div>
@@ -1916,7 +2351,7 @@
       <div class="program-step">
         <div class="program-step-num" style="background:var(--amber);color:var(--text);">1</div>
         <h3>Pick your plan</h3>
-        <p>Seedling, In Bloom, or Full Bloom — depending on how many people you want to show up for.</p>
+        <p>Seedling, In Bloom, or Full Bloom, depending on how many people you want to show up for.</p>
       </div>
       <div class="program-step">
         <div class="program-step-num" style="background:var(--amber);color:var(--text);">2</div>
@@ -1969,7 +2404,7 @@
         <div class="plan-price">$5<span>/month</span></div>
         <div class="plan-yearly-note">$60 per year</div>
       </div>
-      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start The Regular</button>
     </div>
     <div class="plan-card featured">
       <div class="plan-name">In Bloom</div>
@@ -1983,7 +2418,7 @@
         <div class="plan-price">$8<span>/month</span></div>
         <div class="plan-yearly-note">$96 per year</div>
       </div>
-      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start The Regular</button>
     </div>
     <div class="plan-card">
       <div class="plan-name">Full Bloom</div>
@@ -1997,7 +2432,7 @@
         <div class="plan-price">$14<span>/month</span></div>
         <div class="plan-yearly-note">$168 per year</div>
       </div>
-      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start your Prickle Post</button>
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Start The Regular</button>
     </div>
   </div>
 
@@ -2029,7 +2464,7 @@
   <div class="program-cta" style="background:var(--amber);color:var(--text);">
     <h2>Ready to show up for the people you love?</h2>
     <p style="color:var(--text);opacity:0.7;">No more last minute panic. No more service station cards. Just the right card, every time.</p>
-    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;background:var(--text);color:#fff;">Start your Prickle Post</a>
+    <a onclick="showComingSoon(event)" class="btn-primary" style="cursor:pointer;display:inline-block;background:var(--text);color:#fff;">Start The Regular</a>
   </div>
 
   <footer>
@@ -2048,11 +2483,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2205,11 +2640,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2229,7 +2664,7 @@
   <div class="contact-body">
     <div class="eyebrow">Get in touch</div>
     <h1>We'd love to hear from you.</h1>
-    <p>Whether you've got a question, a special request, or you just want to tell us you love the cards — we're all ears. We'll get back to you faster than you can say "I forgot their birthday."</p>
+    <p>Whether you've got a question, a special request, or you just want to tell us you love the cards, we're all ears. We'll get back to you faster than you can say "I forgot their birthday."</p>
     <div class="contact-links">
       <a class="contact-link" href="mailto:hello@littlemissprickles.com.au">
         <span>✉️</span> hello@littlemissprickles.com.au
@@ -2259,11 +2694,11 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Programs</div>
+        <div class="footer-col-title">The Prickle Post Family</div>
         <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
           <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
           <li><a onclick="showPage('sorted')">Sorted</a></li>
-          <li><a onclick="showComingSoon(event)">Prickle Post</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2297,6 +2732,124 @@
   </div>
 </div>
 
+<!-- PRODUCT PAGE (one template, every item renders through it) -->
+<div class="page" id="page-product">
+  <div class="product-detail">
+    <button class="product-back" type="button" onclick="showPage('shop')">&larr; Back to the store</button>
+    <div class="product-detail-grid">
+      <div class="product-detail-media"><img id="pd-img" src="" alt=""></div>
+      <div class="product-detail-info">
+        <span class="cat-tag" id="pd-cat"></span>
+        <h1 class="pd-name" id="pd-name"></h1>
+        <div class="pd-price" id="pd-price"></div>
+        <p class="pd-blurb" id="pd-blurb"></p>
+        <div class="pd-actions">
+          <div class="pd-qty">
+            <button type="button" onclick="pdStep(-1)" aria-label="Decrease quantity">&minus;</button>
+            <span class="pd-qty-value" id="pd-qty">1</span>
+            <button type="button" onclick="pdStep(1)" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn-primary" type="button" onclick="pdAdd()">Add to cart</button>
+        </div>
+        <ul class="pd-details" id="pd-details"></ul>
+      </div>
+    </div>
+    <div class="pd-more">
+      <h2>You might also like</h2>
+      <div class="card-grid" id="pd-more-grid"></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Logos.png?v=2" alt="Little Miss Prickles" class="footer-brand-logo">
+        <p>Cheeky, heartfelt cards for every occasion. Printed locally in Canberra, posted with love.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('shop')">Store</a></li>
+          <li><a onclick="showPage('about')">About</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">The Prickle Post Family</div>
+        <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
+          <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
+          <li><a onclick="showPage('sorted')">Sorted</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <ul>
+          <li><a onclick="showPage('faq')">FAQ</a></li>
+          <li><a onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Little Miss Prickles · Canberra, Australia</p>
+    </div>
+  </footer>
+</div>
+
+<!-- CART PAGE -->
+<div class="page" id="page-cart">
+  <div class="cart-page">
+    <h1>Your cart</h1>
+    <div id="cart-page-body"></div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Logos.png?v=2" alt="Little Miss Prickles" class="footer-brand-logo">
+        <p>Cheeky, heartfelt cards for every occasion. Printed locally in Canberra, posted with love.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('shop')">Store</a></li>
+          <li><a onclick="showPage('about')">About</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">The Prickle Post Family</div>
+        <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
+          <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
+          <li><a onclick="showPage('sorted')">Sorted</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <ul>
+          <li><a onclick="showPage('faq')">FAQ</a></li>
+          <li><a onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Little Miss Prickles · Canberra, Australia</p>
+    </div>
+  </footer>
+</div>
+
+<!-- CART DRAWER -->
+<div class="drawer-backdrop" id="drawer-backdrop" hidden onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Your cart" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <h2>Your cart</h2>
+    <button class="cart-close" type="button" onclick="closeCart()" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="cart-drawer-body" id="drawer-body"></div>
+  <div class="cart-drawer-foot" id="drawer-foot"></div>
+</aside>
+
 <!-- SOCIAL TABS -->
 <div class="social-tabs">
   <a class="social-tab social-tab--instagram" href="https://www.instagram.com/little_miss_prickles/" target="_blank" title="Instagram">
@@ -2307,21 +2860,20 @@
   </a>
 </div>
 
-
 <script>
 /* ---------------------------------------------------------------
    HERO SLIDESHOW
    To add a card, drop the image file in this folder and add a line:
-       { img: 'my-card.png', name: 'Card name', price: '$6.50',
+       { img: 'my-card.png',
          alt: 'Short description of the card' },
    Order here is the order they appear. Images fill a square frame and
    are cropped from the edges, so keep the card centred in the shot.
    --------------------------------------------------------------- */
 const heroSlides = [
-  { img: 'youre-a-prick.png', name: "You're a prick.", price: '$6.50', alt: "Watercolour cactus card reading 'You're a prick.'" },
-  { img: 'bunch-of-pricks.png', name: 'Just a bunch of pricks!', price: '$6.50', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
-  { img: 'free-hugs.png', name: 'Free hugs.', price: '$6.50', alt: "Watercolour cactus card reading 'Free hugs.'" },
-  { img: 'cactus-patch.png', name: 'Cactus Patch', price: '$6.50', alt: 'Watercolour card of a collection of potted cacti' }
+  { img: 'youre-a-prick.png', alt: "Watercolour cactus card reading 'You're a prick.'" },
+  { img: 'bunch-of-pricks.png', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
+  { img: 'free-hugs.png', alt: "Watercolour cactus card reading 'Free hugs.'" },
+  { img: 'cactus-patch.png', alt: 'Watercolour card of a collection of potted cacti' }
 ];
 
 const HERO_INTERVAL = 4500;
@@ -2342,7 +2894,7 @@ function heroBuild() {
     img.alt = slide.alt || '';
     img.loading = i === 0 ? 'eager' : 'lazy';
     el.appendChild(img);
-    stage.insertBefore(el, stage.firstChild);
+    stage.appendChild(el);
 
     const dot = document.createElement('button');
     dot.type = 'button';
@@ -2354,11 +2906,8 @@ function heroBuild() {
     dots.appendChild(dot);
   });
 
-  heroCaption(0);
-
   if (heroSlides.length < 2) {
     dots.style.display = 'none';
-    stage.querySelectorAll('.card-nav').forEach(b => b.style.display = 'none');
     return;
   }
 
@@ -2372,14 +2921,6 @@ function heroBuild() {
   heroRestart();
 }
 
-function heroCaption(i) {
-  const slide = heroSlides[i];
-  const name = document.getElementById('hero-name');
-  const price = document.getElementById('hero-price');
-  if (name) name.textContent = slide && slide.name ? slide.name : '';
-  if (price) price.textContent = slide && slide.price ? slide.price : '';
-}
-
 function heroShow(i) {
   const slides = document.querySelectorAll('#hero-slideshow .hero-slide');
   const dots = document.querySelectorAll('#hero-dots .card-dot');
@@ -2390,10 +2931,8 @@ function heroShow(i) {
     d.classList.toggle('active', n === heroIndex);
     d.setAttribute('aria-selected', n === heroIndex ? 'true' : 'false');
   });
-  heroCaption(heroIndex);
 }
 
-function heroGo(step) { heroShow(heroIndex + step); heroRestart(); }
 function heroStop() { clearInterval(heroTimer); heroTimer = null; }
 
 function heroRestart() {
@@ -2403,18 +2942,27 @@ function heroRestart() {
   heroTimer = setInterval(() => heroShow(heroIndex + 1), HERO_INTERVAL);
 }
 
+function bootStore() {
+  renderGrids();
+  loadCart();
+  renderCart();
+}
+
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', heroBuild);
+  document.addEventListener('DOMContentLoaded', () => { heroBuild(); bootStore(); });
 } else {
   heroBuild();
+  bootStore();
 }
 
 let splashReturnFocus = null;
 
-function showComingSoon(e) {
+function showComingSoon(e, label) {
   if (e && e.preventDefault) e.preventDefault();
   const el = document.getElementById('coming-soon');
   if (!el) return;
+  const eyebrow = el.querySelector('.splash-eyebrow');
+  if (eyebrow) eyebrow.textContent = label || 'Subscriptions';
   splashReturnFocus = document.activeElement;
   el.hidden = false;
   const close = el.querySelector('.splash-close');
@@ -2432,6 +2980,315 @@ function hideComingSoon() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') hideComingSoon();
 });
+
+/* ===================================================================
+   PRODUCT CATALOGUE
+   One entry per card. The store grid, the home grid, the product page
+   and the cart all read from here, so every item looks and behaves the
+   same. To add a card, add an entry; nothing else needs touching.
+   =================================================================== */
+const PRODUCTS = [
+  { id: 'youre-a-prick',   name: "You're a prick.",        price: 6.50, cat: "The OG's", img: 'youre-a-prick.png',
+    alt: "Watercolour cactus card reading 'You're a prick.'",
+    blurb: "The one that started it all. A hand painted cactus and three words that say what a shop-bought card never could. For the person who will absolutely take it as a compliment." },
+  { id: 'bunch-of-pricks', name: 'Just a bunch of pricks!', price: 6.50, cat: "The OG's", img: 'bunch-of-pricks.png',
+    alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'",
+    blurb: "A whole crowd of them. For group cards, team cards, family cards, or anyone who needs telling. Hand painted in watercolour, and yes, everyone in the office will read it." },
+  { id: 'free-hugs',       name: 'Free hugs.',              price: 6.50, cat: "The OG's", img: 'free-hugs.png',
+    alt: "Watercolour cactus card reading 'Free hugs.'",
+    blurb: "A cactus offering hugs. Prickly on the outside, soft underneath, which is most of us. For the friend who needs one and would never ask." },
+  { id: 'cactus-patch',    name: 'Cactus Patch',            price: 6.50, cat: "The OG's", img: 'cactus-patch.png',
+    alt: 'Watercolour card of a collection of potted cacti',
+    blurb: "A little collection of pots, all colour and pattern, no words at all. The one to reach for when the occasion does not need a punchline and you would rather write your own." }
+];
+
+/* Shown on every product page, identical for each card. */
+const PRODUCT_DETAILS = [
+  'A6 size, 105 x 148 mm',
+  'Blank inside for your own message',
+  'Envelope included',
+  'Hand painted and printed locally in Canberra'
+];
+
+/* ===================================================================
+   BUNDLE SAVINGS AND FREE GIFT
+   Placeholder numbers. Change them here and the cart, the drawer and
+   the progress nudge all follow. Tiers must stay in ascending order.
+   =================================================================== */
+const CART_REWARDS = {
+  tiers: [
+    { qty: 3, pct: 10, label: '10% off' },
+    { qty: 6, pct: 15, label: '15% off' }
+  ],
+  gift: { qty: 4, name: 'Hand painted bookmark', emoji: '\uD83D\uDD16' }
+};
+
+const byId = id => PRODUCTS.find(p => p.id === id);
+const money = n => '$' + n.toFixed(2);
+
+function productCardHTML(p, catAttr) {
+  return '<div class="product-card" ' + catAttr + '="og" onclick="showProduct(\'' + p.id + '\')">' +
+    '<div class="product-img product-img--photo"><img src="' + p.img + '" alt="' + p.alt + '" ' +
+      'onerror="this.parentNode.classList.remove(\'product-img--photo\');this.remove();"></div>' +
+    '<div class="product-info"><span class="cat-tag">' + p.cat + '</span><h3>' + p.name + '</h3>' +
+    '<div class="price">' + money(p.price) + '</div></div></div>';
+}
+
+function renderGrids() {
+  const shop = document.getElementById('card-grid');
+  const home = document.getElementById('home-card-grid');
+  if (shop) shop.innerHTML = PRODUCTS.map(p => productCardHTML(p, 'data-cat')).join('');
+  if (home) home.innerHTML = PRODUCTS.map(p => productCardHTML(p, 'data-homecat')).join('');
+}
+
+/* ---------- PRODUCT PAGE ---------- */
+let pdCurrent = null;
+let pdQty = 1;
+
+function showProduct(id) {
+  const p = byId(id);
+  if (!p) return;
+  pdCurrent = p;
+  pdQty = 1;
+  document.getElementById('pd-img').src = p.img;
+  document.getElementById('pd-img').alt = p.alt;
+  document.getElementById('pd-cat').textContent = p.cat;
+  document.getElementById('pd-name').textContent = p.name;
+  document.getElementById('pd-price').textContent = money(p.price);
+  document.getElementById('pd-blurb').textContent = p.blurb;
+  document.getElementById('pd-qty').textContent = pdQty;
+  document.getElementById('pd-details').innerHTML =
+    PRODUCT_DETAILS.map(d => '<li>' + d + '</li>').join('');
+  document.getElementById('pd-more-grid').innerHTML =
+    PRODUCTS.filter(o => o.id !== p.id).map(o => productCardHTML(o, 'data-cat')).join('');
+  showPage('product');
+}
+
+function pdStep(delta) {
+  pdQty = Math.max(1, Math.min(99, pdQty + delta));
+  document.getElementById('pd-qty').textContent = pdQty;
+}
+
+function pdAdd() {
+  if (pdCurrent) addToCart(pdCurrent.id, pdQty);
+}
+
+/* ---------- CART ---------- */
+const CART_KEY = 'lmp-cart';
+let cart = [];
+
+function loadCart() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    cart = Array.isArray(raw) ? raw.filter(l => byId(l.id) && l.qty > 0) : [];
+  } catch (e) { cart = []; }
+}
+
+function saveCart() {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {}
+}
+
+const cartCount = () => cart.reduce((n, l) => n + l.qty, 0);
+const cartSubtotal = () => cart.reduce((n, l) => n + byId(l.id).price * l.qty, 0);
+
+/* Everything the cart needs to describe itself: the tier reached, the
+   gift, and the next milestone to nudge towards. */
+function cartSummary() {
+  const count = cartCount();
+  const subtotal = cartSubtotal();
+  const tier = CART_REWARDS.tiers.filter(t => count >= t.qty).pop() || null;
+  const discount = tier ? subtotal * tier.pct / 100 : 0;
+  const gift = CART_REWARDS.gift;
+  const hasGift = count >= gift.qty;
+
+  const milestones = CART_REWARDS.tiers
+    .map(t => ({ qty: t.qty, text: t.label }))
+    .concat([{ qty: gift.qty, text: 'a free ' + gift.name.toLowerCase() }])
+    .sort((a, b) => a.qty - b.qty);
+  const next = milestones.find(m => count < m.qty) || null;
+  const prevQty = next ? (milestones.filter(m => m.qty < next.qty).pop() || { qty: 0 }).qty : 0;
+
+  return {
+    count: count,
+    subtotal: subtotal,
+    tier: tier,
+    discount: discount,
+    total: subtotal - discount,
+    hasGift: hasGift,
+    gift: gift,
+    next: next,
+    progress: next ? Math.min(100, Math.round((count - prevQty) / (next.qty - prevQty) * 100)) : 100
+  };
+}
+
+function addToCart(id, qty) {
+  const line = cart.find(l => l.id === id);
+  if (line) line.qty = Math.min(99, line.qty + (qty || 1));
+  else cart.push({ id: id, qty: qty || 1 });
+  saveCart();
+  renderCart();
+  openCart();
+}
+
+function setQty(id, qty) {
+  const line = cart.find(l => l.id === id);
+  if (!line) return;
+  line.qty = qty;
+  if (line.qty < 1) cart = cart.filter(l => l.id !== id);
+  saveCart();
+  renderCart();
+}
+
+function stepQty(id, delta) {
+  const line = cart.find(l => l.id === id);
+  if (line) setQty(id, Math.min(99, line.qty + delta));
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(l => l.id !== id);
+  saveCart();
+  renderCart();
+}
+
+function cartLineHTML(line) {
+  const p = byId(line.id);
+  return '<div class="cart-line">' +
+    '<div class="cart-line-img"><img src="' + p.img + '" alt="' + p.alt + '"></div>' +
+    '<div><div class="cart-line-name">' + p.name + '</div>' +
+    '<div class="cart-line-price">' + money(p.price) + ' each</div>' +
+    '<div class="cart-line-controls">' +
+      '<button class="cart-step" type="button" onclick="stepQty(\'' + p.id + '\',-1)" aria-label="Decrease quantity of ' + p.name + '">&minus;</button>' +
+      '<span class="cart-qty">' + line.qty + '</span>' +
+      '<button class="cart-step" type="button" onclick="stepQty(\'' + p.id + '\',1)" aria-label="Increase quantity of ' + p.name + '">+</button>' +
+      '<button class="cart-remove" type="button" onclick="removeFromCart(\'' + p.id + '\')">Remove</button>' +
+    '</div></div>' +
+    '<div class="cart-line-total">' + money(p.price * line.qty) + '</div></div>';
+}
+
+function rewardHTML(sum) {
+  if (!sum.count) return '';
+  if (!sum.next) {
+    return '<div class="cart-reward cart-reward--done"><p><strong>Everything unlocked.</strong> ' +
+      sum.tier.label + ' and a free ' + sum.gift.name.toLowerCase() + ' are on this order.</p>' +
+      '<div class="cart-reward-bar"><span style="width:100%"></span></div></div>';
+  }
+  const need = sum.next.qty - sum.count;
+  return '<div class="cart-reward"><p>Add <strong>' + need + ' more card' + (need === 1 ? '' : 's') +
+    '</strong> to get ' + sum.next.text + '.</p>' +
+    '<div class="cart-reward-bar"><span style="width:' + sum.progress + '%"></span></div></div>';
+}
+
+function giftLineHTML(sum) {
+  if (!sum.hasGift) return '';
+  return '<div class="cart-line cart-line--gift">' +
+    '<div class="cart-line-img">' + sum.gift.emoji + '</div>' +
+    '<div><div class="cart-line-name">' + sum.gift.name + '</div>' +
+    '<div class="cart-line-price">Yours on orders of ' + sum.gift.qty + ' or more</div>' +
+    '<span class="cart-gift-tag">Free gift</span></div>' +
+    '<div class="cart-line-total">Free</div></div>';
+}
+
+function totalsHTML(sum) {
+  let html = '<div class="cart-row"><span>Subtotal</span><span>' + money(sum.subtotal) + '</span></div>';
+  if (sum.tier) {
+    html += '<div class="cart-row cart-row--save"><span>Bundle saving (' + sum.tier.label + ')</span><span>&minus;' +
+      money(sum.discount) + '</span></div>';
+  }
+  html += '<div class="cart-subtotal"><span>Total</span><span>' + money(sum.total) + '</span></div>';
+  return html;
+}
+
+function renderCart() {
+  const count = cartCount();
+  const badge = document.getElementById('nav-cart-count');
+  if (badge) { badge.textContent = count; badge.hidden = count === 0; }
+
+  const body = document.getElementById('drawer-body');
+  const foot = document.getElementById('drawer-foot');
+  if (body && foot) {
+    if (!cart.length) {
+      body.innerHTML = '<div class="cart-empty"><p>Nothing in here yet.</p></div>';
+      foot.innerHTML = '<button class="btn-primary" type="button" onclick="closeCart();showPage(\'shop\')">Browse the store</button>';
+    } else {
+      const sum = cartSummary();
+      body.innerHTML = rewardHTML(sum) + cart.map(cartLineHTML).join('') + giftLineHTML(sum);
+      foot.innerHTML =
+        totalsHTML(sum) +
+        '<p class="cart-note">Postage worked out at checkout.</p>' +
+        '<button class="btn-primary" type="button" onclick="showComingSoon(event, \'Checkout\')">Checkout</button>' +
+        '<button class="btn-secondary" type="button" onclick="closeCart();showPage(\'cart\')">View cart</button>';
+    }
+  }
+
+  const pageBody = document.getElementById('cart-page-body');
+  if (pageBody) {
+    if (!cart.length) {
+      pageBody.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p>' +
+        '<button class="btn-primary" type="button" onclick="showPage(\'shop\')">Browse the store</button></div>';
+    } else {
+      const sum = cartSummary();
+      pageBody.innerHTML = rewardHTML(sum) + cart.map(cartLineHTML).join('') + giftLineHTML(sum) +
+        '<div class="cart-page-foot">' +
+        '<div style="min-width:230px">' + totalsHTML(sum) + '</div>' +
+        '<p class="cart-note">Postage worked out at checkout.</p>' +
+        '<button class="btn-primary" type="button" onclick="showComingSoon(event, \'Checkout\')">Checkout</button>' +
+        '</div>';
+    }
+  }
+}
+
+/* ---------- DRAWER ---------- */
+let cartReturnFocus = null;
+
+function openCart() {
+  const d = document.getElementById('cart-drawer');
+  const b = document.getElementById('drawer-backdrop');
+  if (!d || !b) return;
+  cartReturnFocus = document.activeElement;
+  b.hidden = false;
+  requestAnimationFrame(() => { b.classList.add('open'); d.classList.add('open'); });
+  d.setAttribute('aria-hidden', 'false');
+  const close = d.querySelector('.cart-close');
+  if (close) close.focus();
+}
+
+function closeCart() {
+  const d = document.getElementById('cart-drawer');
+  const b = document.getElementById('drawer-backdrop');
+  if (!d || !b || !d.classList.contains('open')) return;
+  d.classList.remove('open');
+  b.classList.remove('open');
+  d.setAttribute('aria-hidden', 'true');
+  setTimeout(() => { b.hidden = true; }, 320);
+  if (cartReturnFocus && cartReturnFocus.focus) cartReturnFocus.focus();
+  cartReturnFocus = null;
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+
+/* Opens on hover through CSS. The click toggle is here for touch,
+   where there is no hover to rely on. */
+function toggleFamily(e) {
+  if (e) e.stopPropagation();
+  const drop = document.querySelector('.nav-dropdown');
+  const btn = document.querySelector('.nav-drop-toggle');
+  if (!drop || !btn) return;
+  const open = !drop.classList.contains('open');
+  drop.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function closeFamily() {
+  const drop = document.querySelector('.nav-dropdown');
+  const btn = document.querySelector('.nav-drop-toggle');
+  if (drop) drop.classList.remove('open');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-dropdown')) closeFamily();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFamily(); });
 
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
