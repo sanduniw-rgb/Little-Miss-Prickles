@@ -56,14 +56,14 @@
 
     .nav-left {
       display: flex;
-      gap: 3.5rem;
+      gap: 2.2rem;
       justify-content: flex-end;
       align-items: center;
     }
 
     .nav-right {
       display: flex;
-      gap: 3.5rem;
+      gap: 2.2rem;
       justify-content: flex-start;
       align-items: center;
     }
@@ -874,6 +874,64 @@
       .splash-backdrop { animation: none; }
     }
 
+    /* NAV DROPDOWN */
+    .nav-dropdown { position: relative; }
+
+    .nav-drop-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .nav-drop-toggle svg { transition: transform 0.2s ease; }
+    .nav-dropdown:hover .nav-drop-toggle svg,
+    .nav-dropdown.open .nav-drop-toggle svg { transform: rotate(180deg); }
+
+    /* The wrapper carries the gap as padding, so the pointer never
+       leaves the dropdown on its way down to the menu. */
+    .nav-drop-wrap {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: 0.9rem;
+      display: none;
+      z-index: 120;
+    }
+
+    .nav-dropdown:hover .nav-drop-wrap,
+    .nav-dropdown:focus-within .nav-drop-wrap,
+    .nav-dropdown.open .nav-drop-wrap { display: block; }
+
+    .nav-drop-menu {
+      min-width: 210px;
+      background: #fff;
+      border: 1.5px solid #f0f0f8;
+      border-radius: 14px;
+      box-shadow: 0 14px 36px rgba(26,26,46,0.13);
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-drop-menu a {
+      padding: 0.6rem 0.8rem;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .nav-drop-menu a:hover { background: var(--amber); }
+
     /* NAV CART */
     .nav-cart {
       position: relative;
@@ -1647,6 +1705,19 @@
   <div class="nav-left">
     <a onclick="showPage('home')" class="nav-link active" id="nav-home">Home</a>
     <a onclick="showPage('shop')" class="nav-link" id="nav-shop">Store</a>
+    <div class="nav-dropdown">
+      <button class="nav-link nav-drop-toggle" type="button" aria-expanded="false" aria-controls="family-menu" onclick="toggleFamily(event)">
+        The Prickle Post Family
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-drop-wrap">
+        <div class="nav-drop-menu" id="family-menu">
+          <a onclick="closeFamily();showComingSoon(event)">The Regular</a>
+          <a onclick="closeFamily();showPage('hearts')">Independent Hearts</a>
+          <a onclick="closeFamily();showPage('sorted')">Sorted</a>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="nav-logo">
     <img src="logo.png" alt="Little Miss Prickles">
@@ -3229,6 +3300,30 @@ function closeCart() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+
+/* Opens on hover through CSS. The click toggle is here for touch,
+   where there is no hover to rely on. */
+function toggleFamily(e) {
+  if (e) e.stopPropagation();
+  const drop = document.querySelector('.nav-dropdown');
+  const btn = document.querySelector('.nav-drop-toggle');
+  if (!drop || !btn) return;
+  const open = !drop.classList.contains('open');
+  drop.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function closeFamily() {
+  const drop = document.querySelector('.nav-dropdown');
+  const btn = document.querySelector('.nav-drop-toggle');
+  if (drop) drop.classList.remove('open');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-dropdown')) closeFamily();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFamily(); });
 
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
