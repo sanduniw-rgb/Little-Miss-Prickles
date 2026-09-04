@@ -1173,6 +1173,72 @@
     .cart-empty { text-align: center; color: var(--text-muted); padding: 3rem 1rem; }
     .cart-empty p { margin-bottom: 1.2rem; font-size: 0.92rem; }
 
+    /* CART REWARDS */
+    .cart-reward {
+      background: var(--lavender-light);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .cart-reward p { font-size: 0.83rem; line-height: 1.45; margin-bottom: 0.55rem; }
+    .cart-reward strong { font-weight: 700; }
+
+    .cart-reward-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .cart-reward-bar span {
+      display: block;
+      height: 100%;
+      border-radius: 3px;
+      background: var(--lavender-ink);
+      transition: width 0.35s ease;
+    }
+
+    .cart-reward--done { background: var(--teal-light); }
+    .cart-reward--done .cart-reward-bar span { background: var(--teal); }
+
+    .cart-line--gift .cart-line-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--lavender-light);
+      font-size: 1.4rem;
+    }
+
+    .cart-gift-tag {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: 100px;
+      margin-top: 0.35rem;
+    }
+
+    .cart-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .cart-row span:last-child { font-variant-numeric: tabular-nums; }
+    .cart-row--save { color: var(--teal); font-weight: 600; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cart-reward-bar span { transition: none; }
+    }
+
     /* CART PAGE */
     .cart-page { max-width: 900px; margin: 0 auto; padding: 3rem 3rem 4rem; }
     .cart-page h1 { font-size: 2rem; margin-bottom: 1.8rem; }
@@ -2996,6 +3062,19 @@ const PRODUCT_DETAILS = [
   'Hand painted and printed locally in Canberra'
 ];
 
+/* ===================================================================
+   BUNDLE SAVINGS AND FREE GIFT
+   Placeholder numbers. Change them here and the cart, the drawer and
+   the progress nudge all follow. Tiers must stay in ascending order.
+   =================================================================== */
+const CART_REWARDS = {
+  tiers: [
+    { qty: 3, pct: 10, label: '10% off' },
+    { qty: 6, pct: 15, label: '15% off' }
+  ],
+  gift: { qty: 4, name: 'Hand painted bookmark', emoji: '\uD83D\uDD16' }
+};
+
 const byId = id => PRODUCTS.find(p => p.id === id);
 const money = n => '$' + n.toFixed(2);
 
@@ -3062,7 +3141,37 @@ function saveCart() {
 }
 
 const cartCount = () => cart.reduce((n, l) => n + l.qty, 0);
-const cartTotal = () => cart.reduce((n, l) => n + byId(l.id).price * l.qty, 0);
+const cartSubtotal = () => cart.reduce((n, l) => n + byId(l.id).price * l.qty, 0);
+
+/* Everything the cart needs to describe itself: the tier reached, the
+   gift, and the next milestone to nudge towards. */
+function cartSummary() {
+  const count = cartCount();
+  const subtotal = cartSubtotal();
+  const tier = CART_REWARDS.tiers.filter(t => count >= t.qty).pop() || null;
+  const discount = tier ? subtotal * tier.pct / 100 : 0;
+  const gift = CART_REWARDS.gift;
+  const hasGift = count >= gift.qty;
+
+  const milestones = CART_REWARDS.tiers
+    .map(t => ({ qty: t.qty, text: t.label }))
+    .concat([{ qty: gift.qty, text: 'a free ' + gift.name.toLowerCase() }])
+    .sort((a, b) => a.qty - b.qty);
+  const next = milestones.find(m => count < m.qty) || null;
+  const prevQty = next ? (milestones.filter(m => m.qty < next.qty).pop() || { qty: 0 }).qty : 0;
+
+  return {
+    count: count,
+    subtotal: subtotal,
+    tier: tier,
+    discount: discount,
+    total: subtotal - discount,
+    hasGift: hasGift,
+    gift: gift,
+    next: next,
+    progress: next ? Math.min(100, Math.round((count - prevQty) / (next.qty - prevQty) * 100)) : 100
+  };
+}
 
 function addToCart(id, qty) {
   const line = cart.find(l => l.id === id);
@@ -3108,6 +3217,39 @@ function cartLineHTML(line) {
     '<div class="cart-line-total">' + money(p.price * line.qty) + '</div></div>';
 }
 
+function rewardHTML(sum) {
+  if (!sum.count) return '';
+  if (!sum.next) {
+    return '<div class="cart-reward cart-reward--done"><p><strong>Everything unlocked.</strong> ' +
+      sum.tier.label + ' and a free ' + sum.gift.name.toLowerCase() + ' are on this order.</p>' +
+      '<div class="cart-reward-bar"><span style="width:100%"></span></div></div>';
+  }
+  const need = sum.next.qty - sum.count;
+  return '<div class="cart-reward"><p>Add <strong>' + need + ' more card' + (need === 1 ? '' : 's') +
+    '</strong> to get ' + sum.next.text + '.</p>' +
+    '<div class="cart-reward-bar"><span style="width:' + sum.progress + '%"></span></div></div>';
+}
+
+function giftLineHTML(sum) {
+  if (!sum.hasGift) return '';
+  return '<div class="cart-line cart-line--gift">' +
+    '<div class="cart-line-img">' + sum.gift.emoji + '</div>' +
+    '<div><div class="cart-line-name">' + sum.gift.name + '</div>' +
+    '<div class="cart-line-price">Yours on orders of ' + sum.gift.qty + ' or more</div>' +
+    '<span class="cart-gift-tag">Free gift</span></div>' +
+    '<div class="cart-line-total">Free</div></div>';
+}
+
+function totalsHTML(sum) {
+  let html = '<div class="cart-row"><span>Subtotal</span><span>' + money(sum.subtotal) + '</span></div>';
+  if (sum.tier) {
+    html += '<div class="cart-row cart-row--save"><span>Bundle saving (' + sum.tier.label + ')</span><span>&minus;' +
+      money(sum.discount) + '</span></div>';
+  }
+  html += '<div class="cart-subtotal"><span>Total</span><span>' + money(sum.total) + '</span></div>';
+  return html;
+}
+
 function renderCart() {
   const count = cartCount();
   const badge = document.getElementById('nav-cart-count');
@@ -3120,9 +3262,10 @@ function renderCart() {
       body.innerHTML = '<div class="cart-empty"><p>Nothing in here yet.</p></div>';
       foot.innerHTML = '<button class="btn-primary" type="button" onclick="closeCart();showPage(\'shop\')">Browse the store</button>';
     } else {
-      body.innerHTML = cart.map(cartLineHTML).join('');
+      const sum = cartSummary();
+      body.innerHTML = rewardHTML(sum) + cart.map(cartLineHTML).join('') + giftLineHTML(sum);
       foot.innerHTML =
-        '<div class="cart-subtotal"><span>Subtotal</span><span>' + money(cartTotal()) + '</span></div>' +
+        totalsHTML(sum) +
         '<p class="cart-note">Postage worked out at checkout.</p>' +
         '<button class="btn-primary" type="button" onclick="showComingSoon(event, \'Checkout\')">Checkout</button>' +
         '<button class="btn-secondary" type="button" onclick="closeCart();showPage(\'cart\')">View cart</button>';
@@ -3135,9 +3278,10 @@ function renderCart() {
       pageBody.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p>' +
         '<button class="btn-primary" type="button" onclick="showPage(\'shop\')">Browse the store</button></div>';
     } else {
-      pageBody.innerHTML = cart.map(cartLineHTML).join('') +
+      const sum = cartSummary();
+      pageBody.innerHTML = rewardHTML(sum) + cart.map(cartLineHTML).join('') + giftLineHTML(sum) +
         '<div class="cart-page-foot">' +
-        '<div class="cart-page-total">Subtotal ' + money(cartTotal()) + '</div>' +
+        '<div style="min-width:230px">' + totalsHTML(sum) + '</div>' +
         '<p class="cart-note">Postage worked out at checkout.</p>' +
         '<button class="btn-primary" type="button" onclick="showComingSoon(event, \'Checkout\')">Checkout</button>' +
         '</div>';
