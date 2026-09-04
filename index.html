@@ -962,6 +962,8 @@
 
     .social-tile {
       position: relative;
+      text-decoration: none;
+      color: inherit;
       aspect-ratio: 1 / 1;
       border-radius: 12px;
       overflow: hidden;
@@ -989,22 +991,35 @@
 
     .social-tile:hover::after { opacity: 1; }
 
-    .social-tile--brand {
+    .social-tile--flat {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--lavender);
-      padding: 1.2rem;
+      text-align: center;
+      padding: 1.1rem;
     }
 
+    .social-tile--flat:hover img { transform: none; }
+    .social-tile--flat::after { content: none; }
+
     .social-tile--brand img {
-      width: 80%;
+      width: 78%;
       height: auto;
       object-fit: contain;
     }
 
-    .social-tile--brand:hover img { transform: none; }
-    .social-tile--brand::after { content: none; }
+    .social-tile-quote {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.84rem;
+      line-height: 1.4;
+    }
+
+    .social-tile-script {
+      font-family: 'MoonTime', cursive;
+      font-size: 2rem;
+      line-height: 1.1;
+    }
 
     @media (prefers-reduced-motion: reduce) {
       .social-tile img { transition: none; }
@@ -1496,11 +1511,17 @@
 
       <div class="social-grid">
         <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="youre-a-prick.png" alt="The You're a prick. card"></a>
+        <a class="social-tile social-tile--flat" style="background:var(--teal);color:#fff;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-quote">Cards so good, they&rsquo;ll think you planned ahead.</span></a>
         <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="bunch-of-pricks.png" alt="The Just a bunch of pricks! card"></a>
-        <a class="social-tile social-tile--brand" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="Logos.png?v=2" alt="Little Miss Prickles"></a>
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="free-hugs.png" alt="The Free hugs. card"></a>
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="cactus-patch.png" alt="The Cactus Patch card"></a>
         <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="about-photo.jpg" alt="Duni and her family"></a>
+        <a class="social-tile social-tile--flat" style="background:var(--amber);color:var(--text);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-quote">Snort-laugh,<br>ugly cry,<br>or both.</span></a>
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="free-hugs.png" alt="The Free hugs. card"></a>
+        <a class="social-tile social-tile--flat social-tile--brand" style="background:var(--lavender);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="Logos.png?v=2" alt="Little Miss Prickles"></a>
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="cactus-patch.png" alt="The Cactus Patch card"></a>
+        <a class="social-tile social-tile--flat" style="background:#fff;color:var(--teal);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-script">Welcome Home</span></a>
+        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="hero-card.png" alt="The You're a prick. card, studio shot"></a>
+        <a class="social-tile social-tile--flat" style="background:var(--teal-light);color:var(--text);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-quote">Printed locally<br>in Canberra,<br>posted with love.</span></a>
+        <a class="social-tile social-tile--flat social-tile--brand" style="background:#fff;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="logo.png" alt="Little Miss Prickles"></a>
       </div>
 
       <a class="btn-primary" style="display:inline-block;text-decoration:none;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener">Follow on Instagram</a>
