@@ -1388,20 +1388,40 @@
     .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 2rem; text-align: center; }
     .footer-bottom p { font-size: 0.82rem; opacity: 0.45; }
 
-    .program-photo {
-      max-width: 1100px;
+    /* A story section: photograph beside the words */
+    .program-story {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 3rem;
+      padding: 4.5rem 3rem;
     }
 
-    .program-photo img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      object-position: center 40%;
-      border-radius: 20px;
-      display: block;
+    .program-story-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1fr;
+      gap: 3rem;
+      align-items: center;
     }
+
+    .program-story-photo img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center 35%;
+      border-radius: 18px;
+      display: block;
+      box-shadow: 0 12px 34px rgba(26,26,46,0.14);
+    }
+
+    .program-story h2 { font-size: 1.8rem; margin-bottom: 1.2rem; }
+
+    .program-story p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .program-body h2 { font-size: 1.8rem; margin-bottom: 1.2rem; }
 
     /* PROGRAM PAGES (Independent Hearts + Sorted) */
     .program-hero {
@@ -1664,8 +1684,10 @@
       .footer-brand { grid-column: 1 / -1; }
 
       /* PROGRAMS + FAQ */
-      .program-photo { padding: 0 1.5rem; }
-      .program-photo img { height: 220px; border-radius: 14px; }
+      .program-story { padding: 3rem 1.5rem; }
+      .program-story-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+      .program-story-photo img { aspect-ratio: 4 / 3; }
+      .program-story h2, .program-body h2 { font-size: 1.5rem; }
       .program-hero { padding: 3.5rem 1.5rem; }
       .program-steps { padding: 2.5rem 1.5rem; }
       .program-steps-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
@@ -2196,37 +2218,47 @@
     <p>For older Australians who still believe a card in the post is worth something. No apps, no forms, no fuss.</p>
   </div>
 
-  <div class="program-photo">
-    <img src="independent-hearts.jpg" alt="An older person writing a card at a wooden table">
-  </div>
-
   <div class="program-body">
-    <p>We sit down together by phone or in person, lock in all the dates that matter, and take care of the rest throughout the year. All they need to do is sign the card when it arrives and pop it in the post.</p>
-    <p>Their people. Their cards. Their moment. Always.</p>
+    <h2>How it works</h2>
+    <p>We sit down together, in person or over a call, and go through the dates that matter to you. Birthdays, anniversaries, the ones you never want to forget.</p>
+    <p>From there, I organise your cards to arrive a week before each date. Not through family, not through a carer. Just you and me, and a system that's entirely yours.</p>
+    <p>The message inside is yours to write, in your own time. No last-minute dash to the shops, no relying on someone else to remember for you. Just a card, at your door, exactly when you need it, because you remembered.</p>
   </div>
 
   <div class="program-steps">
-    <h2>How it works</h2>
     <div class="program-steps-grid">
       <div class="program-step">
         <div class="program-step-num">1</div>
         <h3>We sit down together</h3>
-        <p>Over a phone call or in person, we work through all the important dates and occasions.</p>
+        <p>Over a phone call or in person, we go through the dates that matter most to you.</p>
       </div>
       <div class="program-step">
         <div class="program-step-num">2</div>
-        <h3>We set everything up</h3>
-        <p>We handle all the details on your behalf. No apps, no logins, nothing to fill in.</p>
+        <h3>It's entirely yours</h3>
+        <p>No family, no carer involved unless you want them to be. Just you and me, and a system that's yours alone.</p>
       </div>
       <div class="program-step">
         <div class="program-step-num">3</div>
         <h3>Cards arrive at your door</h3>
-        <p>Throughout the year, the right card arrives with plenty of time before each date.</p>
+        <p>Each card lands about a week before the date. No rush, no last-minute dash to the shops.</p>
       </div>
       <div class="program-step">
         <div class="program-step-num">4</div>
-        <h3>Sign and send</h3>
-        <p>Write something lovely inside, pop it in the post, and let someone know you were thinking of them.</p>
+        <h3>You write, you send</h3>
+        <p>The message inside is all yours. No one remembered it for you. You did.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="program-story">
+    <div class="program-story-grid">
+      <div class="program-story-photo">
+        <img src="independent-hearts.jpg" alt="An older person writing a card at a wooden table">
+      </div>
+      <div>
+        <h2>Why I started this</h2>
+        <p>I used to work in aged care, and the people I met there all wanted the same thing: to still feel in control. Not looked after. In control. Of their own memories, their own relationships, their own way of showing up for the people they love.</p>
+        <p>Sending a card sounds small. But knowing you did it yourself, on your own terms, without needing to ask, that's independence. That's what Independent Hearts is for.</p>
       </div>
     </div>
   </div>
