@@ -231,24 +231,10 @@
     .photo-stage {
       position: relative;
       aspect-ratio: 1 / 1;
-    }
-
-    /* Offset panel behind the photo, for a bit of brand colour */
-    .photo-backing {
-      position: absolute;
-      inset: 0;
-      border-radius: 22px;
-      background: var(--lavender);
-      transform: translate(13px, 13px) rotate(2.5deg);
-    }
-
-    .photo-frame {
-      position: absolute;
-      inset: 0;
-      border-radius: 22px;
+      border-radius: 20px;
       overflow: hidden;
       background: var(--teal-light);
-      box-shadow: 0 18px 44px rgba(20,122,126,0.22);
+      box-shadow: 0 10px 30px rgba(26,26,46,0.10);
     }
 
     .hero-slide {
@@ -267,63 +253,16 @@
       display: block;
     }
 
-    .photo-caption {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 2rem 0.2rem 0;
-      min-height: 2.6rem;
-    }
-
-    .photo-caption-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .photo-caption-price {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--teal);
-    }
-
-    .card-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.94);
-      color: var(--text);
-      box-shadow: 0 2px 10px rgba(26,26,46,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      z-index: 4;
-    }
-
-    .photo-frame:hover .card-nav,
-    .card-nav:focus-visible { opacity: 1; }
-    .card-nav:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 2px; }
-    .card-nav--prev { left: 10px; }
-    .card-nav--next { right: 10px; }
-
     .card-dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      padding-top: 0.9rem;
+      padding-top: 1.1rem;
     }
 
     .card-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       padding: 0;
       border: none;
       border-radius: 50%;
@@ -1610,10 +1549,6 @@
       .hero h1 { font-size: 2rem; }
       .hero-visual { margin-top: 2.2rem; }
       .card-stack { width: 100%; max-width: 320px; }
-      .photo-backing { transform: translate(10px, 10px) rotate(2.5deg); }
-      .photo-caption { padding-top: 1.7rem; }
-      /* Arrows need no hover on touch, so keep them visible */
-      .card-nav { opacity: 1; width: 32px; height: 32px; }
       .blob1 { width: 130px; height: 130px; top: -22px; right: -12px; }
       .blob2 { width: 90px; height: 90px; }
 
@@ -1735,21 +1670,7 @@
         <div class="floating-blob blob1"></div>
         <div class="floating-blob blob2"></div>
         <div class="card-stack">
-          <div class="photo-stage">
-          <div class="photo-backing" aria-hidden="true"></div>
-          <div class="photo-frame" id="hero-slideshow" aria-roledescription="carousel" aria-label="Card designs">
-            <button class="card-nav card-nav--prev" type="button" aria-label="Previous card" onclick="heroGo(-1)">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="card-nav card-nav--next" type="button" aria-label="Next card" onclick="heroGo(1)">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </div>
-          </div>
-          <div class="photo-caption">
-            <span class="photo-caption-name" id="hero-name"></span>
-            <span class="photo-caption-price" id="hero-price"></span>
-          </div>
+          <div class="photo-stage" id="hero-slideshow" aria-roledescription="carousel" aria-label="Card designs"></div>
           <div class="card-dots" id="hero-dots" role="tablist" aria-label="Choose a card"></div>
         </div>
       </div>
@@ -2903,16 +2824,16 @@
 /* ---------------------------------------------------------------
    HERO SLIDESHOW
    To add a card, drop the image file in this folder and add a line:
-       { img: 'my-card.png', name: 'Card name', price: '$6.50',
+       { img: 'my-card.png',
          alt: 'Short description of the card' },
    Order here is the order they appear. Images fill a square frame and
    are cropped from the edges, so keep the card centred in the shot.
    --------------------------------------------------------------- */
 const heroSlides = [
-  { img: 'youre-a-prick.png', name: "You're a prick.", price: '$6.50', alt: "Watercolour cactus card reading 'You're a prick.'" },
-  { img: 'bunch-of-pricks.png', name: 'Just a bunch of pricks!', price: '$6.50', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
-  { img: 'free-hugs.png', name: 'Free hugs.', price: '$6.50', alt: "Watercolour cactus card reading 'Free hugs.'" },
-  { img: 'cactus-patch.png', name: 'Cactus Patch', price: '$6.50', alt: 'Watercolour card of a collection of potted cacti' }
+  { img: 'youre-a-prick.png', alt: "Watercolour cactus card reading 'You're a prick.'" },
+  { img: 'bunch-of-pricks.png', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
+  { img: 'free-hugs.png', alt: "Watercolour cactus card reading 'Free hugs.'" },
+  { img: 'cactus-patch.png', alt: 'Watercolour card of a collection of potted cacti' }
 ];
 
 const HERO_INTERVAL = 4500;
@@ -2933,7 +2854,7 @@ function heroBuild() {
     img.alt = slide.alt || '';
     img.loading = i === 0 ? 'eager' : 'lazy';
     el.appendChild(img);
-    stage.insertBefore(el, stage.firstChild);
+    stage.appendChild(el);
 
     const dot = document.createElement('button');
     dot.type = 'button';
@@ -2945,11 +2866,8 @@ function heroBuild() {
     dots.appendChild(dot);
   });
 
-  heroCaption(0);
-
   if (heroSlides.length < 2) {
     dots.style.display = 'none';
-    stage.querySelectorAll('.card-nav').forEach(b => b.style.display = 'none');
     return;
   }
 
@@ -2963,14 +2881,6 @@ function heroBuild() {
   heroRestart();
 }
 
-function heroCaption(i) {
-  const slide = heroSlides[i];
-  const name = document.getElementById('hero-name');
-  const price = document.getElementById('hero-price');
-  if (name) name.textContent = slide && slide.name ? slide.name : '';
-  if (price) price.textContent = slide && slide.price ? slide.price : '';
-}
-
 function heroShow(i) {
   const slides = document.querySelectorAll('#hero-slideshow .hero-slide');
   const dots = document.querySelectorAll('#hero-dots .card-dot');
@@ -2981,10 +2891,8 @@ function heroShow(i) {
     d.classList.toggle('active', n === heroIndex);
     d.setAttribute('aria-selected', n === heroIndex ? 'true' : 'false');
   });
-  heroCaption(heroIndex);
 }
 
-function heroGo(step) { heroShow(heroIndex + step); heroRestart(); }
 function heroStop() { clearInterval(heroTimer); heroTimer = null; }
 
 function heroRestart() {
