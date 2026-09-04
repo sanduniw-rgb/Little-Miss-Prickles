@@ -192,7 +192,7 @@
       transition: transform 0.15s, background 0.2s;
     }
 
-    .btn-primary:hover { background: var(--lavender-dark); transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--amber); transform: translateY(-2px); }
 
     .btn-secondary {
       background: transparent;
@@ -207,7 +207,7 @@
       transition: background 0.2s;
     }
 
-    .btn-secondary:hover { background: var(--lavender-light); }
+    .btn-secondary:hover { background: var(--amber); border-color: var(--amber); }
 
     .hero-visual {
       position: relative;
@@ -396,7 +396,8 @@
       transition: all 0.2s;
     }
 
-    .pill.active, .pill:hover { background: var(--lavender); color: var(--text); border-color: var(--lavender); }
+    .pill.active { background: var(--lavender); color: var(--text); border-color: var(--lavender); }
+    .pill:hover { background: var(--amber); color: var(--text); border-color: var(--amber); }
 
     .card-grid {
       display: grid;
@@ -408,6 +409,8 @@
     }
 
     .product-card {
+      display: flex;
+      flex-direction: column;
       background: white;
       border-radius: 16px;
       border: 1.5px solid #f0f0f8;
@@ -422,6 +425,7 @@
     }
 
     .product-img {
+      flex: 0 0 auto;
       height: 200px;
       display: flex;
       align-items: center;
@@ -453,9 +457,24 @@
       border-radius: 100px;
     }
 
-    .product-info { padding: 1rem 1.2rem 1.2rem; }
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.2rem 1.2rem;
+    }
 
-    .product-info h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; margin-bottom: 0.3rem; }
+    .product-info h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      line-height: 1.3;
+      height: 2.6em;
+      margin-bottom: 0.3rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
     .product-info .cat-tag {
       font-size: 0.75rem;
@@ -465,7 +484,7 @@
       display: block;
     }
 
-    .product-info .price { font-size: 1.05rem; font-weight: 700; color: var(--teal-dark); }
+    .product-info .price { margin-top: auto; font-size: 1.05rem; font-weight: 700; color: var(--teal-dark); }
 
     /* SUBSCRIPTION PAGE */
     .sub-hero {
@@ -596,7 +615,7 @@
       transition: all 0.2s;
     }
 
-    .btn-plan:hover { background: var(--lavender); color: var(--text); }
+    .btn-plan:hover { background: var(--amber); color: var(--text); border-color: var(--amber); }
 
     .plan-card.featured .btn-plan { border-color: white; color: white; }
 
@@ -839,7 +858,7 @@
       z-index: 2;
     }
 
-    .splash-close:hover { background: var(--lavender); color: var(--text); }
+    .splash-close:hover { background: var(--amber); color: var(--text); }
     .splash-close:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 2px; }
 
     @keyframes splash-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -871,7 +890,7 @@
       transition: background 0.2s;
     }
 
-    .nav-cart:hover { background: var(--lavender-light); }
+    .nav-cart:hover { background: var(--amber-light); }
     .nav-cart:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 2px; }
 
     .nav-cart-count {
@@ -950,7 +969,7 @@
       color: var(--text);
     }
 
-    .pd-qty button:hover { background: var(--lavender-light); }
+    .pd-qty button:hover { background: var(--amber-light); }
     .pd-qty-value { min-width: 26px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
 
     .pd-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; }
@@ -1027,7 +1046,7 @@
       color: var(--text);
     }
 
-    .cart-close:hover { background: var(--lavender-light); }
+    .cart-close:hover { background: var(--amber-light); }
 
     .cart-drawer-body { flex: 1; overflow-y: auto; padding: 1.2rem 1.4rem; }
 
@@ -1071,7 +1090,7 @@
       color: var(--text);
     }
 
-    .cart-step:hover { background: var(--lavender-light); }
+    .cart-step:hover { background: var(--amber-light); }
     .cart-qty { min-width: 20px; text-align: center; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
 
     .cart-remove {
@@ -1272,7 +1291,6 @@
     .social-tile:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 3px; }
 
     .social-feed-cta { margin-top: 2.2rem; }
-    .social-feed-cta .btn-primary:hover { background: var(--amber); }
 
     @media (prefers-reduced-motion: reduce) {
       .social-track { animation: none; }
@@ -1512,7 +1530,7 @@
       max-width: 360px;
       transition: border-color 0.2s, background 0.2s;
     }
-    .contact-link:hover { border-color: var(--lavender); background: var(--lavender-light); }
+    .contact-link:hover { border-color: var(--amber); background: var(--amber-light); }
     .contact-link span { font-size: 1.3rem; }
 
     @media (max-width: 700px) {
