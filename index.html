@@ -927,10 +927,11 @@
     /* SOCIAL FEED */
     .social-feed {
       background: var(--lavender-light);
-      padding: 4rem 3rem;
+      padding: 4rem 0;
+      overflow: hidden;
     }
 
-    .social-feed-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .social-feed-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; text-align: center; }
 
     .social-feed h2 {
       font-family: 'Montserrat', sans-serif;
@@ -942,7 +943,7 @@
     .social-feed-sub {
       color: var(--text-muted);
       font-size: 1rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.2rem;
     }
 
     .social-feed-handle {
@@ -953,28 +954,46 @@
 
     .social-feed-handle:hover { text-decoration: underline; }
 
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 0.9rem;
-      margin-bottom: 2.2rem;
+    /* One row, drifting slowly, fading out at both edges */
+    .social-marquee {
+      position: relative;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+              mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+
+    .social-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      animation: social-drift 90s linear infinite;
+    }
+
+    .social-marquee:hover .social-track,
+    .social-marquee:focus-within .social-track { animation-play-state: paused; }
+
+    @keyframes social-drift {
+      from { transform: translateX(0); }
+      to   { transform: translateX(calc(-50% - 0.5rem)); }
     }
 
     .social-tile {
       position: relative;
-      text-decoration: none;
-      color: inherit;
-      aspect-ratio: 1 / 1;
+      flex: 0 0 auto;
+      width: 210px;
+      height: 210px;
       border-radius: 12px;
       overflow: hidden;
       background: var(--white);
       display: block;
+      text-decoration: none;
     }
 
     .social-tile img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
       transition: transform 0.35s ease;
     }
 
@@ -994,50 +1013,13 @@
 
     .social-tile:hover .social-tile-overlay,
     .social-tile:focus-visible .social-tile-overlay { opacity: 1; }
+    .social-tile:focus-visible { outline: 2px solid var(--lavender-ink); outline-offset: 3px; }
 
-    /* Post-type glyph, top right, as Instagram marks carousels and reels */
-    .social-tile-kind {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      color: #fff;
-      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.45));
-      pointer-events: none;
-    }
-
-    .social-tile--flat .social-tile-overlay { background: rgba(26,26,46,0.28); }
-
-    .social-tile--flat {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 1.1rem;
-    }
-
-    .social-tile--flat:hover img { transform: none; }
-    .social-tile--flat::after { content: none; }
-
-    .social-tile--brand img {
-      width: 78%;
-      height: auto;
-      object-fit: contain;
-    }
-
-    .social-tile-quote {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.84rem;
-      line-height: 1.4;
-    }
-
-    .social-tile-script {
-      font-family: 'MoonTime', cursive;
-      font-size: 2rem;
-      line-height: 1.1;
-    }
+    .social-feed-cta { margin-top: 2.2rem; }
 
     @media (prefers-reduced-motion: reduce) {
+      .social-track { animation: none; }
+      .social-marquee { overflow-x: auto; }
       .social-tile img { transition: none; }
       .social-tile:hover img { transform: none; }
     }
@@ -1312,9 +1294,10 @@
       .features-inner { grid-template-columns: 1fr; gap: 1.5rem; }
 
       /* SOCIAL FEED */
-      .social-feed { padding: 2.5rem 1.5rem; }
+      .social-feed { padding: 2.5rem 0; }
+      .social-feed-inner { padding: 0 1.5rem; }
       .social-feed h2 { font-size: 1.6rem; }
-      .social-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+      .social-tile { width: 150px; height: 150px; }
 
       /* HOME STORE SECTION */
       .home-store-section { padding: 2.5rem 1.5rem !important; }
@@ -1514,32 +1497,55 @@
 
   <!-- ===================================================================
        SOCIAL FEED
-       These tiles are placeholders using existing photos. To show the real
-       Instagram feed, sign up with a feed service (Behold, Curator.io,
-       SnapWidget, Elfsight), connect the account, and replace everything
-       between <div class="social-grid"> and its closing </div> with the
-       embed code they give you. Nothing else here needs to change.
+       The tiles are stills from the Instagram grid, sliced out of the
+       uploaded screenshot into insta-01.jpg .. insta-15.jpg. The row is
+       listed twice so the drift can loop seamlessly - if you add or
+       remove a tile, change it in BOTH halves or the loop will jump.
+       To show a live feed instead, replace .social-marquee with the
+       embed code from a feed service.
        =================================================================== -->
   <div class="social-feed">
     <div class="social-feed-inner">
       <h2>Follow along</h2>
       <p class="social-feed-sub">New designs, behind the scenes, and the occasional cactus pun. <a class="social-feed-handle" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener">@little_miss_prickles</a></p>
+    </div>
 
-      <div class="social-grid">
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="youre-a-prick.png" alt="The You're a prick. card"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile social-tile--flat" style="background:var(--teal);color:#fff;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-quote">Cards so good, they&rsquo;ll think you planned ahead.</span><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="bunch-of-pricks.png" alt="The Just a bunch of pricks! card"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="social-tile-kind"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 20H5a2 2 0 0 1-2-2V7"/></svg></span></a>
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="about-photo.jpg" alt="Duni and her family"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile social-tile--flat" style="background:var(--amber);color:var(--text);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-quote">Snort-laugh,<br>ugly cry,<br>or both.</span><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="free-hugs.png" alt="The Free hugs. card"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile social-tile--flat social-tile--brand" style="background:var(--lavender);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="Logos.png?v=2" alt="Little Miss Prickles"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="cactus-patch.png" alt="The Cactus Patch card"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="social-tile-kind"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 20H5a2 2 0 0 1-2-2V7"/></svg></span></a>
-        <a class="social-tile social-tile--flat" style="background:#fff;color:var(--teal);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-script">Welcome Home</span><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="hero-card.png" alt="The You're a prick. card, studio shot"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile social-tile--flat" style="background:var(--teal-light);color:var(--text);" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><span class="social-tile-quote">Printed locally<br>in Canberra,<br>posted with love.</span><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
-        <a class="social-tile social-tile--flat social-tile--brand" style="background:#fff;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="logo.png" alt="Little Miss Prickles"><span class="social-tile-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+    <div class="social-marquee">
+      <div class="social-track">
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-01.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-02.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-03.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-04.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-05.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-06.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-07.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-08.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-09.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-10.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-11.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-12.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-13.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-14.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener"><img src="insta-15.jpg" alt="Instagram post from Little Miss Prickles" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-01.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-02.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-03.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-04.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-05.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-06.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-07.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-08.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-09.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-10.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-11.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-12.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-13.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-14.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
+          <a class="social-tile" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="insta-15.jpg" alt="" loading="lazy"><span class="social-tile-overlay"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span></a>
       </div>
+    </div>
 
+    <div class="social-feed-inner social-feed-cta">
       <a class="btn-primary" style="display:inline-block;text-decoration:none;" href="https://www.instagram.com/little_miss_prickles/" target="_blank" rel="noopener">Follow on Instagram</a>
     </div>
   </div>
