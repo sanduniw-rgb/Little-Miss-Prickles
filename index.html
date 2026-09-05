@@ -1436,6 +1436,28 @@
       .social-tile:hover img { transform: none; }
     }
 
+    /* SPARKLE TRAIL */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 400;
+      opacity: 0;
+      will-change: transform, opacity;
+      clip-path: polygon(50% 0%, 59% 41%, 100% 50%, 59% 59%, 50% 100%, 41% 59%, 0% 50%, 41% 41%);
+      animation: sparkle-fade 700ms ease-out forwards;
+    }
+
+    @keyframes sparkle-fade {
+      0%   { opacity: 0;    transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+      22%  { opacity: 0.95; transform: translate(-50%, -50%) scale(1)   rotate(40deg); }
+      100% { opacity: 0;    transform: translate(-50%, calc(-50% + 16px)) scale(0.25) rotate(130deg); }
+    }
+
+    /* No trail for anyone who has asked for less movement */
+    @media (prefers-reduced-motion: reduce) {
+      .sparkle { display: none; }
+    }
+
     /* SOCIAL TABS */
     .social-tabs {
       position: fixed;
@@ -3572,6 +3594,63 @@ function closeCart() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+
+/* ===================================================================
+   SPARKLE TRAIL
+   Follows the pointer without touching the cursor itself, so hover,
+   text and link cursors all still behave normally.
+   scope: 'all' for the whole site, 'junior' for The Junior Patch only.
+   =================================================================== */
+const SPARKLE = {
+  scope: 'all',
+  colours: ['#c2cdff', '#ffbd59', '#1cabb0'],
+  minGap: 45,     // ms between sparkles
+  minMove: 14,    // px the pointer must travel before the next one
+  maxLive: 26     // ceiling on sparkles on screen at once
+};
+
+let sparkleAt = 0, sparkleX = null, sparkleY = null, sparkleLive = 0;
+
+function sparkleOn() {
+  /* nothing to follow on a touchscreen, and honour reduced motion */
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return false;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  if (SPARKLE.scope === 'junior') {
+    const page = document.querySelector('.page.active');
+    return !!page && page.id === 'page-shop' && shopCat === 'junior';
+  }
+  return true;
+}
+
+function makeSparkle(x, y) {
+  if (sparkleLive >= SPARKLE.maxLive) return;
+  const el = document.createElement('div');
+  const size = 6 + Math.random() * 7;
+  el.className = 'sparkle';
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  el.style.left = (x + (Math.random() * 16 - 8)) + 'px';
+  el.style.top = (y + (Math.random() * 16 - 8)) + 'px';
+  el.style.background = SPARKLE.colours[Math.floor(Math.random() * SPARKLE.colours.length)];
+  el.style.animationDuration = (600 + Math.random() * 260) + 'ms';
+  sparkleLive++;
+  el.addEventListener('animationend', () => { el.remove(); sparkleLive--; });
+  document.body.appendChild(el);
+}
+
+document.addEventListener('pointermove', e => {
+  if (e.pointerType !== 'mouse' || !sparkleOn()) return;
+  const now = performance.now();
+  if (now - sparkleAt < SPARKLE.minGap) return;
+  if (sparkleX !== null) {
+    const dx = e.clientX - sparkleX, dy = e.clientY - sparkleY;
+    if (dx * dx + dy * dy < SPARKLE.minMove * SPARKLE.minMove) return;
+  }
+  sparkleAt = now;
+  sparkleX = e.clientX;
+  sparkleY = e.clientY;
+  makeSparkle(e.clientX, e.clientY);
+}, { passive: true });
 
 /* Opens on hover through CSS. The click toggle is here for touch,
    where there is no hover to rely on. */
