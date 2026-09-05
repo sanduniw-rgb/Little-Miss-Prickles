@@ -1498,6 +1498,70 @@
     }
     .program-step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--teal-dark); }
     .program-step p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+    /* Steps and the call to action as one band */
+    .program-path {
+      background: var(--teal);
+      color: #fff;
+      padding: 4rem 3rem;
+      text-align: center;
+    }
+
+    .program-path-inner { max-width: 880px; margin: 0 auto; }
+
+    .program-path-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      position: relative;
+      margin-bottom: 3.2rem;
+    }
+
+    /* the line threading the four numbers together */
+    .program-path-steps::before {
+      content: '';
+      position: absolute;
+      top: 21px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: rgba(255,255,255,0.32);
+    }
+
+    .program-path-num {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--teal-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.9rem;
+    }
+
+    .program-path-step h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .program-path-cta {
+      border-top: 1px solid rgba(255,255,255,0.22);
+      padding-top: 2.6rem;
+    }
+
+    .program-path-cta h2 { font-size: 1.8rem; margin-bottom: 0.7rem; }
+
+    .program-path-cta p {
+      opacity: 0.9;
+      max-width: 460px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.7;
+    }
+
     .program-cta {
       background: var(--teal);
       color: white;
@@ -1697,6 +1761,10 @@
       .program-story { padding: 3rem 1.5rem; }
       .program-story h2, .program-body h2 { font-size: 1.5rem; }
       .program-hero { padding: 3.5rem 1.5rem; }
+      .program-path { padding: 2.5rem 1.5rem; }
+      .program-path-steps { grid-template-columns: 1fr 1fr; gap: 1.8rem 1rem; margin-bottom: 2.4rem; }
+      .program-path-steps::before { display: none; }
+      .program-path-cta h2 { font-size: 1.5rem; }
       .program-steps { padding: 2.5rem 1.5rem; }
       .program-steps-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
       .program-cta { padding: 3rem 1.5rem; }
@@ -2240,31 +2308,6 @@
     <p>The message inside is yours to write, in your own time. No last-minute dash to the shops, no relying on someone else to remember for you. Just a card, at your door, exactly when you need it, because you remembered.</p>
   </div>
 
-  <div class="program-steps">
-    <div class="program-steps-grid">
-      <div class="program-step">
-        <div class="program-step-num">1</div>
-        <h3>We sit down together</h3>
-        <p>Over a phone call or in person, we go through the dates that matter most to you.</p>
-      </div>
-      <div class="program-step">
-        <div class="program-step-num">2</div>
-        <h3>It's entirely yours</h3>
-        <p>No family, no carer involved unless you want them to be. Just you and me, and a system that's yours alone.</p>
-      </div>
-      <div class="program-step">
-        <div class="program-step-num">3</div>
-        <h3>Cards arrive at your door</h3>
-        <p>Each card lands about a week before the date. No rush, no last-minute dash to the shops.</p>
-      </div>
-      <div class="program-step">
-        <div class="program-step-num">4</div>
-        <h3>You write, you send</h3>
-        <p>The message inside is all yours. No one remembered it for you. You did.</p>
-      </div>
-    </div>
-  </div>
-
   <div class="program-story program-story--text">
     <div>
       <div>
@@ -2275,10 +2318,33 @@
     </div>
   </div>
 
-  <div class="program-cta">
-    <h2>Get started</h2>
-    <p>Get in touch and we'll organise a time to sit down together. No technology required on your end.</p>
-    <a href="mailto:hello@littlemissprickles.com.au" class="btn-primary" style="display:inline-block;text-decoration:none;padding:0.8rem 2rem;">Get in touch</a>
+  <div class="program-path">
+    <div class="program-path-inner">
+      <div class="program-path-steps">
+        <div class="program-path-step">
+          <div class="program-path-num">1</div>
+          <h3>We sit down together</h3>
+        </div>
+        <div class="program-path-step">
+          <div class="program-path-num">2</div>
+          <h3>It's entirely yours</h3>
+        </div>
+        <div class="program-path-step">
+          <div class="program-path-num">3</div>
+          <h3>Cards arrive at your door</h3>
+        </div>
+        <div class="program-path-step">
+          <div class="program-path-num">4</div>
+          <h3>You write, you send</h3>
+        </div>
+      </div>
+
+      <div class="program-path-cta">
+        <h2>Get started</h2>
+        <p>Get in touch and we'll organise a time. No technology required on your end.</p>
+        <a href="mailto:hello@littlemissprickles.com.au" class="btn-primary" style="display:inline-block;text-decoration:none;padding:0.8rem 2rem;">Get in touch</a>
+      </div>
+    </div>
   </div>
 
   <footer>
