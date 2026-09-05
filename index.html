@@ -1436,6 +1436,28 @@
       .social-tile:hover img { transform: none; }
     }
 
+    /* SPARKLE TRAIL */
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 400;
+      opacity: 0;
+      will-change: transform, opacity;
+      clip-path: polygon(50% 0%, 59% 41%, 100% 50%, 59% 59%, 50% 100%, 41% 59%, 0% 50%, 41% 41%);
+      animation: sparkle-fade 700ms ease-out forwards;
+    }
+
+    @keyframes sparkle-fade {
+      0%   { opacity: 0;    transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+      22%  { opacity: 0.95; transform: translate(-50%, -50%) scale(1)   rotate(40deg); }
+      100% { opacity: 0;    transform: translate(-50%, calc(-50% + 16px)) scale(0.25) rotate(130deg); }
+    }
+
+    /* No trail for anyone who has asked for less movement */
+    @media (prefers-reduced-motion: reduce) {
+      .sparkle { display: none; }
+    }
+
     /* SOCIAL TABS */
     .social-tabs {
       position: fixed;
@@ -3281,9 +3303,13 @@ const PRODUCTS = [
     blurb: "Three worms in party hats, popping up out of the dirt for the occasion. No words inside the illustration, so the message is entirely yours to write." },
 
   /* ---- The Junior Patch ----
-     Placeholder cards until the artwork arrives. Names, prices and age
-     bands are all stand-ins. ages: [first band, last band] as indexes
-     into AGE_BANDS above. */
+     ages: [first band, last band] as indexes into AGE_BANDS above.
+     The jp- entries below are placeholders until their artwork arrives. */
+  { id: 'under-the-sea',     name: 'Under The Sea Colour Me In Card', price: 6.50, key: 'junior', cat: 'The Junior Patch',
+    ages: [0, 3], img: 'under-the-sea.png',
+    alt: 'Colour-in birthday card with an under the sea scene, a jellyfish and fish in party hats under Happy Birthday bunting',
+    blurb: "A whole under the sea party waiting to be coloured in. Jellyfish and fish in party hats, bunting spelling out Happy Birthday, and a wavy border to stay inside, or not. The message inside is theirs to write." },
+
   { id: 'jp-first-birthday', name: 'First Birthday', price: 6.50, key: 'junior', cat: 'The Junior Patch',
     ages: [0, 1], img: 'jp-first-birthday.png', alt: 'Colour-in first birthday card',
     blurb: 'Colour-in front, a prompt inside for whoever is holding the crayon on their behalf. Placeholder card.' },
@@ -3572,6 +3598,63 @@ function closeCart() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+
+/* ===================================================================
+   SPARKLE TRAIL
+   Follows the pointer without touching the cursor itself, so hover,
+   text and link cursors all still behave normally.
+   scope: 'all' for the whole site, 'junior' for The Junior Patch only.
+   =================================================================== */
+const SPARKLE = {
+  scope: 'all',
+  colours: ['#c2cdff', '#ffbd59', '#1cabb0'],
+  minGap: 45,     // ms between sparkles
+  minMove: 14,    // px the pointer must travel before the next one
+  maxLive: 26     // ceiling on sparkles on screen at once
+};
+
+let sparkleAt = 0, sparkleX = null, sparkleY = null, sparkleLive = 0;
+
+function sparkleOn() {
+  /* nothing to follow on a touchscreen, and honour reduced motion */
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return false;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  if (SPARKLE.scope === 'junior') {
+    const page = document.querySelector('.page.active');
+    return !!page && page.id === 'page-shop' && shopCat === 'junior';
+  }
+  return true;
+}
+
+function makeSparkle(x, y) {
+  if (sparkleLive >= SPARKLE.maxLive) return;
+  const el = document.createElement('div');
+  const size = 6 + Math.random() * 7;
+  el.className = 'sparkle';
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  el.style.left = (x + (Math.random() * 16 - 8)) + 'px';
+  el.style.top = (y + (Math.random() * 16 - 8)) + 'px';
+  el.style.background = SPARKLE.colours[Math.floor(Math.random() * SPARKLE.colours.length)];
+  el.style.animationDuration = (600 + Math.random() * 260) + 'ms';
+  sparkleLive++;
+  el.addEventListener('animationend', () => { el.remove(); sparkleLive--; });
+  document.body.appendChild(el);
+}
+
+document.addEventListener('pointermove', e => {
+  if (e.pointerType !== 'mouse' || !sparkleOn()) return;
+  const now = performance.now();
+  if (now - sparkleAt < SPARKLE.minGap) return;
+  if (sparkleX !== null) {
+    const dx = e.clientX - sparkleX, dy = e.clientY - sparkleY;
+    if (dx * dx + dy * dy < SPARKLE.minMove * SPARKLE.minMove) return;
+  }
+  sparkleAt = now;
+  sparkleX = e.clientX;
+  sparkleY = e.clientY;
+  makeSparkle(e.clientX, e.clientY);
+}, { passive: true });
 
 /* Opens on hover through CSS. The click toggle is here for touch,
    where there is no hover to rely on. */
