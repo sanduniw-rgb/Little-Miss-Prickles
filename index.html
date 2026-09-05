@@ -1079,9 +1079,53 @@
 
     .product-detail-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+    /* Thumbnail strip. Only rendered when a card has more than one view,
+       so single image products look exactly as they always have. */
+    .pd-views {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
+    .pd-view {
+      flex: 1 1 0;
+      max-width: 130px;
+      padding: 0;
+      border: 2px solid #ece9f5;
+      border-radius: 12px;
+      background: var(--white);
+      cursor: pointer;
+      overflow: hidden;
+      text-align: center;
+      transition: border-color 0.2s ease;
+    }
+
+    .pd-view img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pd-view span {
+      display: block;
+      padding: 0.35rem 0.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .pd-view:hover { border-color: var(--lavender); }
+    .pd-view.active { border-color: var(--amber); }
+    .pd-view.active span { color: var(--text); font-weight: 600; }
+
     .pd-name { font-size: 2.2rem; line-height: 1.15; margin: 0.6rem 0 0.4rem; }
     .pd-price { font-size: 1.4rem; font-weight: 700; color: var(--teal); margin-bottom: 1.2rem; }
     .pd-blurb { color: var(--text-muted); line-height: 1.8; margin-bottom: 1.8rem; }
+    .pd-blurb p { margin: 0 0 0.9rem; }
+    .pd-blurb p:last-child { margin-bottom: 0; }
+    .pd-blurb .pd-lead { color: var(--text); font-size: 1.05rem; font-weight: 600; }
 
     .pd-qty {
       display: inline-flex;
@@ -3029,12 +3073,15 @@
   <div class="product-detail">
     <button class="product-back" type="button" onclick="showPage('shop')">&larr; Back to the store</button>
     <div class="product-detail-grid">
-      <div class="product-detail-media"><img id="pd-img" src="" alt=""></div>
+      <div>
+        <div class="product-detail-media"><img id="pd-img" src="" alt=""></div>
+        <div class="pd-views" id="pd-views" hidden></div>
+      </div>
       <div class="product-detail-info">
         <span class="cat-tag" id="pd-cat"></span>
         <h1 class="pd-name" id="pd-name"></h1>
         <div class="pd-price" id="pd-price"></div>
-        <p class="pd-blurb" id="pd-blurb"></p>
+        <div class="pd-blurb" id="pd-blurb"></div>
         <div class="pd-actions">
           <div class="pd-qty">
             <button type="button" onclick="pdStep(-1)" aria-label="Decrease quantity">&minus;</button>
@@ -3310,6 +3357,27 @@ const PRODUCTS = [
     alt: 'Colour-in birthday card with an under the sea scene, a jellyfish and fish in party hats under Happy Birthday bunting',
     blurb: "A whole under the sea party waiting to be coloured in. Jellyfish and fish in party hats, bunting spelling out Happy Birthday, and a wavy border to stay inside, or not. The message inside is theirs to write." },
 
+  { id: 'youre-my-hero',     name: "You're My Hero, Colour-In Superhero Card", price: 6.50, key: 'junior', cat: 'The Junior Patch',
+    ages: [1, 3], img: 'youre-my-hero.png',
+    alt: "Colour-in A5 card with a line drawing of a superhero dad flying through the clouds under the words You're My Hero",
+    views: [
+      { img: 'youre-my-hero.png', label: 'Outside',
+        alt: "Colour-in A5 card with a line drawing of a superhero dad flying through the clouds under the words You're My Hero" },
+      { img: 'youre-my-hero-inside.png', label: 'Inside',
+        alt: "Inside of the card, headed The Legend of Dad, a fill in the blank story with lines for his superpower, catchphrase, weakness and sidekick" }
+    ],
+    details: [
+      'A5 size, 148 x 210 mm',
+      'Colour-in front and a fill in the blank story inside',
+      'Envelope included',
+      'Hand painted and printed locally in Canberra'
+    ],
+    blurb: [
+      { lead: true, text: "Every dad's a superhero. This one just needs a bit of colour!" },
+      { text: "This A5 card comes with a colour-your-own superhero dad soaring through the clouds on the front. Capture the kids' attention, hand them some textas, and watch them go to town." },
+      { text: "But the fun doesn't stop there. Flip it open and you'll find 'The Legend of Dad' a fill-in-the-blank origin story starring the real hero in your life. Kids get to decide his superpower, his catchphrase, his one weakness (smelly socks? bad jokes?), and his trusty sidekick, before signing off all on their own." }
+    ] },
+
   { id: 'jp-first-birthday', name: 'First Birthday', price: 6.50, key: 'junior', cat: 'The Junior Patch',
     ages: [0, 1], img: 'jp-first-birthday.png', alt: 'Colour-in first birthday card',
     blurb: 'Colour-in front, a prompt inside for whoever is holding the crayon on their behalf. Placeholder card.' },
@@ -3378,20 +3446,67 @@ function renderGrids() {
 let pdCurrent = null;
 let pdQty = 1;
 
+/* A card's blurb is either a plain string or a list of paragraphs.
+   A paragraph flagged lead: true is the opening line, set a little
+   larger and darker than the rest. */
+function pdBlurbHTML(blurb) {
+  const parts = Array.isArray(blurb) ? blurb : [{ text: blurb }];
+  return parts.map(part => {
+    const o = typeof part === 'string' ? { text: part } : part;
+    return '<p' + (o.lead ? ' class="pd-lead"' : '') + '>' + escapeHTML(o.text) + '</p>';
+  }).join('');
+}
+
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+/* Cards with a views list (an outside and an inside, say) get a
+   thumbnail strip under the main image. Single image cards get nothing. */
+function pdSetViews(p) {
+  const strip = document.getElementById('pd-views');
+  const views = p.views && p.views.length > 1 ? p.views : null;
+  if (!views) {
+    strip.hidden = true;
+    strip.innerHTML = '';
+    pdShowView(p.img, p.alt);
+    return;
+  }
+  strip.hidden = false;
+  strip.innerHTML = views.map((v, i) =>
+    '<button type="button" class="pd-view' + (i === 0 ? ' active' : '') + '" ' +
+      'onclick="pdPickView(this, \'' + v.img + '\', ' + i + ')">' +
+      '<img src="' + v.img + '" alt="' + escapeHTML(v.alt) + '">' +
+      '<span>' + escapeHTML(v.label) + '</span></button>').join('');
+  pdShowView(views[0].img, views[0].alt);
+}
+
+function pdShowView(src, alt) {
+  const img = document.getElementById('pd-img');
+  img.src = src;
+  img.alt = alt || '';
+}
+
+function pdPickView(el, src, i) {
+  el.parentNode.querySelectorAll('.pd-view').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  const v = pdCurrent && pdCurrent.views ? pdCurrent.views[i] : null;
+  pdShowView(src, v ? v.alt : '');
+}
+
 function showProduct(id) {
   const p = byId(id);
   if (!p) return;
   pdCurrent = p;
   pdQty = 1;
-  document.getElementById('pd-img').src = p.img;
-  document.getElementById('pd-img').alt = p.alt;
+  pdSetViews(p);
   document.getElementById('pd-cat').textContent = p.cat;
   document.getElementById('pd-name').textContent = p.name;
   document.getElementById('pd-price').textContent = money(p.price);
-  document.getElementById('pd-blurb').textContent = p.blurb;
+  document.getElementById('pd-blurb').innerHTML = pdBlurbHTML(p.blurb);
   document.getElementById('pd-qty').textContent = pdQty;
   document.getElementById('pd-details').innerHTML =
-    PRODUCT_DETAILS.map(d => '<li>' + d + '</li>').join('');
+    (p.details || PRODUCT_DETAILS).map(d => '<li>' + d + '</li>').join('');
   document.getElementById('pd-more-grid').innerHTML =
     PRODUCTS.filter(o => o.id !== p.id).map(o => productCardHTML(o, 'data-cat')).join('');
   showPage('product');
