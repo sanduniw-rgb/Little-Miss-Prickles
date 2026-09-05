@@ -360,8 +360,8 @@
       transition: all 0.2s;
     }
 
-    .pill.active { background: var(--lavender); color: var(--text); border-color: var(--lavender); }
-    .pill:hover { background: var(--amber); color: var(--text); border-color: var(--amber); }
+    .pill:hover { background: var(--lavender); color: var(--text); border-color: var(--lavender); }
+    .pill.active { background: var(--amber); color: var(--text); border-color: var(--amber); }
 
     .card-grid {
       display: grid;
@@ -1388,20 +1388,23 @@
     .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 2rem; text-align: center; }
     .footer-bottom p { font-size: 0.82rem; opacity: 0.45; }
 
-    .program-photo {
-      max-width: 1100px;
+    /* A story section: photograph beside the words */
+    .program-story {
+      max-width: 760px;
       margin: 0 auto;
-      padding: 0 3rem;
+      padding: 2.4rem 2rem 4rem;
     }
 
-    .program-photo img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      object-position: center 40%;
-      border-radius: 20px;
-      display: block;
+    .program-story h2 { font-size: 1.8rem; margin-bottom: 1.2rem; }
+
+    .program-story p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
     }
+
+    .program-body h2 { font-size: 1.8rem; margin-bottom: 1.2rem; }
 
     /* PROGRAM PAGES (Independent Hearts + Sorted) */
     .program-hero {
@@ -1431,10 +1434,34 @@
       margin: 0 auto 2rem;
       line-height: 1.7;
     }
+    /* Split hero: words beside a photograph */
+    .program-hero--split { text-align: left; padding: 4rem 3rem; }
+
+    .program-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 0.75fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .program-hero--split p { margin: 0; max-width: 460px; }
+
+    .program-hero-photo img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center 35%;
+      border-radius: 18px;
+      display: block;
+      box-shadow: 0 16px 40px rgba(26,26,46,0.22);
+    }
+
     .program-body {
       max-width: 760px;
       margin: 0 auto;
-      padding: 4rem 2rem;
+      padding: 4rem 2rem 0;
     }
     .program-body p {
       font-size: 1rem;
@@ -1442,6 +1469,7 @@
       line-height: 1.85;
       margin-bottom: 1.4rem;
     }
+    .program-body p:last-child, .program-story p:last-child { margin-bottom: 0; }
     .program-steps {
       background: var(--teal-light);
       padding: 4rem 3rem;
@@ -1471,6 +1499,72 @@
     }
     .program-step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--teal-dark); }
     .program-step p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+    /* Steps and the call to action as one band */
+    .program-path {
+      background: var(--teal-light);
+      color: var(--text);
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .program-path-inner { max-width: 820px; margin: 0 auto; }
+
+    .program-path-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      position: relative;
+      margin-bottom: 2.2rem;
+    }
+
+    /* the line threading the four numbers together */
+    .program-path-steps::before {
+      content: '';
+      position: absolute;
+      top: 17px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: rgba(20,122,126,0.22);
+    }
+
+    .program-path-num {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.7rem;
+    }
+
+    .program-path-step h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--teal-dark);
+    }
+
+    .program-path-cta {
+      border-top: 1px solid rgba(20,122,126,0.16);
+      padding-top: 2rem;
+    }
+
+    .program-path-cta h2 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+
+    .program-path-cta p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin: 0 auto 1.4rem;
+      line-height: 1.7;
+    }
+
     .program-cta {
       background: var(--teal);
       color: white;
@@ -1664,9 +1758,16 @@
       .footer-brand { grid-column: 1 / -1; }
 
       /* PROGRAMS + FAQ */
-      .program-photo { padding: 0 1.5rem; }
-      .program-photo img { height: 220px; border-radius: 14px; }
+      .program-hero--split { padding: 2.5rem 1.5rem 3rem; }
+      .program-hero-inner { grid-template-columns: 1fr; gap: 1.8rem; }
+      .program-hero-photo img { aspect-ratio: 4 / 3; }
+      .program-story { padding: 2rem 1.5rem 3rem; }
+      .program-story h2, .program-body h2 { font-size: 1.5rem; }
       .program-hero { padding: 3.5rem 1.5rem; }
+      .program-path { padding: 2.5rem 1.5rem; }
+      .program-path-steps { grid-template-columns: 1fr 1fr; gap: 1.8rem 1rem; margin-bottom: 2.4rem; }
+      .program-path-steps::before { display: none; }
+      .program-path-cta h2 { font-size: 1.5rem; }
       .program-steps { padding: 2.5rem 1.5rem; }
       .program-steps-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
       .program-cta { padding: 3rem 1.5rem; }
@@ -2190,51 +2291,63 @@
 
 <!-- INDEPENDENT HEARTS -->
 <div class="page" id="page-hearts">
-  <div class="program-hero" style="background:linear-gradient(135deg,var(--lavender) 0%,#a8b4ff 100%); color:var(--text);">
-    <div class="eyebrow">Independent Hearts</div>
-    <h1>Cards that mean something.<br>Always.</h1>
-    <p>For older Australians who still believe a card in the post is worth something. No apps, no forms, no fuss.</p>
-  </div>
-
-  <div class="program-photo">
-    <img src="independent-hearts.jpg" alt="An older person writing a card at a wooden table">
-  </div>
-
-  <div class="program-body">
-    <p>We sit down together by phone or in person, lock in all the dates that matter, and take care of the rest throughout the year. All they need to do is sign the card when it arrives and pop it in the post.</p>
-    <p>Their people. Their cards. Their moment. Always.</p>
-  </div>
-
-  <div class="program-steps">
-    <h2>How it works</h2>
-    <div class="program-steps-grid">
-      <div class="program-step">
-        <div class="program-step-num">1</div>
-        <h3>We sit down together</h3>
-        <p>Over a phone call or in person, we work through all the important dates and occasions.</p>
+  <div class="program-hero program-hero--split" style="background:linear-gradient(135deg,var(--lavender) 0%,#a8b4ff 100%); color:var(--text);">
+    <div class="program-hero-inner">
+      <div>
+        <div class="eyebrow">Independent Hearts</div>
+        <h1>Cards that mean something.<br>Always.</h1>
+        <p>For older Australians who still believe a card in the post is worth something. No apps, no forms, no fuss.</p>
       </div>
-      <div class="program-step">
-        <div class="program-step-num">2</div>
-        <h3>We set everything up</h3>
-        <p>We handle all the details on your behalf. No apps, no logins, nothing to fill in.</p>
-      </div>
-      <div class="program-step">
-        <div class="program-step-num">3</div>
-        <h3>Cards arrive at your door</h3>
-        <p>Throughout the year, the right card arrives with plenty of time before each date.</p>
-      </div>
-      <div class="program-step">
-        <div class="program-step-num">4</div>
-        <h3>Sign and send</h3>
-        <p>Write something lovely inside, pop it in the post, and let someone know you were thinking of them.</p>
+      <div class="program-hero-photo">
+        <img src="independent-hearts.jpg" alt="An older person writing a card at a wooden table">
       </div>
     </div>
   </div>
 
-  <div class="program-cta">
-    <h2>Get started</h2>
-    <p>Get in touch and we'll organise a time to sit down together. No technology required on your end.</p>
-    <a href="mailto:hello@littlemissprickles.com.au" class="btn-primary" style="display:inline-block;text-decoration:none;padding:0.8rem 2rem;">Get in touch</a>
+  <div class="program-body">
+    <h2>How it works</h2>
+    <p>We sit down together, in person or over a call, and go through the dates that matter to you. Birthdays, anniversaries, the ones you never want to forget.</p>
+    <p>From there, I organise your cards to arrive a week before each date. Not through family, not through a carer. Just you and me, and a system that's entirely yours.</p>
+    <p>The message inside is yours to write, in your own time. No last-minute dash to the shops, no relying on someone else to remember for you. Just a card, at your door, exactly when you need it, because you remembered.</p>
+  </div>
+
+  <div class="program-story program-story--text">
+    <div>
+      <div>
+        <h2>Why I started this</h2>
+        <p>I used to work in aged care, and the people I met there all wanted the same thing: to still feel in control. Not looked after. In control. Of their own memories, their own relationships, their own way of showing up for the people they love.</p>
+        <p>Sending a card sounds small. But knowing you did it yourself, on your own terms, without needing to ask, that's independence. That's what Independent Hearts is for.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="program-path">
+    <div class="program-path-inner">
+      <div class="program-path-steps">
+        <div class="program-path-step">
+          <div class="program-path-num">1</div>
+          <h3>We sit down together</h3>
+        </div>
+        <div class="program-path-step">
+          <div class="program-path-num">2</div>
+          <h3>It's entirely yours</h3>
+        </div>
+        <div class="program-path-step">
+          <div class="program-path-num">3</div>
+          <h3>Cards arrive at your door</h3>
+        </div>
+        <div class="program-path-step">
+          <div class="program-path-num">4</div>
+          <h3>You write, you send</h3>
+        </div>
+      </div>
+
+      <div class="program-path-cta">
+        <h2>Get started</h2>
+        <p>Get in touch and we'll organise a time.</p>
+        <a href="mailto:hello@littlemissprickles.com.au" class="btn-primary" style="display:inline-block;text-decoration:none;padding:0.8rem 2rem;">Get in touch</a>
+      </div>
+    </div>
   </div>
 
   <footer>
