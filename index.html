@@ -363,6 +363,119 @@
     .pill:hover { background: var(--lavender); color: var(--text); border-color: var(--lavender); }
     .pill.active { background: var(--amber); color: var(--text); border-color: var(--amber); }
 
+    /* AGE RANGE SLIDER */
+    .age-filter {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .age-filter[hidden] { display: none; }
+
+    .age-filter-inner {
+      background: var(--lavender-light);
+      border-radius: 16px;
+      padding: 1.1rem 1.4rem 1rem;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .age-filter-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .age-filter-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .age-filter-value { font-size: 0.88rem; font-weight: 700; color: var(--lavender-ink); }
+
+    .age-slider { position: relative; height: 32px; }
+
+    .age-track, .age-track-fill {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 5px;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    .age-track { left: 10px; right: 10px; background: #dcdce8; }
+    .age-track-fill { background: var(--lavender-ink); }
+
+    .age-slider input[type="range"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 32px;
+      margin: 0;
+      background: none;
+      pointer-events: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .age-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      pointer-events: auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--lavender-ink);
+      box-shadow: 0 2px 6px rgba(26,26,46,0.22);
+      cursor: grab;
+    }
+
+    .age-slider input[type="range"]::-webkit-slider-thumb:active { cursor: grabbing; }
+
+    .age-slider input[type="range"]::-moz-range-thumb {
+      pointer-events: auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--lavender-ink);
+      box-shadow: 0 2px 6px rgba(26,26,46,0.22);
+      cursor: grab;
+    }
+
+    .age-slider input[type="range"]:focus-visible { outline: none; }
+    .age-slider input[type="range"]:focus-visible::-webkit-slider-thumb {
+      outline: 2px solid var(--lavender-ink);
+      outline-offset: 2px;
+    }
+
+    .age-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.64rem;
+      color: var(--text-muted);
+      padding: 0 2px;
+    }
+
+    .age-ticks span { flex: 1; text-align: center; }
+    .age-ticks span:first-child { text-align: left; }
+    .age-ticks span:last-child { text-align: right; }
+
+    .shop-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--text-muted);
+      padding: 2.5rem 1rem;
+      font-size: 0.92rem;
+    }
+
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -1727,6 +1840,8 @@
       /* SHOP PAGE */
       .shop-header { padding: 2.5rem 1.5rem 1.5rem; }
       .shop-header h1 { font-size: 2rem; }
+      .age-filter { padding: 0 1.5rem; }
+
       .card-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
@@ -1900,6 +2015,8 @@
     <div class="category-pills" style="justify-content:flex-start; margin-bottom:2rem;">
       <div class="pill active" onclick="filterHomeCards('all', this)">All the goods</div>
       <div class="pill" onclick="filterHomeCards('og', this)">The OG's</div>
+      <div class="pill" onclick="filterHomeCards('birthday', this)">Birthdays</div>
+      <div class="pill" onclick="filterHomeCards('junior', this)">The Junior Patch</div>
     </div>
     <div id="home-card-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem;"></div>
   </div>
@@ -2004,8 +2121,27 @@
     <div class="category-pills">
       <div class="pill active" onclick="filterCards('all', this)">All the goods</div>
       <div class="pill" onclick="filterCards('og', this)">The OG's</div>
+      <div class="pill" onclick="filterCards('birthday', this)">Birthdays</div>
+      <div class="pill" onclick="filterCards('junior', this)">The Junior Patch</div>
     </div>
   </div>
+
+  <div class="age-filter" id="age-filter" hidden>
+    <div class="age-filter-inner">
+      <div class="age-filter-head">
+        <span class="age-filter-label">Age</span>
+        <span class="age-filter-value" id="age-value"></span>
+      </div>
+      <div class="age-slider">
+        <div class="age-track"></div>
+        <div class="age-track-fill" id="age-fill"></div>
+        <input type="range" id="age-min" min="0" max="5" step="1" value="0" aria-label="Youngest age">
+        <input type="range" id="age-max" min="0" max="5" step="1" value="5" aria-label="Oldest age">
+      </div>
+      <div class="age-ticks" id="age-ticks"></div>
+    </div>
+  </div>
+
   <div class="card-grid" id="card-grid"></div>
 
   <footer>
@@ -3078,6 +3214,7 @@ function heroRestart() {
 
 function bootStore() {
   renderGrids();
+  ageBuild();
   loadCart();
   renderCart();
 }
@@ -3122,19 +3259,55 @@ document.addEventListener('keydown', e => {
    same. To add a card, add an entry; nothing else needs touching.
    =================================================================== */
 const PRODUCTS = [
-  { id: 'youre-a-prick',   name: "You're a prick.",        price: 6.50, cat: "The OG's", img: 'youre-a-prick.png',
+  { id: 'youre-a-prick',   name: "You're a prick.",        price: 6.50, key: 'og', cat: "The OG's", img: 'youre-a-prick.png',
     alt: "Watercolour cactus card reading 'You're a prick.'",
     blurb: "The one that started it all. A hand painted cactus and three words that say what a shop-bought card never could. For the person who will absolutely take it as a compliment." },
-  { id: 'bunch-of-pricks', name: 'Just a bunch of pricks!', price: 6.50, cat: "The OG's", img: 'bunch-of-pricks.png',
+  { id: 'bunch-of-pricks', name: 'Just a bunch of pricks!', price: 6.50, key: 'og', cat: "The OG's", img: 'bunch-of-pricks.png',
     alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'",
     blurb: "A whole crowd of them. For group cards, team cards, family cards, or anyone who needs telling. Hand painted in watercolour, and yes, everyone in the office will read it." },
-  { id: 'free-hugs',       name: 'Free hugs.',              price: 6.50, cat: "The OG's", img: 'free-hugs.png',
+  { id: 'free-hugs',       name: 'Free hugs.',              price: 6.50, key: 'og', cat: "The OG's", img: 'free-hugs.png',
     alt: "Watercolour cactus card reading 'Free hugs.'",
     blurb: "A cactus offering hugs. Prickly on the outside, soft underneath, which is most of us. For the friend who needs one and would never ask." },
-  { id: 'cactus-patch',    name: 'Cactus Patch',            price: 6.50, cat: "The OG's", img: 'cactus-patch.png',
+  { id: 'cactus-patch',    name: 'Cactus Patch',            price: 6.50, key: 'og', cat: "The OG's", img: 'cactus-patch.png',
     alt: 'Watercolour card of a collection of potted cacti',
-    blurb: "A little collection of pots, all colour and pattern, no words at all. The one to reach for when the occasion does not need a punchline and you would rather write your own." }
+    blurb: "A little collection of pots, all colour and pattern, no words at all. The one to reach for when the occasion does not need a punchline and you would rather write your own." },
+
+  { id: 'older-spikier-better', name: 'Older, spikier, better.', price: 6.50, key: 'birthday', cat: 'Birthdays', img: 'older-spikier-better.png',
+    alt: "Watercolour card of three cacti in party hats reading 'Older, spikier, better.'",
+    blurb: "Three cacti in party hats and a line that lands somewhere between a compliment and a dig. For the birthday person who would rather be teased than fussed over." },
+
+  { id: 'party-worms',          name: 'Party Worms',            price: 6.50, key: 'birthday', cat: 'Birthdays', img: 'worms.png',
+    alt: 'Watercolour card of three worms in party hats coming up out of the soil',
+    blurb: "Three worms in party hats, popping up out of the dirt for the occasion. No words inside the illustration, so the message is entirely yours to write." },
+
+  /* ---- The Junior Patch ----
+     Placeholder cards until the artwork arrives. Names, prices and age
+     bands are all stand-ins. ages: [first band, last band] as indexes
+     into AGE_BANDS above. */
+  { id: 'jp-first-birthday', name: 'First Birthday', price: 6.50, key: 'junior', cat: 'The Junior Patch',
+    ages: [0, 1], img: 'jp-first-birthday.png', alt: 'Colour-in first birthday card',
+    blurb: 'Colour-in front, a prompt inside for whoever is holding the crayon on their behalf. Placeholder card.' },
+
+  { id: 'jp-colour-cake',    name: 'Colour-in Cake',  price: 6.50, key: 'junior', cat: 'The Junior Patch',
+    ages: [1, 2], img: 'jp-colour-cake.png', alt: 'Colour-in birthday cake card',
+    blurb: 'A cake to colour in on the front and a prompt to finish inside. Placeholder card.' },
+
+  { id: 'jp-dinosaur',       name: 'Colour-in Dinosaur', price: 6.50, key: 'junior', cat: 'The Junior Patch',
+    ages: [2, 3], img: 'jp-dinosaur.png', alt: 'Colour-in dinosaur card',
+    blurb: 'A dinosaur to colour in, and a prompt inside to fill out. Placeholder card.' },
+
+  { id: 'jp-monster',        name: 'Design Your Own Monster', price: 6.50, key: 'junior', cat: 'The Junior Patch',
+    ages: [3, 4], img: 'jp-monster.png', alt: 'Design your own monster card',
+    blurb: 'Half drawn, half up to them. A prompt inside to finish the story. Placeholder card.' },
+
+  { id: 'jp-big-kid',        name: 'Big Kid Birthday', price: 6.50, key: 'junior', cat: 'The Junior Patch',
+    ages: [4, 5], img: 'jp-big-kid.png', alt: 'Big kid birthday card',
+    blurb: 'For the ones who insist they are far too old for colouring in. Placeholder card.' }
 ];
+
+/* Age bands for The Junior Patch, youngest to oldest. A card's ages
+   field holds the first and last band it suits, as indexes into this. */
+const AGE_BANDS = ['Baby', 'Toddler', 'Kid', 'Tween', 'Teen', 'Young Adult'];
 
 /* Shown on every product page, identical for each card. */
 const PRODUCT_DETAILS = [
@@ -3161,7 +3334,7 @@ const byId = id => PRODUCTS.find(p => p.id === id);
 const money = n => '$' + n.toFixed(2);
 
 function productCardHTML(p, catAttr) {
-  return '<div class="product-card" ' + catAttr + '="og" onclick="showProduct(\'' + p.id + '\')">' +
+  return '<div class="product-card" data-id="' + p.id + '" ' + catAttr + '="' + p.key + '" onclick="showProduct(\'' + p.id + '\')">' +
     '<div class="product-img product-img--photo"><img src="' + p.img + '" alt="' + p.alt + '" ' +
       'onerror="this.parentNode.classList.remove(\'product-img--photo\');this.remove();"></div>' +
     '<div class="product-info"><span class="cat-tag">' + p.cat + '</span><h3>' + p.name + '</h3>' +
@@ -3434,19 +3607,89 @@ function showPage(name) {
 }
 
 function filterHomeCards(cat, el) {
-  document.querySelectorAll('.category-pills .pill').forEach(p => p.classList.remove('active'));
+  el.parentNode.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
   document.querySelectorAll('#home-card-grid .product-card').forEach(card => {
     card.style.display = (cat === 'all' || card.dataset.homecat === cat) ? 'block' : 'none';
   });
 }
 
+let shopCat = 'all';
+let ageLow = 0;
+let ageHigh = AGE_BANDS.length - 1;
+
 function filterCards(cat, el) {
-  document.querySelectorAll('.category-pills .pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('#card-grid .product-card').forEach(card => {
-    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+  shopCat = cat;
+  if (el) {
+    el.parentNode.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+  const ageBox = document.getElementById('age-filter');
+  if (ageBox) ageBox.hidden = cat !== 'junior';
+  applyShopFilter();
+}
+
+function applyShopFilter() {
+  const grid = document.getElementById('card-grid');
+  if (!grid) return;
+  let shown = 0;
+  grid.querySelectorAll('.product-card').forEach(card => {
+    const p = byId(card.dataset.id);
+    let show = shopCat === 'all' || (p && p.key === shopCat);
+    /* an age range counts as a match if it overlaps the chosen one */
+    if (show && shopCat === 'junior' && p && p.ages) {
+      show = p.ages[0] <= ageHigh && p.ages[1] >= ageLow;
+    }
+    card.style.display = show ? 'block' : 'none';
+    if (show) shown++;
   });
+  const empty = grid.querySelector('.shop-empty');
+  if (empty) empty.remove();
+  if (!shown) {
+    grid.insertAdjacentHTML('beforeend',
+      '<p class="shop-empty">No cards in that age range yet. Try widening it.</p>');
+  }
+}
+
+/* ---------- AGE RANGE SLIDER ---------- */
+function ageLabel() {
+  return ageLow === ageHigh ? AGE_BANDS[ageLow] : AGE_BANDS[ageLow] + ' to ' + AGE_BANDS[ageHigh];
+}
+
+function ageRefresh() {
+  const max = AGE_BANDS.length - 1;
+  const fill = document.getElementById('age-fill');
+  const value = document.getElementById('age-value');
+  if (fill) {
+    /* the track is inset by the thumb radius at each end */
+    fill.style.left = 'calc(10px + ' + (ageLow / max) * 100 + '% - ' + (ageLow / max) * 20 + 'px)';
+    fill.style.width = 'calc(' + ((ageHigh - ageLow) / max) * 100 + '% - ' + ((ageHigh - ageLow) / max) * 20 + 'px)';
+  }
+  if (value) value.textContent = ageLabel();
+}
+
+function ageBuild() {
+  const ticks = document.getElementById('age-ticks');
+  const lo = document.getElementById('age-min');
+  const hi = document.getElementById('age-max');
+  if (!ticks || !lo || !hi) return;
+  ticks.innerHTML = AGE_BANDS.map(b => '<span>' + b + '</span>').join('');
+  lo.max = hi.max = AGE_BANDS.length - 1;
+  hi.value = AGE_BANDS.length - 1;
+
+  const onInput = () => {
+    let a = parseInt(lo.value, 10);
+    let b = parseInt(hi.value, 10);
+    /* the handles must not cross over each other */
+    if (a > b) { const t = a; a = b; b = t; lo.value = a; hi.value = b; }
+    ageLow = a;
+    ageHigh = b;
+    ageRefresh();
+    applyShopFilter();
+  };
+  lo.addEventListener('input', onInput);
+  hi.addEventListener('input', onInput);
+  ageRefresh();
 }
 
 // BILLING TOGGLE
