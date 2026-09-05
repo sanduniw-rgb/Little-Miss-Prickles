@@ -522,16 +522,45 @@
       background: var(--white);
     }
 
-    .product-badge {
+    /* Round sticker slapped on the corner of a card tile. Set a card's
+       sticker field in PRODUCTS to give it one. */
+    .product-sticker {
       position: absolute;
       z-index: 2;
-      top: 10px; right: 10px;
+      top: 12px;
+      left: 12px;
+      width: 86px;
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 50%;
       background: var(--amber);
       color: var(--text);
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
+      border: 3px solid var(--white);
+      box-shadow: 0 6px 16px rgba(79,95,184,0.28);
+      font-size: 0.62rem;
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 0.4rem;
+      transform: rotate(-12deg);
+      transition: transform 0.25s ease;
+      pointer-events: none;
+    }
+
+    .product-card:hover .product-sticker { transform: rotate(-6deg) scale(1.06); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .product-sticker,
+      .product-card:hover .product-sticker { transition: none; transform: rotate(-12deg); }
+    }
+
+    @media (max-width: 600px) {
+      .product-sticker { width: 74px; height: 74px; font-size: 0.56rem; top: 10px; left: 10px; }
     }
 
     .product-info {
@@ -3359,6 +3388,7 @@ const PRODUCTS = [
 
   { id: 'youre-my-hero',     name: "You're My Hero, Colour-In Superhero Card", price: 6.50, key: 'junior', cat: 'The Junior Patch',
     ages: [1, 3], img: 'youre-my-hero.png',
+    sticker: 'Fill in<br>the story',
     alt: "Colour-in A5 card with a line drawing of a superhero dad flying through the clouds under the words You're My Hero",
     views: [
       { img: 'youre-my-hero.png', label: 'Outside',
@@ -3429,7 +3459,9 @@ const money = n => '$' + n.toFixed(2);
 
 function productCardHTML(p, catAttr) {
   return '<div class="product-card" data-id="' + p.id + '" ' + catAttr + '="' + p.key + '" onclick="showProduct(\'' + p.id + '\')">' +
-    '<div class="product-img product-img--photo"><img src="' + p.img + '" alt="' + p.alt + '" ' +
+    '<div class="product-img product-img--photo">' +
+      (p.sticker ? '<span class="product-sticker">' + p.sticker + '</span>' : '') +
+      '<img src="' + p.img + '" alt="' + p.alt + '" ' +
       'onerror="this.parentNode.classList.remove(\'product-img--photo\');this.remove();"></div>' +
     '<div class="product-info"><span class="cat-tag">' + p.cat + '</span><h3>' + p.name + '</h3>' +
     '<div class="price">' + money(p.price) + '</div></div></div>';
