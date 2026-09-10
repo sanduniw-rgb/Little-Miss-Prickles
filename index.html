@@ -154,19 +154,6 @@
 
     .festive-bar:hover .festive-bar-go { color: #f2c14e; }
 
-    .logo-hatted { position: relative; display: inline-block; }
-
-    .logo-hat {
-      position: absolute;
-      top: -7%;
-      left: 50%;
-      width: 27%;
-      height: auto;
-      transform: rotate(-16deg);
-      pointer-events: none;
-      filter: drop-shadow(0 3px 6px rgba(20,20,20,0.18));
-    }
-
     /* A strand of lights along the bottom edge of the nav: a fine
        wire with a bulb every 26px. */
     nav::after {
@@ -2125,19 +2112,7 @@
     <a onclick="showPage('about')" class="nav-link" id="nav-about">About</a>
   </div>
   <div class="nav-logo">
-    <div class="logo-hatted">
-      <img src="logo.png" alt="Little Miss Prickles">
-      <!-- Santa hat for the festive season. Delete this svg (and the
-           .logo-hat styles) to put the logo back to normal. -->
-      <svg class="logo-hat" viewBox="0 0 100 72" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 48 C10 20, 32 4, 56 9 C72 12, 82 22, 88 31 C74 36, 42 44, 12 51 Z"
-              fill="#c62c3e" stroke="#8f1f2d" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M12 43 C40 36, 70 28, 86 24 C88 27, 89 29, 90 31 C74 36, 42 44, 12 51 Z"
-              fill="#a8202f" opacity="0.55"/>
-        <rect x="2" y="44" width="62" height="19" rx="9.5" fill="#f8f5f1" stroke="#ded7cf" stroke-width="2.5"/>
-        <circle cx="90" cy="29" r="10" fill="#f8f5f1" stroke="#ded7cf" stroke-width="2.5"/>
-      </svg>
-    </div>
+    <img src="logo.png" alt="Little Miss Prickles">
   </div>
   <div class="nav-right">
     <div class="nav-dropdown">
