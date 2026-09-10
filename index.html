@@ -224,7 +224,6 @@
     }
 
     .xmas-offer-tag {
-      position: relative;
       display: grid;
       align-content: center;
       width: 224px;
@@ -2436,10 +2435,325 @@
     <div class="xmas-offer-swing">
         <span class="xmas-offer-string" aria-hidden="true"></span>
         <span class="xmas-offer-loop" aria-hidden="true"></span>
-      <span class="xmas-offer-cap" aria-hidden="true"></span>
-      <div class="xmas-offer-tag">
-        <h3>Buy 5 cards, the gift tags are on us.</h3>
-        <p>Order any 5 Christmas cards and a 10 pack of matching gift tags comes free.</p>
+        <span class="xmas-offer-cap" aria-hidden="true"></span>
+        <div class="xmas-offer-tag">
+          <h3>Buy 5 cards, the gift tags are on us.</h3>
+          <p>Order any 5 Christmas cards and a 10 pack of matching gift tags comes free.</p>
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="age-filter" id="age-filter" hidden>
+    <div class="age-filter-inner">
+      <div class="age-filter-head">
+        <span class="age-filter-label">Age</span>
+        <span class="age-filter-value" id="age-value"></span>
+      </div>
+      <div class="age-slider">
+        <div class="age-track"></div>
+        <div class="age-track-fill" id="age-fill"></div>
+        <input type="range" id="age-min" min="0" max="5" step="1" value="0" aria-label="Youngest age">
+        <input type="range" id="age-max" min="0" max="5" step="1" value="5" aria-label="Oldest age">
+      </div>
+      <div class="age-ticks" id="age-ticks"></div>
+    </div>
+  </div>
+
+  <div class="card-grid" id="card-grid"></div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Logos.png?v=2" alt="Little Miss Prickles" class="footer-brand-logo">
+        <p>Cheeky, heartfelt cards for every occasion. Printed locally in Canberra, posted with love.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('shop')">Store</a></li>
+          <li><a onclick="showPage('about')">About</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">The Prickle Post Family</div>
+        <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
+          <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
+          <li><a onclick="showPage('sorted')">Sorted</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <ul>
+          <li><a onclick="showPage('faq')">FAQ</a></li>
+          <li><a onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Little Miss Prickles · Canberra, Australia · Merry Christmas 🎄</p>
+    </div>
+  </footer>
+</div>
+
+<!-- SUBSCRIBE -->
+<div class="page" id="page-subscribe">
+  <div class="sub-hero">
+    <h1>Never be that person again.</h1>
+    <p>Life's busy. We get it. Our subscription sends the right card to your door before the big moments, so you always show up, even when life gets in the way.</p>
+  </div>
+
+  <div class="how-it-works-header" style="text-align:center; padding:3rem 3rem 0;">
+    <h2 style="font-family:'Montserrat',sans-serif; font-size:1.8rem; margin-bottom:0.5rem;">How it works</h2>
+    <p style="color:var(--text-muted); font-size:0.95rem;">Three stupidly easy steps to never forget again.</p>
+  </div>
+
+  <div class="how-it-works-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; padding:2rem 3rem; max-width:900px; margin:0 auto; text-align:center;">
+    <div>
+      <div style="width:48px;height:48px;background:var(--teal);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;margin:0 auto 1rem;">1</div>
+      <h3 style="font-family:'Montserrat',sans-serif;margin-bottom:0.4rem;">Spill the dates</h3>
+      <p style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;">Tell us who matters and when. Birthdays, anniversaries, all the big moments.</p>
+    </div>
+    <div>
+      <div style="width:48px;height:48px;background:var(--amber);color:var(--text);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;margin:0 auto 1rem;">2</div>
+      <h3 style="font-family:'Montserrat',sans-serif;margin-bottom:0.4rem;">We do the hard part</h3>
+      <p style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;">You pick a vibe (cheeky, sweet, or punny) and we pick the perfect card for you.</p>
+    </div>
+    <div>
+      <div style="width:48px;height:48px;background:var(--lavender);color:#3a3a8c;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;margin:0 auto 1rem;">3</div>
+      <h3 style="font-family:'Montserrat',sans-serif;margin-bottom:0.4rem;">You look like you planned it</h3>
+      <p style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;">It arrives at your door with plenty of time to write and send. No one has to know.</p>
+    </div>
+  </div>
+
+  <div class="billing-section">
+    <h2 style="font-family:'Montserrat',sans-serif; font-size:1.8rem; margin-bottom:1.2rem;">Choose your plan</h2>
+    <div class="billing-toggle">
+      <button class="toggle-option" id="toggle-monthly" onclick="setBilling('monthly')">Monthly</button>
+      <button class="toggle-option active" id="toggle-annual" onclick="setBilling('annual')">Annual <span class="annual-save-badge">Best value</span></button>
+    </div>
+  </div>
+
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-name">Seedling</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">I try, okay.</div>
+      <div class="plan-card-count">5 cards per year</div>
+      <div class="plan-price-annual">
+        <div class="plan-price">$40<span>/year</span></div>
+        <div class="plan-save">Save $20 vs monthly</div>
+      </div>
+      <div class="plan-price-monthly" style="display:none">
+        <div class="plan-price">$5<span>/month</span></div>
+        <div class="plan-yearly-note">$60 per year</div>
+      </div>
+      <div class="plan-desc">For the person with a small handful of important dates who wants to stop forgetting them.</div>
+      <ul class="plan-features">
+        <li><div class="check">✓</div>5 cards per year</li>
+        <li><div class="check">✓</div>Sent 2 weeks before each date</li>
+        <li><div class="check">✓</div>You choose the vibe: cheeky, sweet or punny</li>
+        <li><div class="check">✓</div>Free postage</li>
+        <li><div class="check">✓</div>Cancel anytime</li>
+      </ul>
+      <!-- TODO: replace href with Stripe payment link -->
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="featured-tag">Most popular</div>
+      <div class="plan-name">In Bloom</div>
+      <div style="font-size:0.85rem;opacity:0.75;margin-bottom:0.8rem;">The one who actually cares.</div>
+      <div class="plan-card-count">10 cards per year</div>
+      <div class="plan-price-annual">
+        <div class="plan-price">$72<span>/year</span></div>
+        <div class="plan-save">Save $24 vs monthly</div>
+      </div>
+      <div class="plan-price-monthly" style="display:none">
+        <div class="plan-price">$8<span>/month</span></div>
+        <div class="plan-yearly-note">$96 per year</div>
+      </div>
+      <div class="plan-desc">For someone who wants to cover all the key people in their life without the mental load.</div>
+      <ul class="plan-features">
+        <li><div class="check">✓</div>10 cards per year</li>
+        <li><div class="check">✓</div>Sent 2 weeks before each date</li>
+        <li><div class="check">✓</div>You choose the vibe: cheeky, sweet or punny</li>
+        <li><div class="check">✓</div>Free postage</li>
+        <li><div class="check">✓</div>Priority card selection</li>
+        <li><div class="check">✓</div>Cancel anytime</li>
+      </ul>
+      <!-- TODO: replace href with Stripe payment link -->
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-name">Full Bloom</div>
+      <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">Basically a professional friend.</div>
+      <div class="plan-card-count">20 cards per year</div>
+      <div class="plan-price-annual">
+        <div class="plan-price">$130<span>/year</span></div>
+        <div class="plan-save">Save $38 vs monthly</div>
+      </div>
+      <div class="plan-price-monthly" style="display:none">
+        <div class="plan-price">$14<span>/month</span></div>
+        <div class="plan-yearly-note">$168 per year</div>
+      </div>
+      <div class="plan-desc">For the person who sends cards for everything and everyone. Absolute legend.</div>
+      <ul class="plan-features">
+        <li><div class="check">✓</div>20 cards per year</li>
+        <li><div class="check">✓</div>Sent 2 weeks before each date</li>
+        <li><div class="check">✓</div>You choose the vibe: cheeky, sweet or punny</li>
+        <li><div class="check">✓</div>Free postage</li>
+        <li><div class="check">✓</div>Priority card selection</li>
+        <li><div class="check">✓</div>Early access to new designs</li>
+        <li><div class="check">✓</div>Cancel anytime</li>
+      </ul>
+      <!-- TODO: replace href with Stripe payment link -->
+      <button class="btn-plan" type="button" onclick="showComingSoon(event)">Get started</button>
+    </div>
+  </div>
+
+  <div style="background:var(--teal-light); padding:3rem; text-align:center; border-radius:20px; max-width:700px; margin:0 auto 4rem;">
+    <div style="font-size:2rem;margin-bottom:0.8rem;">🌵</div>
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:1.5rem;margin-bottom:0.6rem;">Dipping your toes in?</h3>
+    <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.5rem;">Start with Seedling. No lock-in, no commitment, just really good cards showing up at your door. Cancel whenever. We won't even guilt trip you.</p>
+    <button class="btn-primary" type="button" onclick="showComingSoon(event)">Try Seedling for free</button>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Logos.png?v=2" alt="Little Miss Prickles" class="footer-brand-logo">
+        <p>Cheeky, heartfelt cards for every occasion. Printed locally in Canberra, posted with love.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('shop')">Store</a></li>
+          <li><a onclick="showPage('about')">About</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">The Prickle Post Family</div>
+        <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
+          <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
+          <li><a onclick="showPage('sorted')">Sorted</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <ul>
+          <li><a onclick="showPage('faq')">FAQ</a></li>
+          <li><a onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Little Miss Prickles · Canberra, Australia · Merry Christmas 🎄</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+
+  <div class="about-layout">
+
+    <div class="about-visual">
+      <div class="about-photo-frame">
+        <img src="about-photo.jpg" alt="Duni and her family">
+      </div>
+    </div>
+
+    <div class="about-text">
+      <div class="eyebrow">Behind the prickles</div>
+      <h1>Hi, I'm Duni, nice to meet you!</h1>
+
+      <p class="about-para">A Canberra mum, chronic multitasker, and the person behind Little Miss Prickles. If you looked up "too much on her plate" in the dictionary, you'd probably find <strong>a photo of me looking mildly caffeinated</strong>.</p>
+
+      <p class="about-para">I'm a general manager running multiple businesses, a role I was absolutely thrown into, sink or swim style, by a boss who saw something in me before I did. <strong>Spoiler: I swam. Mostly.</strong> Why am I telling you this? Because it's a huge part of what gave me the guts to actually do this. Little Miss Prickles, this website, all of it. Consider it a little bookmark reminder to myself. This is an about me page, isn't it?</p>
+
+      <p class="about-para">I'm also the behind-the-scenes engine of my husband's gardening biz (<strong>he does the digging, I do the dollars</strong>). We've been together since we were 15 (we're 30 now), which means we've done all the growing up, the hard bits, and the good bits side by side. When he's in my corner, my mind goes quiet, the doubts, the creepy crawly what-ifs, all of it. With him there, I feel like I can do anything.</p>
+
+      <p class="about-para">Then there's our two-year-old, who has <strong>one speed and absolutely no interest in my to-do list</strong>. He keeps me present in a way no productivity app ever could. Turns out a toddler who wants to read the same book seventeen times in a row is actually pretty good at teaching you to slow down and appreciate the completely ordinary.</p>
+
+      <p class="about-para">Little Miss Prickles is what happens when someone with too much on her plate also has <strong>too many feelings and thinks half of them should be a card</strong>. I think about all the missed opportunities, the moments and feelings we never quite said out loud. Why not capture it in a card? I've always made cards for people rather than buying them. Why? because you can't get <strong>custom, slightly unhinged, and made-just-for-them</strong> at the supermarket. And honestly? Why would I want to. Little Miss Prickles is about those funny, unordinary little pockets of words, relatable, a bit rude &amp; nice to look at.<br>We've got both here, not just generic.</p>
+
+      <p class="about-para">Every card is painted and printed locally here in Canberra, and sent with the hope that it makes someone <strong>snort-laugh, ugly cry, or both</strong>.</p>
+
+      <p class="about-para">If you've ever wanted to give someone a card that really meant something...</p>
+
+      <div class="about-sign-block">
+        <p class="about-welcome">Welcome Home</p>
+        <p class="about-sign">With Love, Duni</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:var(--lavender); padding:3.5rem 3rem; text-align:center; color:var(--text);">
+    <h2 style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:2rem;margin-bottom:0.6rem;">Read more about the Prickle Post Family</h2>
+    <p style="opacity:0.75;margin-bottom:1.8rem;font-size:1rem;">Three ways to never miss a moment, whoever you're sending to.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-primary" style="background:#fff;color:var(--text);" onclick="showPage('hearts')">Independent Hearts</button>
+      <button class="btn-primary" style="background:#fff;color:var(--text);" onclick="showPage('sorted')">Sorted</button>
+      <button class="btn-primary" style="background:#fff;color:var(--text);" onclick="showComingSoon(event)">The Regular</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Logos.png?v=2" alt="Little Miss Prickles" class="footer-brand-logo">
+        <p>Cheeky, heartfelt cards for every occasion. Printed locally in Canberra, posted with love.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Explore</div>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('shop')">Store</a></li>
+          <li><a onclick="showPage('about')">About</a></li>
+          <li><a onclick="showComingSoon(event)">Subscribe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">The Prickle Post Family</div>
+        <ul>
+          <li><a onclick="showComingSoon(event)">The Regular</a></li>
+          <li><a onclick="showPage('hearts')">Independent Hearts</a></li>
+          <li><a onclick="showPage('sorted')">Sorted</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Help</div>
+        <ul>
+          <li><a onclick="showPage('faq')">FAQ</a></li>
+          <li><a onclick="showPage('contact')">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Little Miss Prickles · Canberra, Australia · Merry Christmas 🎄</p>
+    </div>
+  </footer>
+</div>
+
+<!-- INDEPENDENT HEARTS -->
+<div class="page" id="page-hearts">
+  <div class="program-hero program-hero--split" style="background:linear-gradient(135deg,var(--lavender) 0%,#a8b4ff 100%); color:var(--text);">
+    <div class="program-hero-inner">
+      <div>
+        <div class="eyebrow">Independent Hearts</div>
+        <h1>Cards that mean something.<br>Always.</h1>
+        <p>For older Australians who still believe a card in the post is worth something. No apps, no forms, no fuss.</p>
+      </div>
+      <div class="program-hero-photo">
+        <img src="independent-hearts.jpg" alt="An older person writing a card at a wooden table">
       </div>
     </div>
   </div>
