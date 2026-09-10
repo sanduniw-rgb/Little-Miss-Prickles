@@ -93,6 +93,124 @@
       color: var(--lavender-ink);
     }
 
+    /* ---- Phone menu ------------------------------------------- */
+    .nav-burger { display: none; }
+
+    .mobile-nav, .mobile-nav-backdrop { display: none; }
+
+    @media (max-width: 768px) {
+      .nav-burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        padding: 0 8px;
+        border: none;
+        border-radius: 10px;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .nav-burger span {
+        display: block;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--text);
+      }
+
+      .mobile-nav-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 240;
+        background: rgba(26,26,46,0.45);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .mobile-nav-backdrop[hidden] { display: none; }
+      .mobile-nav-backdrop.open { opacity: 1; }
+
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: min(78vw, 300px);
+        z-index: 250;
+        padding: 3.4rem 1.1rem 2rem;
+        background: #fff;
+        text-align: left;
+        align-items: stretch;
+        box-shadow: 6px 0 30px rgba(26,26,46,0.16);
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+      }
+
+      .mobile-nav[hidden] { display: none; }
+      .mobile-nav.open { transform: none; }
+
+      .mobile-nav-close {
+        position: absolute;
+        top: 0.9rem;
+        right: 0.9rem;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border: none;
+        border-radius: 50%;
+        background: #f5f4fa;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .mobile-nav-link {
+        padding: 0.85rem 0.6rem;
+        border-radius: 10px;
+        font-size: 1.02rem;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .mobile-nav-heading {
+        margin: 1.2rem 0.6rem 0.4rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .mobile-nav-sub {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        padding: 0.7rem 0.6rem;
+        border-radius: 10px;
+        color: var(--text);
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .mobile-nav-sub span { font-size: 0.94rem; font-weight: 600; }
+      .mobile-nav-sub small { font-size: 0.76rem; color: var(--text-muted); line-height: 1.4; }
+
+      .mobile-nav-link:active, .mobile-nav-sub:active { background: var(--amber-light, #fdf1dc); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mobile-nav, .mobile-nav-backdrop { transition: none; }
+    }
+
     /* PAGES */
     .page { display: none; }
     .page.active { display: block; }
@@ -2145,17 +2263,18 @@
     @media (max-width: 700px) {
       /* NAV */
       nav {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
         align-items: center;
-        padding: 0.6rem 1rem;
-        gap: 0.4rem;
+        padding: 0.5rem 1rem;
       }
-      .nav-logo { padding: 0; order: -1; }
-      .nav-logo img { height: 80px; }
-      .nav-left { justify-content: center; gap: 1.5rem; }
-      .nav-right { justify-content: center; gap: 1rem; }
-      .nav-link { font-size: 0.82rem; }
+      .nav-logo { padding: 0; justify-self: center; }
+      .nav-logo img { height: 104px; }
+      .nav-left { display: none; }
+
+      /* the cart lives in nav-right, so keep the box and hide the links */
+      .nav-right { display: flex; justify-content: flex-end; gap: 0; }
+      .nav-right .nav-link, .nav-right .nav-dropdown { display: none; }
       .nav-cart { position: static; transform: none; }
 
       /* HOME HERO */
@@ -2273,6 +2392,11 @@
 </button>
 
 <nav>
+  <!-- Phone menu button. Hidden on desktop, where the links sit in
+       the nav itself. -->
+  <button class="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-left">
     <a onclick="showPage('home')" class="nav-link active" id="nav-home">Home</a>
     <a onclick="showPage('shop')" class="nav-link" id="nav-shop">Store</a>
@@ -2309,6 +2433,27 @@
       <span class="nav-cart-count" id="nav-cart-count" hidden>0</span>
     </button>
   </div>
+</nav>
+
+<!-- Phone navigation drawer -->
+<div class="mobile-nav-backdrop" id="mobile-nav-backdrop" onclick="closeMobileNav()" hidden></div>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Menu" hidden>
+  <button class="mobile-nav-close" type="button" aria-label="Close menu" onclick="closeMobileNav()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <a class="mobile-nav-link" onclick="showPage('home')">Home</a>
+  <a class="mobile-nav-link" onclick="showPage('shop')">Store</a>
+  <a class="mobile-nav-link" onclick="showPage('about')">About</a>
+  <div class="mobile-nav-heading">Subscriptions</div>
+  <a class="mobile-nav-sub" onclick="closeMobileNav();showComingSoon(event)">
+    <span>The Regular</span><small>Your dates, covered all year.</small>
+  </a>
+  <a class="mobile-nav-sub" onclick="showPage('hearts')">
+    <span>Independent Hearts</span><small>For older Australians, sending their own.</small>
+  </a>
+  <a class="mobile-nav-sub" onclick="showPage('sorted')">
+    <span>Sorted</span><small>Staff birthdays, handled.</small>
+  </a>
 </nav>
 
 <!-- HOME -->
@@ -4134,7 +4279,43 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFamily(); });
 
+/* Phone menu. The drawer is hidden outright when closed so it can
+   never swallow taps on the page behind it. */
+function openMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  const back = document.getElementById('mobile-nav-backdrop');
+  const burger = document.querySelector('.nav-burger');
+  if (!nav || !back) return;
+  nav.hidden = false;
+  back.hidden = false;
+  requestAnimationFrame(() => { nav.classList.add('open'); back.classList.add('open'); });
+  if (burger) burger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  const back = document.getElementById('mobile-nav-backdrop');
+  const burger = document.querySelector('.nav-burger');
+  if (!nav || !back || nav.hidden) return;
+  nav.classList.remove('open');
+  back.classList.remove('open');
+  if (burger) burger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  setTimeout(() => { nav.hidden = true; back.hidden = true; }, 250);
+}
+
+function toggleMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  if (nav && nav.hidden) openMobileNav(); else closeMobileNav();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMobileNav();
+});
+
 function showPage(name) {
+  closeMobileNav();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
