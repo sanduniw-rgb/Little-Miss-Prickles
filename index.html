@@ -122,6 +122,47 @@
       margin-bottom: 1.2rem;
     }
 
+    .hero-badge--xmas {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(100deg, #b8283c, #d94a5c 55%, #147a7e);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      box-shadow: 0 8px 20px rgba(184,40,60,0.28);
+    }
+
+    .xmas-twinkle {
+      display: inline-block;
+      font-size: 0.9rem;
+      animation: xmas-twinkle 2.2s ease-in-out infinite;
+    }
+    .xmas-twinkle--b { animation-delay: 1.1s; }
+
+    @keyframes xmas-twinkle {
+      0%, 100% { opacity: 0.35; transform: scale(0.8); }
+      50%      { opacity: 1;    transform: scale(1.15); }
+    }
+
+    .hero-h1-accent { color: #b8283c; display: inline-block; }
+
+    .category-pills .pill-xmas {
+      background: linear-gradient(100deg, #b8283c, #d94a5c);
+      color: #fff;
+      border-color: transparent;
+    }
+    .category-pills .pill-xmas.active,
+    .category-pills .pill-xmas:hover { background: linear-gradient(100deg, #9d1f31, #c33d4f); color: #fff; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .xmas-twinkle { animation: none; opacity: 1; }
+    }
+
     .hero h1 {
       font-family: 'Montserrat', sans-serif;
       font-size: 3.4rem;
@@ -2030,10 +2071,16 @@
 <div class="page active" id="page-home">
   <div class="hero">
     <div>
-<h1>Cards so good, they'll think you planned ahead.</h1>
-      <p>Cheeky, heartfelt cards for every occasion, and a subscription that means you'll never be that person who forgot again. (We won't tell.)</p>
+      <div class="hero-badge hero-badge--xmas">
+        <span class="xmas-twinkle" aria-hidden="true">✦</span>
+        <span id="xmas-countdown">Christmas is coming</span>
+        <span class="xmas-twinkle xmas-twinkle--b" aria-hidden="true">✦</span>
+      </div>
+<h1>Christmas is coming. <span class="hero-h1-accent">Beat the rush.</span></h1>
+      <p>The festive range has landed, prickly trees, singing koalas and possums on the punch. Order now and be the smug one who posted their cards in November.</p>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="showPage('shop')">Browse the shop</button>
+        <button class="btn-primary" onclick="shopChristmas()">Shop Christmas cards</button>
+        <button class="btn-secondary" onclick="showPage('shop')">Browse the shop</button>
       </div>
     </div>
     <div class="hero-visual">
@@ -2109,6 +2156,7 @@
     </div>
     <div class="category-pills" style="justify-content:flex-start; margin-bottom:2rem;">
       <div class="pill active" onclick="filterHomeCards('all', this)">All the goods</div>
+      <div class="pill pill-xmas" onclick="filterHomeCards('christmas', this)">Christmas 🎄</div>
       <div class="pill" onclick="filterHomeCards('og', this)">The OG's</div>
       <div class="pill" onclick="filterHomeCards('birthday', this)">Birthdays</div>
       <div class="pill" onclick="filterHomeCards('junior', this)">The Junior Patch</div>
@@ -2215,6 +2263,7 @@
     <p>Cards for every occasion, cheeky, heartfelt, and actually worth keeping. Printed locally in Australia, posted with love (and excellent timing).</p>
     <div class="category-pills">
       <div class="pill active" onclick="filterCards('all', this)">All the goods</div>
+      <div class="pill pill-xmas" onclick="filterCards('christmas', this)">Christmas 🎄</div>
       <div class="pill" onclick="filterCards('og', this)">The OG's</div>
       <div class="pill" onclick="filterCards('birthday', this)">Birthdays</div>
       <div class="pill" onclick="filterCards('junior', this)">The Junior Patch</div>
@@ -3238,6 +3287,9 @@
    are cropped from the edges, so keep the card centred in the shot.
    --------------------------------------------------------------- */
 const heroSlides = [
+  { img: 'christmas-prick.png', alt: "Watercolour cactus wrapped in fairy lights reading 'Merry Christmas.... Prick!'" },
+  { img: 'christmas-koalas.png', alt: "Ink and watercolour card of a koala and joey reading 'Koala la la la la la!'" },
+  { img: 'christmas-possums.png', alt: "Watercolour card of two possums in Santa hats reading 'Cheers!! Big Ears!!'" },
   { img: 'youre-a-prick.png', alt: "Watercolour cactus card reading 'You're a prick.'" },
   { img: 'bunch-of-pricks.png', alt: "Watercolour card of a group of cacti reading 'Just a bunch of pricks!'" },
   { img: 'free-hugs.png', alt: "Watercolour cactus card reading 'Free hugs.'" },
@@ -3318,10 +3370,11 @@ function bootStore() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => { heroBuild(); bootStore(); });
+  document.addEventListener('DOMContentLoaded', () => { heroBuild(); bootStore(); updateXmasCountdown(); });
 } else {
   heroBuild();
   bootStore();
+  updateXmasCountdown();
 }
 
 let splashReturnFocus = null;
@@ -3369,6 +3422,23 @@ const PRODUCTS = [
   { id: 'cactus-patch',    name: 'Cactus Patch',            price: 6.50, key: 'og', cat: "The OG's", img: 'cactus-patch.png',
     alt: 'Watercolour card of a collection of potted cacti',
     blurb: "A little collection of pots, all colour and pattern, no words at all. The one to reach for when the occasion does not need a punchline and you would rather write your own." },
+
+  /* ---- Christmas ----
+     Seasonal range. Add new festive cards here with key: 'christmas'
+     and they appear under the Christmas tab on the home page and the
+     store automatically. */
+  { id: 'christmas-prick',   name: 'Merry Christmas.... Prick!', price: 6.50, key: 'christmas', cat: 'Christmas', img: 'christmas-prick.png',
+    sticker: 'New for<br>Christmas',
+    alt: "Watercolour cactus wrapped in fairy lights with two star toppers, reading 'Merry Christmas.... Prick!'",
+    blurb: "A cactus doing its very best impression of a Christmas tree, fairy lights, wonky stars and all. For the one person on your list who would be disappointed by anything sweeter." },
+
+  { id: 'christmas-koalas',  name: 'Koala La La La La La!', price: 6.50, key: 'christmas', cat: 'Christmas', img: 'christmas-koalas.png',
+    alt: "Ink and watercolour card of a koala with a joey on its back, reading 'Koala la la la la la!'",
+    blurb: "A koala, a joey along for the ride, and the worst pun of the season. Very Australian, very festive, and impossible to read without singing it." },
+
+  { id: 'christmas-possums', name: 'Cheers!! Big Ears!!', price: 6.50, key: 'christmas', cat: 'Christmas', img: 'christmas-possums.png',
+    alt: "Watercolour card of two possums in Santa hats hanging from a branch strung with fairy lights, raising a toast, reading 'Cheers!! Big Ears!!'",
+    blurb: "Two possums in Santa hats, hanging off the fairy lights, raising a glass to you. For the friend you always end up in the corner of the party with." },
 
   { id: 'older-spikier-better', name: 'Older, spikier, better.', price: 6.50, key: 'birthday', cat: 'Birthdays', img: 'older-spikier-better.png',
     alt: "Watercolour card of three cacti in party hats reading 'Older, spikier, better.'",
@@ -3834,6 +3904,27 @@ function showPage(name) {
   const navEl = document.getElementById('nav-' + name);
   if (navEl) navEl.classList.add('active');
   window.scrollTo && window.scrollTo(0, 0);
+}
+
+/* Jump from the home banner straight to the Christmas tab in the store. */
+function shopChristmas() {
+  showPage('shop');
+  const pill = document.querySelector('#page-shop .pill-xmas');
+  filterCards('christmas', pill);
+}
+
+/* Banner countdown: "23 sleeps till Christmas", rolling over each year. */
+function updateXmasCountdown() {
+  const el = document.getElementById('xmas-countdown');
+  if (!el) return;
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let xmas = new Date(today.getFullYear(), 11, 25);
+  if (today > xmas) xmas = new Date(today.getFullYear() + 1, 11, 25);
+  const sleeps = Math.round((xmas - today) / 86400000);
+  if (sleeps === 0)      el.textContent = 'Merry Christmas!';
+  else if (sleeps === 1) el.textContent = '1 sleep till Christmas';
+  else                   el.textContent = sleeps + ' sleeps till Christmas';
 }
 
 function filterHomeCards(cat, el) {
