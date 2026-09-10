@@ -189,7 +189,8 @@
       right: 5.5rem;
       display: flex;
       justify-content: center;
-      z-index: 2;
+      z-index: 3;
+      pointer-events: none;
     }
 
     .xmas-offer[hidden] { display: none; }
@@ -204,7 +205,7 @@
 
     .xmas-offer-string {
       width: 2px;
-      height: 26px;
+      height: calc(26px + var(--drop, 0px));
       background: repeating-linear-gradient(to bottom, #b08968 0 5px, #cfae8e 5px 10px);
     }
 
@@ -256,6 +257,10 @@
       margin: 0;
       opacity: 1;
     }
+
+    /* While the bauble is being paid out it swings a little wider. */
+    .xmas-offer-swing { animation-duration: 5s; }
+    .xmas-offer--dropping .xmas-offer-swing { animation-duration: 3.4s; }
 
     @keyframes tag-swing {
       0%, 100% { transform: rotate(-2.6deg); }
@@ -4108,6 +4113,36 @@ const SHOP_COPY = {
   }
 };
 
+/* The bauble hangs lower the further down the store you scroll, as
+   though the string is being paid out. Desktop only, and left alone
+   for anyone who has asked for reduced motion. */
+const XMAS_DROP_MAX = 300;
+let xmasDropTicking = false;
+
+function xmasDropUpdate() {
+  xmasDropTicking = false;
+  const offer = document.getElementById('xmas-offer');
+  if (!offer || offer.hidden) return;
+  const narrow = window.matchMedia('(max-width: 1100px)').matches;
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (narrow || still) {
+    offer.style.setProperty('--drop', '0px');
+    offer.classList.remove('xmas-offer--dropping');
+    return;
+  }
+  const drop = Math.min(window.scrollY, XMAS_DROP_MAX);
+  offer.style.setProperty('--drop', drop.toFixed(1) + 'px');
+  offer.classList.toggle('xmas-offer--dropping', drop > 4 && drop < XMAS_DROP_MAX);
+}
+
+window.addEventListener('scroll', () => {
+  if (xmasDropTicking) return;
+  xmasDropTicking = true;
+  requestAnimationFrame(xmasDropUpdate);
+}, { passive: true });
+
+window.addEventListener('resize', xmasDropUpdate);
+
 function filterCards(cat, el) {
   shopCat = cat;
   if (el) {
@@ -4124,7 +4159,10 @@ function filterCards(cat, el) {
   if (sub) sub.textContent = copy.sub;
 
   const offer = document.getElementById('xmas-offer');
-  if (offer) offer.hidden = cat !== 'christmas';
+  if (offer) {
+    offer.hidden = cat !== 'christmas';
+    xmasDropUpdate();
+  }
 
   applyShopFilter();
 }
