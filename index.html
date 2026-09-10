@@ -149,6 +149,9 @@
       50%      { opacity: 1;    transform: scale(1.15); }
     }
 
+    /* The Christmas call to action goes red on hover, not amber. */
+    .btn-xmas:hover { background: #b8283c; color: #fff; }
+
     .hero-h1-accent { color: #b8283c; display: inline-block; }
 
     .category-pills .pill-xmas {
@@ -2077,9 +2080,9 @@
         <span class="xmas-twinkle xmas-twinkle--b" aria-hidden="true">✦</span>
       </div>
 <h1>Christmas is coming. <span class="hero-h1-accent">Beat the rush.</span></h1>
-      <p>The festive range has landed, prickly trees, singing koalas and possums on the punch. Order now and be the smug one who posted their cards in November.</p>
+      <p>The festive range has landed, prickly trees, singing koalas and possums eating Lamingtons. Order now and be the smug one who posted their cards in November.</p>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="shopChristmas()">Shop Christmas cards</button>
+        <button class="btn-primary btn-xmas" onclick="shopChristmas()">Shop Christmas cards</button>
         <button class="btn-secondary" onclick="showPage('shop')">Browse the shop</button>
       </div>
     </div>
@@ -3428,7 +3431,6 @@ const PRODUCTS = [
      and they appear under the Christmas tab on the home page and the
      store automatically. */
   { id: 'christmas-prick',   name: 'Merry Christmas.... Prick!', price: 6.50, key: 'christmas', cat: 'Christmas', img: 'christmas-prick.png',
-    sticker: 'New for<br>Christmas',
     alt: "Watercolour cactus wrapped in fairy lights with two star toppers, reading 'Merry Christmas.... Prick!'",
     blurb: "A cactus doing its very best impression of a Christmas tree, fairy lights, wonky stars and all. For the one person on your list who would be disappointed by anything sweeter." },
 
