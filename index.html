@@ -1223,6 +1223,8 @@
     }
 
     .nav-drop-menu a {
+      display: flex;
+      flex-direction: column;
       padding: 0.6rem 0.8rem;
       border-radius: 9px;
       font-size: 0.88rem;
@@ -1230,11 +1232,41 @@
       color: var(--text);
       text-decoration: none;
       cursor: pointer;
-      white-space: nowrap;
       transition: background 0.15s;
     }
 
     .nav-drop-menu a:hover { background: var(--amber); }
+
+    .drop-name { white-space: nowrap; }
+
+    /* A one line summary, so nobody has to open all three to find out
+       which subscription is which. */
+    .drop-hint {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      font-size: 0.73rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text-muted);
+      transition: max-height 0.18s ease, opacity 0.18s ease, margin-top 0.18s ease;
+    }
+
+    .nav-drop-menu a:hover .drop-hint,
+    .nav-drop-menu a:focus-visible .drop-hint {
+      max-height: 3rem;
+      opacity: 1;
+      margin-top: 0.15rem;
+    }
+
+    /* Touch screens have no hover, so the summaries just stay put. */
+    @media (hover: none) {
+      .drop-hint { max-height: 3rem; opacity: 1; margin-top: 0.15rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .drop-hint { transition: none; }
+    }
 
     /* NAV CART */
     .nav-cart {
@@ -2220,9 +2252,18 @@
       </button>
       <div class="nav-drop-wrap">
         <div class="nav-drop-menu" id="family-menu">
-          <a onclick="closeFamily();showComingSoon(event)">The Regular</a>
-          <a onclick="closeFamily();showPage('hearts')">Independent Hearts</a>
-          <a onclick="closeFamily();showPage('sorted')">Sorted</a>
+          <a onclick="closeFamily();showComingSoon(event)">
+            <span class="drop-name">The Regular</span>
+            <span class="drop-hint">Your dates, covered all year.</span>
+          </a>
+          <a onclick="closeFamily();showPage('hearts')">
+            <span class="drop-name">Independent Hearts</span>
+            <span class="drop-hint">Send your own cards, your way.</span>
+          </a>
+          <a onclick="closeFamily();showPage('sorted')">
+            <span class="drop-name">Sorted</span>
+            <span class="drop-hint">Staff birthdays, handled.</span>
+          </a>
         </div>
       </div>
     </div>
