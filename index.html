@@ -179,6 +179,54 @@
       nav::after { opacity: 0.9; }
     }
 
+    /* Christmas gift tag offer strip on the store page. */
+    .xmas-offer { padding: 0 3rem 2rem; }
+
+    .xmas-offer[hidden] { display: none; }
+
+    .xmas-offer-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 1.2rem 1.5rem;
+      border: 2px dashed #e0a3ac;
+      border-radius: 18px;
+      background: #fdf3f4;
+    }
+
+    .xmas-offer-tag {
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #c62c3e;
+      color: #fff;
+    }
+
+    .xmas-offer-copy h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #8f1f2d;
+      margin-bottom: 0.25rem;
+    }
+
+    .xmas-offer-copy p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .xmas-offer { padding: 0 1.5rem 1.5rem; }
+      .xmas-offer-inner { flex-direction: column; text-align: center; gap: 0.8rem; padding: 1.1rem 1.2rem; }
+    }
+
     .hero-badge--xmas {
       display: inline-flex;
       align-items: center;
@@ -2327,14 +2375,31 @@
 <!-- SHOP -->
 <div class="page" id="page-shop">
   <div class="shop-header">
-    <h1>Pick your Prickle</h1>
-    <p>Cards for every occasion, cheeky, heartfelt, and actually worth keeping. Printed locally in Australia, posted with love (and excellent timing).</p>
+    <h1 id="shop-title">Pick your Prickle</h1>
+    <p id="shop-sub">Cards for every occasion, cheeky, heartfelt, and actually worth keeping. Printed locally in Australia, posted with love (and excellent timing).</p>
     <div class="category-pills">
       <div class="pill active" onclick="filterCards('all', this)">All the goods</div>
       <div class="pill pill-xmas" onclick="filterCards('christmas', this)">Christmas 🎄</div>
       <div class="pill" onclick="filterCards('og', this)">The OG's</div>
       <div class="pill" onclick="filterCards('birthday', this)">Birthdays</div>
       <div class="pill" onclick="filterCards('junior', this)">The Junior Patch</div>
+    </div>
+  </div>
+
+  <!-- Christmas gift tag offer. Shown only when the Christmas tab is
+       chosen; see xmasOffer in filterCards. -->
+  <div class="xmas-offer" id="xmas-offer" hidden>
+    <div class="xmas-offer-inner">
+      <span class="xmas-offer-tag" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.6 12.4 12.4 20.6a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1-.6-1.5l.3-6.2A2 2 0 0 1 5 4.8l6.2-.3a2 2 0 0 1 1.5.6l7.9 7.9a1 1 0 0 1 0 1.4z"/>
+          <circle cx="7.8" cy="7.8" r="1.4" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <div class="xmas-offer-copy">
+        <h3>Buy 5 cards, the gift tags are on us.</h3>
+        <p>Grab any 5 Christmas cards and we will pop a 10 pack of matching gift tags in with them, free. Because the presents deserve a punchline too.</p>
+      </div>
     </div>
   </div>
 
@@ -3988,6 +4053,20 @@ let shopCat = 'all';
 let ageLow = 0;
 let ageHigh = AGE_BANDS.length - 1;
 
+/* The store speaks differently at Christmas: its own heading, its own
+   line underneath, and the gift tag offer. Everything goes back to
+   normal on any other tab. */
+const SHOP_COPY = {
+  all: {
+    title: 'Pick your Prickle',
+    sub: 'Cards for every occasion, cheeky, heartfelt, and actually worth keeping. Printed locally in Australia, posted with love (and excellent timing).'
+  },
+  christmas: {
+    title: 'Tis the season to be prickly',
+    sub: 'Christmas cards for everyone on the list, the ones you love and the ones you are obliged to. Printed locally in Australia, posted with love (and enough time to beat the Christmas post).'
+  }
+};
+
 function filterCards(cat, el) {
   shopCat = cat;
   if (el) {
@@ -3996,6 +4075,16 @@ function filterCards(cat, el) {
   }
   const ageBox = document.getElementById('age-filter');
   if (ageBox) ageBox.hidden = cat !== 'junior';
+
+  const copy = SHOP_COPY[cat === 'christmas' ? 'christmas' : 'all'];
+  const title = document.getElementById('shop-title');
+  const sub = document.getElementById('shop-sub');
+  if (title) title.textContent = copy.title;
+  if (sub) sub.textContent = copy.sub;
+
+  const offer = document.getElementById('xmas-offer');
+  if (offer) offer.hidden = cat !== 'christmas';
+
   applyShopFilter();
 }
 
