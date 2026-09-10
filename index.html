@@ -122,39 +122,6 @@
       margin-bottom: 1.2rem;
     }
 
-    /* ---- Santa flyover (see the SANTA FLYOVER block in the markup) ---- */
-    .santa-fly {
-      position: fixed;
-      top: 14vh;
-      left: 0;
-      z-index: 900;
-      pointer-events: none;
-      will-change: transform;
-      animation: santa-cross 7.5s cubic-bezier(0.42, 0, 0.58, 1) forwards;
-    }
-
-    .santa-fly-bob { animation: santa-bob 1.6s ease-in-out infinite; }
-
-    @keyframes santa-cross {
-      from { transform: translateX(-45vw); }
-      to   { transform: translateX(105vw); }
-    }
-
-    @keyframes santa-bob {
-      0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-      50%      { transform: translateY(-14px) rotate(1.5deg); }
-    }
-
-    @media (max-width: 768px) {
-      .santa-fly { top: 11vh; }
-      .santa-fly svg { width: 260px; height: 75px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .santa-fly { display: none; }
-      .santa-fly-bob { animation: none; }
-    }
-
     .hero-badge--xmas {
       display: inline-flex;
       align-items: center;
@@ -2073,83 +2040,6 @@
 </head>
 <body>
 
-<!-- ===================================================================
-     SANTA FLYOVER
-     A one-off welcome: Santa and the reindeer cross the top of the
-     screen once when the page opens, then the whole thing removes
-     itself. Runs once per browser tab (sessionStorage) and not at all
-     for anyone who has asked for reduced motion.
-     To retire it after Christmas, delete this block, the .santa-fly
-     styles and the santaFlyover() call.
-     =================================================================== -->
-<div class="santa-fly" id="santa-fly" aria-hidden="true">
-  <div class="santa-fly-bob">
-    <svg viewBox="0 0 520 150" width="420" height="121" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- reins -->
-      <path d="M92 74 C150 58, 210 58, 268 72" stroke="#8a5a3b" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M212 74 C240 66, 262 66, 286 74" stroke="#8a5a3b" stroke-width="2.4" stroke-linecap="round"/>
-
-      <!-- lead reindeer -->
-      <g stroke="#7b5136" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M44 96 L34 118 M60 98 L58 120" fill="none"/>
-        <path d="M92 96 L104 118 M78 98 L82 120" fill="none"/>
-      </g>
-      <ellipse cx="68" cy="84" rx="34" ry="19" fill="#a9714a" stroke="#7b5136" stroke-width="3"/>
-      <path d="M100 82 C114 78, 120 70, 118 62" stroke="#7b5136" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-      <ellipse cx="34" cy="76" rx="9" ry="7" fill="#a9714a" stroke="#7b5136" stroke-width="3"/>
-      <circle cx="120" cy="56" r="13" fill="#a9714a" stroke="#7b5136" stroke-width="3"/>
-      <path d="M116 46 C112 34, 104 30, 98 32 M116 46 C118 36, 124 30, 130 30 M126 44 C126 34, 134 28, 140 30" stroke="#7b5136" stroke-width="3" stroke-linecap="round" fill="none"/>
-      <circle cx="126" cy="54" r="2.4" fill="#3b2a20"/>
-      <circle cx="133" cy="60" r="6.5" fill="#e0313f" stroke="#b8283c" stroke-width="2"/>
-
-      <!-- second reindeer -->
-      <g stroke="#7b5136" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M176 98 L166 120 M192 100 L190 122" fill="none"/>
-        <path d="M222 98 L234 120 M208 100 L212 122" fill="none"/>
-      </g>
-      <ellipse cx="199" cy="86" rx="33" ry="18" fill="#b57c53" stroke="#7b5136" stroke-width="3"/>
-      <path d="M230 84 C244 80, 250 72, 248 64" stroke="#7b5136" stroke-width="3.4" fill="none" stroke-linecap="round"/>
-      <ellipse cx="166" cy="78" rx="9" ry="7" fill="#b57c53" stroke="#7b5136" stroke-width="3"/>
-      <circle cx="250" cy="58" r="12.5" fill="#b57c53" stroke="#7b5136" stroke-width="3"/>
-      <path d="M246 48 C242 36, 234 32, 228 34 M246 48 C248 38, 254 32, 260 32 M256 46 C256 36, 264 30, 270 32" stroke="#7b5136" stroke-width="3" stroke-linecap="round" fill="none"/>
-      <circle cx="256" cy="56" r="2.4" fill="#3b2a20"/>
-      <circle cx="262" cy="62" r="4.5" fill="#3b2a20"/>
-
-      <!-- sleigh -->
-      <path d="M306 108 C300 108, 296 104, 298 98 L306 66 C308 58, 314 54, 322 54 L406 54 C416 54, 422 60, 420 70 L414 98 C412 104, 406 108, 400 108 Z" fill="#c62c3e" stroke="#8f1f2d" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M420 70 C438 62, 452 66, 458 78" stroke="#8f1f2d" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M300 118 L424 118 C440 118, 448 110, 448 100" stroke="#8f1f2d" stroke-width="4" stroke-linecap="round" fill="none"/>
-      <path d="M316 108 L318 118 M400 108 L398 118" stroke="#8f1f2d" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M306 84 L418 84" stroke="#f2c14e" stroke-width="4" stroke-linecap="round"/>
-
-      <!-- presents in the back -->
-      <rect x="374" y="30" width="26" height="24" rx="4" fill="#f2c14e" stroke="#c99a2e" stroke-width="2.5"/>
-      <path d="M387 30 L387 54 M374 42 L400 42" stroke="#c62c3e" stroke-width="2.5"/>
-      <rect x="404" y="36" width="20" height="18" rx="4" fill="#7fb4a6" stroke="#4f8a7c" stroke-width="2.5"/>
-      <path d="M414 36 L414 54" stroke="#f6f3ef" stroke-width="2.5"/>
-
-      <!-- santa -->
-      <path d="M330 54 C330 38, 342 28, 354 28 C366 28, 378 38, 378 54 Z" fill="#c62c3e" stroke="#8f1f2d" stroke-width="3" stroke-linejoin="round"/>
-      <circle cx="354" cy="20" r="12" fill="#f6dfc8" stroke="#c8a184" stroke-width="2.5"/>
-      <path d="M342 22 C342 34, 366 34, 366 22 C366 30, 360 36, 354 36 C348 36, 342 30, 342 22 Z" fill="#f6f3ef" stroke="#d8d3cc" stroke-width="2"/>
-      <path d="M340 14 C342 2, 366 2, 368 14 Z" fill="#c62c3e" stroke="#8f1f2d" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M338 14 L370 14" stroke="#f6f3ef" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="372" cy="4" r="5" fill="#f6f3ef"/>
-      <circle cx="349" cy="20" r="2" fill="#3b2a20"/>
-      <circle cx="359" cy="20" r="2" fill="#3b2a20"/>
-      <path d="M330 46 C316 42, 310 34, 312 26" stroke="#c62c3e" stroke-width="9" stroke-linecap="round" fill="none"/>
-      <circle cx="311" cy="23" r="6" fill="#f6dfc8" stroke="#c8a184" stroke-width="2"/>
-
-      <!-- sparkle trail -->
-      <g fill="#f2c14e">
-        <circle cx="470" cy="88" r="3.5"/>
-        <circle cx="492" cy="72" r="2.5"/>
-        <circle cx="486" cy="102" r="2"/>
-        <circle cx="510" cy="86" r="1.8"/>
-      </g>
-    </svg>
-  </div>
-</div>
 
 <nav>
   <div class="nav-left">
@@ -3484,12 +3374,12 @@ function bootStore() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => { heroBuild(); bootStore(); updateXmasCountdown(); santaFlyover(); });
+  document.addEventListener('DOMContentLoaded', () => { heroBuild(); bootStore(); updateXmasCountdown(); });
 } else {
   heroBuild();
   bootStore();
   updateXmasCountdown();
-  santaFlyover();
+ 
 }
 
 let splashReturnFocus = null;
@@ -3590,27 +3480,7 @@ const PRODUCTS = [
       { lead: true, text: "Every dad's a superhero. This one just needs a bit of colour!" },
       { text: "This A5 card comes with a colour-your-own superhero dad soaring through the clouds on the front. Capture the kids' attention, hand them some textas, and watch them go to town." },
       { text: "But the fun doesn't stop there. Flip it open and you'll find 'The Legend of Dad' a fill-in-the-blank origin story starring the real hero in your life. Kids get to decide his superpower, his catchphrase, his one weakness (smelly socks? bad jokes?), and his trusty sidekick, before signing off all on their own." }
-    ] },
-
-  { id: 'jp-first-birthday', name: 'First Birthday', price: 6.50, key: 'junior', cat: 'The Junior Patch',
-    ages: [0, 1], img: 'jp-first-birthday.png', alt: 'Colour-in first birthday card',
-    blurb: 'Colour-in front, a prompt inside for whoever is holding the crayon on their behalf. Placeholder card.' },
-
-  { id: 'jp-colour-cake',    name: 'Colour-in Cake',  price: 6.50, key: 'junior', cat: 'The Junior Patch',
-    ages: [1, 2], img: 'jp-colour-cake.png', alt: 'Colour-in birthday cake card',
-    blurb: 'A cake to colour in on the front and a prompt to finish inside. Placeholder card.' },
-
-  { id: 'jp-dinosaur',       name: 'Colour-in Dinosaur', price: 6.50, key: 'junior', cat: 'The Junior Patch',
-    ages: [2, 3], img: 'jp-dinosaur.png', alt: 'Colour-in dinosaur card',
-    blurb: 'A dinosaur to colour in, and a prompt inside to fill out. Placeholder card.' },
-
-  { id: 'jp-monster',        name: 'Design Your Own Monster', price: 6.50, key: 'junior', cat: 'The Junior Patch',
-    ages: [3, 4], img: 'jp-monster.png', alt: 'Design your own monster card',
-    blurb: 'Half drawn, half up to them. A prompt inside to finish the story. Placeholder card.' },
-
-  { id: 'jp-big-kid',        name: 'Big Kid Birthday', price: 6.50, key: 'junior', cat: 'The Junior Patch',
-    ages: [4, 5], img: 'jp-big-kid.png', alt: 'Big kid birthday card',
-    blurb: 'For the ones who insist they are far too old for colouring in. Placeholder card.' }
+    ] }
 ];
 
 /* Age bands for The Junior Patch, youngest to oldest. A card's ages
@@ -4039,20 +3909,6 @@ function updateXmasCountdown() {
   if (sleeps === 0)      el.textContent = 'Merry Christmas!';
   else if (sleeps === 1) el.textContent = '1 sleep till Christmas';
   else                   el.textContent = sleeps + ' sleeps till Christmas';
-}
-
-/* Santa crosses the screen once per tab, then clears himself away so
-   he never sits on top of the page or steals a click. */
-function santaFlyover() {
-  const santa = document.getElementById('santa-fly');
-  if (!santa) return;
-  let seen = false;
-  try { seen = sessionStorage.getItem('lmp-santa') === '1'; } catch (e) {}
-  const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (seen || still) { santa.remove(); return; }
-  try { sessionStorage.setItem('lmp-santa', '1'); } catch (e) {}
-  santa.addEventListener('animationend', () => santa.remove());
-  setTimeout(() => santa.remove(), 9000);
 }
 
 function filterHomeCards(cat, el) {
