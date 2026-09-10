@@ -271,10 +271,41 @@
       .xmas-offer-swing { animation: none; }
     }
 
+    /* No room beside the heading below 1100px, so the bauble drops
+       into the flow, centred and a little smaller. */
+    @media (max-width: 1100px) {
+      .xmas-offer {
+        position: static;
+        padding: 0 3rem 2rem;
+      }
+      .xmas-offer-tag { width: 210px; height: 210px; padding: 0 1.7rem; }
+      .xmas-offer-tag h3 { font-size: 0.78rem; }
+    }
+
+    /* On a phone a swinging circle is more nuisance than charm, so the
+       offer becomes a plain banner: no string, no swing, full width. */
     @media (max-width: 768px) {
-      .xmas-offer { padding: 0 1.5rem 2.2rem; }
-      .xmas-offer-tag { width: 280px; padding: 2.2rem 1.3rem 1.6rem; }
-      .xmas-offer-tag h3 { font-size: 1rem; }
+      .xmas-offer { padding: 0 1.5rem 1.6rem; }
+
+      .xmas-offer-swing { width: 100%; animation: none; }
+
+      .xmas-offer-string,
+      .xmas-offer-loop,
+      .xmas-offer-cap { display: none; }
+
+      .xmas-offer-tag {
+        width: 100%;
+        height: auto;
+        margin-top: 0;
+        padding: 1.1rem 1.3rem;
+        border-radius: 16px;
+        background: linear-gradient(120deg, #c62c3e, #8f1f2d);
+        filter: none;
+        box-shadow: 0 8px 18px rgba(143,31,45,0.22);
+      }
+
+      .xmas-offer-tag h3 { font-size: 0.95rem; }
+      .xmas-offer .xmas-offer-tag p { font-size: 0.8rem; }
     }
 
     .hero-badge--xmas {
@@ -1791,6 +1822,12 @@
       transform: translateX(-6px);
     }
 
+    /* The rail overlaps body copy on a narrow screen, and both links
+       are in the footer and the Follow along strip anyway. */
+    @media (max-width: 768px) {
+      .social-tabs { display: none; }
+    }
+
     .social-tab--instagram { background: var(--amber); }
     .social-tab--facebook  { background: var(--amber); }
 
@@ -2115,7 +2152,7 @@
         gap: 0.4rem;
       }
       .nav-logo { padding: 0; order: -1; }
-      .nav-logo img { height: 56px; }
+      .nav-logo img { height: 80px; }
       .nav-left { justify-content: center; gap: 1.5rem; }
       .nav-right { justify-content: center; gap: 1rem; }
       .nav-link { font-size: 0.82rem; }
